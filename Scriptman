@@ -1,5 +1,29 @@
 #!/bin/bash
 
+# Function to extract aliases
+extract_aliases() {
+    echo "You chose to extract aliases."
+    curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/extract-aliases/src/extract_aliases.sh | bash
+}
+
+# Function to recover passwords (not implemented yet)
+recover_passwords() {
+    echo "You chose to recover passwords."
+    echo "This functionality is not yet implemented."
+}
+
+# Check if an argument is passed
+if [ "$1" == "ea" ]; then
+    extract_aliases
+    exit 0
+elif [ "$1" == "rp" ]; then
+    recover_passwords
+    exit 0
+elif [ "$1" == "exit" ]; then
+    echo "Exiting the script. Goodbye!"
+    exit 0
+fi
+
 finished=0
 
 while [ $finished -ne 1 ]; do
@@ -11,13 +35,10 @@ while [ $finished -ne 1 ]; do
 
     case $choice in
         ea)
-            echo "You chose to extract aliases."
-            curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/extract-aliases/src/extract_aliases.sh | bash
+            extract_aliases
             ;;
         rp)
-            echo "You chose to recover passwords."
-            echo "This functionality is not yet implemented."
-            # Add functionality for recovering passwords here
+            recover_passwords
             ;;
         exit)
             finished=1

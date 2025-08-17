@@ -4,7 +4,7 @@
 ## Quick Start
 To run the `Scriptman` script directly from the internet, use the following command:
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/Scriptman | bash
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/Scriptman | bash -s -- ea
 ```
 
 ## Overview
@@ -14,6 +14,7 @@ curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises
 - **Extract Aliases**: Run the alias extraction script directly from the internet.
 - **Recover Passwords**: Placeholder for future functionality to recover passwords.
 - **User-Friendly Interface**: Simple command-line menu for easy navigation.
+- **Command-Line Arguments**: Supports direct execution with options (`ea`, `rp`, `exit`) for streamlined usage.
 
 ## Installation
 No installation is required. You can run the script directly in your terminal.
@@ -28,6 +29,13 @@ No installation is required. You can run the script directly in your terminal.
    - Type `ea` to extract aliases.
    - Type `rp` to recover passwords (not yet implemented).
    - Type `exit` to exit the script.
+
+### Direct Execution
+You can also run the script with an option directly:
+```bash
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/Scriptman | bash -s -- ea
+```
+Replace `ea` with `rp` or `exit` as needed.
 
 ## Example
 ```bash
@@ -47,6 +55,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Acknowledgments
 - Thanks to the contributors and the open-source community for their support.
-```
-
-Feel free to modify any sections as needed! Let me know if there's anything else you'd like to add or change.
+``` 
