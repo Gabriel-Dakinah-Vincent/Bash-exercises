@@ -15,7 +15,8 @@ recover_passwords() {
 
 # Check if an argument is passed
 if [ "$1" == "ea" ]; then
-    extract_aliases
+    shift
+    extract_aliases "$@"
     exit 0
 elif [ "$1" == "rp" ]; then
     recover_passwords

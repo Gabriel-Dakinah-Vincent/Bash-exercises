@@ -41,11 +41,11 @@ Replace `ea` with `rp` or `exit` as needed.
 #### Passing Arguments
 You can pass arguments to the extract aliases feature, for example:
 ```bash
-bash Scriptman ea -q -o output.txt
+bash Scriptman ea -q -o output.md
 ```
 or
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/Scriptman | bash -s -- ea -q -o output.txt
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/Scriptman | bash -s -- ea -q -o output.md
 ```
 This works for both local and internet execution modes.
 
