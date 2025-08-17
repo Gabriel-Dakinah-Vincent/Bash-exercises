@@ -1,5 +1,3 @@
-Here's a professionally formatted version of your `README.md` file:
-
 ```markdown
 # Extract Aliases
 
