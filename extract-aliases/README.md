@@ -3,6 +3,13 @@
 
 A simple Bash script that extracts shell aliases from the default shell configuration file and outputs them to a Markdown file in a structured format.
 
+## Try Before You Clone
+
+You can test this script without cloning the repository by running the following command:
+
+```bash
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/extract-aliases/src/extract_aliases.sh | bash
+```
 ## Features
 
 - **Automatic Detection**: Identifies the default shell (Bash, Zsh, Fish, etc.) and uses the appropriate configuration file.
