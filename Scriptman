@@ -1,0 +1,32 @@
+#!/bin/bash
+
+finished=0
+
+while [ $finished -ne 1 ]; do
+    echo "What do you want to test?"
+    echo "1. Extract Aliases: ea"
+    echo "2. Recover Passwords: rp"
+    echo "3. Exit: exit"
+    read -p "Please enter your choice (ea/rp/exit): " choice
+
+    case $choice in
+        ea)
+            echo "You chose to extract aliases."
+            curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/extract-aliases/src/extract_aliases.sh | bash
+            ;;
+        rp)
+            echo "You chose to recover passwords."
+            echo "This functionality is not yet implemented."
+            # Add functionality for recovering passwords here
+            ;;
+        exit)
+            finished=1
+            echo "Exiting the script. Goodbye!"
+            ;;
+        *)
+            echo "Invalid choice. Please enter 'ea', 'rp', or 'exit'."
+            ;;
+    esac
+done
+
+echo "Thank you for using the script. Goodbye!"
