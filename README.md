@@ -11,10 +11,11 @@ curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises
 `Scriptman` is a Bash script that allows users to run various scripts directly from the command line without the need to clone or download the entire project. This tool is designed for testing and executing scripts efficiently.
 
 ## Features
-- **Extract Aliases**: Run the alias extraction script directly from the internet.
+- **Extract Aliases**: Run the alias extraction script directly from the internet or locally if available.
 - **Recover Passwords**: Placeholder for future functionality to recover passwords.
 - **User-Friendly Interface**: Simple command-line menu for easy navigation.
 - **Command-Line Arguments**: Supports direct execution with options (`ea`, `rp`, `exit`) for streamlined usage.
+- **Flexible Execution**: For extracting aliases, you can choose to run the script locally (if `extract_aliases.sh` is present in your directory) or fetch and run it directly from the internet. All arguments (such as `-q` for quiet mode or `-o` for output filename) are supported in both modes.
 
 ## Installation
 No installation is required. You can run the script directly in your terminal.
@@ -36,6 +37,17 @@ You can also run the script with an option directly:
 curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/Scriptman | bash -s -- ea
 ```
 Replace `ea` with `rp` or `exit` as needed.
+
+#### Passing Arguments
+You can pass arguments to the extract aliases feature, for example:
+```bash
+bash Scriptman ea -q -o output.txt
+```
+or
+```bash
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/Scriptman | bash -s -- ea -q -o output.txt
+```
+This works for both local and internet execution modes.
 
 ## Example
 ```bash

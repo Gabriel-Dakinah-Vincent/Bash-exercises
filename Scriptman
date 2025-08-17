@@ -3,7 +3,8 @@
 # Function to extract aliases
 extract_aliases() {
     echo "You chose to extract aliases."
-    curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/extract-aliases/src/extract_aliases.sh | bash
+   curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/main/extract-aliases/src/extract_aliases.sh | bash -s -- "$@"
+
 }
 
 # Function to recover passwords (not implemented yet)
