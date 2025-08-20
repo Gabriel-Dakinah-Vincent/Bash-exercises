@@ -37,7 +37,7 @@ while [ $finished -ne 1 ]; do
 
     case $choice in
         ea)
-            extract_aliases
+            extract_aliases "$@"
             ;;
         rp)
             recover_passwords
