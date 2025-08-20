@@ -28,6 +28,12 @@ fi
 
 finished=0
 
+# Detect non-interactive shell without arguments
+if ! [ -t 0 ]; then
+    echo "Non-interactive shell detected. Please provide an argument."
+    exit 1
+fi
+
 while [ $finished -ne 1 ]; do
     echo "What do you want to test?"
     echo "1. Extract Aliases: ea"
