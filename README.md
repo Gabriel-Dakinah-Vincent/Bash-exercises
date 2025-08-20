@@ -74,8 +74,8 @@ This works for both local and internet execution modes.
 
 | Description                      | Command                                                                                                   |
 |-----------------------------------|-----------------------------------------------------------------------------------------------------------|
-| Run Scriptman with arguments      | `curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/Scriptman \| bash -s -- ea -q -o output.md` |
-| Run extract_aliases.sh directly   | `curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/extract-aliases/src/extract_aliases.sh \| bash` |
+| Run Scriptman with extract aliases arguments directly     | `curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/Scriptman \| bash -s -- ea -q -o output.md` |
+| Run extract aliases directly   | `curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/extract-aliases/src/extract_aliases.sh \| bash` |
 
 ## Example
 ```bash
