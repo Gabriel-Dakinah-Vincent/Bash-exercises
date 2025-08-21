@@ -21,7 +21,7 @@
 - [Contact](#contact)
 
 ## Quick Start
-To run the `Scriptman` script directly from the internet, use the following command:
+To run the `Scriptman` script directly from the internet, use the following command while passing the `ea` argument, which is one of its available options:
 ```bash
 curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/Scriptman | bash -s -- ea
 ```
