@@ -1,5 +1,52 @@
 #!/usr/bin/env bash
 
+# Function to display help message.
+show_help() {
+    cat << EOF
+NAME
+    $(basename "$0") - A utility script.
+
+SYNOPSIS
+    $(basename "$0") COMMAND [OPTIONS]
+
+DESCRIPTION
+    A simple script that provides different functionalities:
+        - Extract user-defined aliases from the system.
+        - Recover stored passwords (not yet implemented).
+
+COMMANDS
+    ea
+        Extract aliases by fetching and executing the extract_aliases.sh script.
+        Options:
+            -q
+                Run in quiet mode (suppress non-essential output).
+            -o <file>
+                Write extracted aliases to the specified output file.
+
+    rp
+        Recover passwords (currently not implemented).
+
+    exit
+        Exit the script.
+
+OPTIONS
+    -h, --help
+        Display this help message and exit.
+
+EXAMPLES
+    Run in direct mode:
+        $(basename "$0") ea
+        $(basename "$0") ea -q -o output.md
+        $(basename "$0") rp
+
+    Run in interactive mode:
+        $(basename "$0")
+
+AUTHOR
+    Written by Gabriel D. Vincent
+EOF
+}
+
 # Function to extract aliases
 extract_aliases() {
     echo "You chose to extract aliases."
@@ -14,17 +61,27 @@ recover_passwords() {
 }
 
 # Check if an argument is passed
-if [ "$1" == "ea" ]; then
-    shift
-    extract_aliases "$@"
-    exit 0
-elif [ "$1" == "rp" ]; then
-    recover_passwords
-    exit 0
-elif [ "$1" == "exit" ]; then
-    echo "Exiting the script. Goodbye!"
-    exit 0
-fi
+case "$1" in
+    ea)
+        shift
+        extract_aliases "$@"
+        exit 0
+        ;;
+    rp)
+        recover_passwords
+        exit 0
+        ;;
+   
+    -h|--help)
+        show_help
+        exit 0
+        ;;
+
+    exit)
+        echo "Exiting the script. Goodbye!"
+        exit 0
+        ;;
+esac
 
 finished=0
 
@@ -48,6 +105,7 @@ while [ $finished -ne 1 ]; do
         rp)
             recover_passwords
             ;;
+
         exit)
             finished=1
             echo "Exiting the script. Goodbye!"
