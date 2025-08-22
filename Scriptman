@@ -3,61 +3,54 @@
 # Function to display help message.
 show_help() {
     cat << EOF
-NAME
-    $(basename "$0") - A utility script.
+NAME: $(basename "$0") - A utility script.
 
-SYNOPSIS
-    $(basename "$0") COMMAND [OPTIONS]
+SYNOPSIS: $(basename "$0") COMMAND [OPTIONS]
 
-DESCRIPTION
-    A simple script that provides different functionalities:
+DESCRIPTION:A simple script that provides different functionalities:
         - Extract user-defined aliases from the system.
         - Recover stored passwords (not yet implemented).
 
-COMMANDS
-    ea
-        Extract aliases by fetching and executing the extract_aliases.sh script.
-        Options:
-            -q
-                Run in quiet mode (suppress non-essential output).
-            -o <file>
-                Write extracted aliases to the specified output file.
+COMMANDS:
+    ea: Extract aliases by fetching and executing the extract_aliases.sh script.
+        -q: Run in quiet mode (suppress non-essential output).
+        -o <file>: Write extracted aliases to the specified output file.
 
-    rp
-        Recover passwords (currently not implemented).
+    rp: Recover passwords (currently not implemented).
 
-    exit
-        Exit the script.
+    exit: Exit the script.
 
-OPTIONS
+OPTIONS:
     -h, --help
         Display this help message and exit.
 
-EXAMPLES
-    Run in direct mode:
+EXAMPLES:
+    Direct mode:
         $(basename "$0") ea
         $(basename "$0") ea -q -o output.md
         $(basename "$0") rp
-
-    Run in interactive mode:
+    Interactive mode:
         $(basename "$0")
 
-AUTHOR
-    Written by Gabriel D. Vincent
+AUTHOR: Gabriel D. Vincent
 EOF
 }
 
 # Function to extract aliases
 extract_aliases() {
     echo "You chose to extract aliases."
-   curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/main/extract-aliases/src/extract_aliases.sh | bash -s -- "$@"
-
+    tmp=$(mktemp)
+    curl -s -o "$tmp" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/main/extract-aliases/src/extract_aliases.sh
+    bash "$tmp" "$@"
+    rm "$tmp"
+    #curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/main/extract-aliases/src/extract_aliases.sh | bash -s -- "$@"
 }
 
 # Function to recover passwords (not implemented yet)
 recover_passwords() {
     echo "You chose to recover passwords."
     echo "This functionality is not yet implemented."
+    return 1
 }
 
 # Check if an argument is passed
