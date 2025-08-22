@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+
+# Colors
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[0;37m'
+NC='\033[0m' # No Color
+
 # Function to display help message.
 show_help() {
     cat << EOF
@@ -38,7 +50,7 @@ EOF
 
 # Function to extract aliases
 extract_aliases() {
-    echo "You chose to extract aliases."
+    echo "You chose to extract aliases..."
     tmp=$(mktemp)
     curl -s -o "$tmp" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/main/extract-aliases/src/extract_aliases.sh
     bash "$tmp" "$@"
@@ -80,16 +92,17 @@ finished=0
 
 # Detect non-interactive shell without arguments
 if ! [ -t 0 ]; then
-    echo "Non-interactive shell detected. Please provide an argument."
+    echo -e "${RED}Error:${NC} Non-interactive shell detected. Please provide an argument."
     exit 1
 fi
 
 while [ $finished -ne 1 ]; do
     echo "What do you want to test?"
-    echo "1. Extract Aliases: ea"
-    echo "2. Recover Passwords: rp"
-    echo "3. Exit: exit"
-    read -p "Please enter your choice (ea/rp/exit): " choice
+    echo -e "1. Extract Aliases: ${GREEN}ea${NC}"
+    echo -e "2. Recover Passwords: ${GREEN}rp${NC}"
+    echo -e "3. Exit: ${CYAN}exit${NC}"
+    prompt="Please enter your choice (${GREEN}ea${NC}/${GREEN}rp${NC}/${CYAN}exit${NC}): "
+    read -p "$(echo -e "$prompt")" choice
 
     case $choice in
         ea)
@@ -104,9 +117,9 @@ while [ $finished -ne 1 ]; do
             echo "Exiting the script. Goodbye!"
             ;;
         *)
-            echo "Invalid choice. Please enter 'ea', 'rp', or 'exit'."
+            echo -e "${RED}Error:${NC} Invalid choice. Please enter '${GREEN}ea${NC}', '${GREEN}rp${NC}', or '${CYAN}exit${NC}'."
             ;;
     esac
 done
 
-echo "Thank you for using the script. Goodbye!"
+echo -e "${GREEN}Thank you for using the script. Goodbye!${NC}"
