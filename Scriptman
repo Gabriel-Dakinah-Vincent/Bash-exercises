@@ -114,7 +114,7 @@ while [ $finished -ne 1 ]; do
 
         exit)
             finished=1
-            echo "Exiting the script. Goodbye!"
+            echo -e "${CYAN}Exiting the script. Goodbye!${NC}"
             ;;
         *)
             echo -e "${RED}Error:${NC} Invalid choice. Please enter '${GREEN}ea${NC}', '${GREEN}rp${NC}', or '${CYAN}exit${NC}'."
