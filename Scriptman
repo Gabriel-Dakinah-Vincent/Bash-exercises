@@ -50,7 +50,7 @@ EOF
 
 # Function to extract aliases
 extract_aliases() {
-    echo "You chose to extract aliases..."
+    echo -e "\n${GREEN}Extracting aliases...${NC}"
     tmp=$(mktemp)
     curl -s -o "$tmp" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/main/extract-aliases/src/extract_aliases.sh
     bash "$tmp" "$@"
@@ -60,8 +60,8 @@ extract_aliases() {
 
 # Function to recover passwords (not implemented yet)
 recover_passwords() {
-    echo "You chose to recover passwords."
-    echo "This functionality is not yet implemented."
+    echo -e "\nYou chose to recover passwords."
+    echo -e "${RED}This functionality is not yet implemented.${NC}"
     return 1
 }
 
@@ -83,7 +83,7 @@ case "$1" in
         ;;
 
     exit)
-        echo "Exiting the script. Goodbye!"
+        echo -e "\n${GREEN}Exiting the script. Goodbye!${NC}"
         exit 0
         ;;
 esac
@@ -92,16 +92,16 @@ finished=0
 
 # Detect non-interactive shell without arguments
 if ! [ -t 0 ]; then
-    echo -e "${RED}Error:${NC} Non-interactive shell detected. Please provide an argument."
+    echo -e "\n${RED}Error:${NC} ${YELLOW}Non-interactive shell detected.${NC} ${GREEN}Please provide an argument.${NC}"
     exit 1
 fi
 
 while [ $finished -ne 1 ]; do
-    echo "What do you want to test?"
-    echo -e "1. Extract Aliases: ${GREEN}ea${NC}"
-    echo -e "2. Recover Passwords: ${GREEN}rp${NC}"
-    echo -e "3. Exit: ${CYAN}exit${NC}"
-    prompt="Please enter your choice (${GREEN}ea${NC}/${GREEN}rp${NC}/${CYAN}exit${NC}): "
+    echo -e "\nWhat do you want to test?\n"
+    echo -e "\t1. Extract Aliases: ${GREEN}ea${NC}"
+    echo -e "\t2. Recover Passwords: ${GREEN}rp${NC}"
+    echo -e "\t3. Exit: ${RED}exit${NC}\n"
+    prompt="Please enter your choice ${YELLOW}(${NC}${GREEN}ea${NC}${YELLOW}/${NC}${GREEN}rp${NC}${YELLOW}/${NC}${RED}exit${NC}${YELLOW})${NC}: "
     read -p "$(echo -e "$prompt")" choice
 
     case $choice in
@@ -114,10 +114,10 @@ while [ $finished -ne 1 ]; do
 
         exit)
             finished=1
-            echo -e "${CYAN}Exiting the script. Goodbye!${NC}"
+            echo -e "\n${GREEN}Exiting the script. Goodbye!${NC}"
             ;;
         *)
-            echo -e "${RED}Error:${NC} Invalid choice. Please enter '${GREEN}ea${NC}', '${GREEN}rp${NC}', or '${CYAN}exit${NC}'."
+            echo -e "\n${RED}Error:${NC} ${YELLOW}Invalid choice.${NC} Please enter: ${GREEN}ea${NC}, ${GREEN}rp${NC}, or ${RED}exit${NC}."
             ;;
     esac
 done
