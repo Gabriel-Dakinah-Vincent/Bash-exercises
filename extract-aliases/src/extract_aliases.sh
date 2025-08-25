@@ -78,9 +78,25 @@ case "$ext" in
         echo "Alias,Command" > "$output_file"
         ;;
     html)
-        echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Aliases</title></head><body><table border='1'>" > "$output_file"
+        echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Aliases</title>" > "$output_file"
+        # Add your style here
+        echo "<style>
+        body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; line-height: 1.45; }
+        h1 { margin: 0 0 8px; }
+        .muted { color: #666; font-size: 0.95rem; margin-bottom: 18px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
+        th { background: #f4f4f4; }
+        code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, \"Liberation Mono\", monospace; word-break: break-all; }
+        .note { background: #fff8e1; border: 1px solid #ffe082; padding: 10px 12px; margin: 18px 0; }
+        .footer { margin-top: 28px; padding-top: 16px; border-top: 1px solid #eee; font-size: 0.95rem; }
+        .step { margin: 0 0 8px; }
+        .legal { color: #a33; }
+        </style>" >> "$output_file"
+        echo "</head><body><table border='1'>" >> "$output_file"
         echo "<tr><th>Alias</th><th>Command</th></tr>" >> "$output_file"
         ;;
+
     *)
         echo -e "${RED}\e[1mError\e[0m:${NC} Unsupported output extension: ${RED}\e[1m.$ext\e[0m${NC}"
         exit 1
