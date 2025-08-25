@@ -12,9 +12,9 @@ NC='\033[0m' # No Color
 
 # Function to display usage information
 usage() {
-    echo -e "${BLUE}Usage${NC}: $0 ${YELLOW}[${NC}${GREEN}-o${NC} ${YELLOW}output_file${NC}${YELLOW}]${NC} ${YELLOW}[${NC}${GREEN}-q${NC}${YELLOW}]${NC}"
-    echo -e "  ${GREEN}-o${NC} ${YELLOW}output_file${NC}  Specify the output file name (default: aliases.md)"
-    echo -e "  ${GREEN}-q${NC}              Quiet mode, do not open the output file"
+    echo -e "${BLUE}Usage${NC}: $0 ${BLUE}[${NC}${GREEN}-o${NC} ${YELLOW}output_file${NC}${BLUE}]${NC} ${BLUE}[${NC}${GREEN}-q${NC}${BLUE}]${NC}"
+    echo -e "  ${GREEN}-o${NC} ${YELLOW}output_file${NC}  Specify the output file name (default: ${YELLOW}aliases.md${NC})"
+    echo -e "  ${GREEN}-q${NC}              Quiet mode, do not open the output file\n"
     exit 1
 }
 
@@ -48,14 +48,14 @@ case "$default_shell" in
     tcsh) config_file="$HOME/.cshrc" ;;
     ksh)  config_file="$HOME/.kshrc" ;;
     *)
-        echo -e "${RED}Error:${NC} ${YELLOW} Unsupported shell${NC}: ${RED}$default_shell${NC}"
+        echo -e "${RED}\e[1mError\e[0m:${NC} Unsupported shell: ${RED}$default_shell${NC}"
         exit 1
         ;;
 esac
 
 # Check if the configuration file exists
 if [[ ! -f "$config_file" ]]; then
-    echo -e "${RED}Error:${NC} ${YELLOW}Configuration file not found${NC}: ${RED}$config_file${NC}"
+    echo -e "${RED}\e[1mError\e[0m:${NC} Configuration file not found: ${RED}$config_file${NC}"
     exit 1
 fi
 
@@ -82,7 +82,7 @@ case "$ext" in
         echo "<tr><th>Alias</th><th>Command</th></tr>" >> "$output_file"
         ;;
     *)
-        echo -e "${RED}Error:${NC} ${YELLOW}Unsupported output extension${NC}: ${RED}.$ext${NC}"
+        echo -e "${RED}\e[1mError\e[0m:${NC} Unsupported output extension: ${RED}\e[1m.$ext\e[0m${NC}"
         exit 1
         ;;
 esac
@@ -107,7 +107,7 @@ if [[ "$ext" == "html" ]]; then
     echo "</table></body></html>" >> "$output_file"
 fi
 
-echo -e "${GREEN}Aliases have been written to:${NC} ${YELLOW}$output_file${NC}"
+echo -e "${GREEN}Aliases have been written to:${NC} ${YELLOW}\e[1m$output_file\e[0m${NC}"
 
 # Open the output file if not in quiet mode
 if [ "$quiet_mode" = false ]; then
@@ -116,7 +116,7 @@ if [ "$quiet_mode" = false ]; then
             xdg-open "$output_file" &>/dev/null || open "$output_file" &>/dev/null
             ;;
         *)
-            echo "${GREEN}Open the file manually: ${YELLOW}$output_file${NC}"
+            echo "Open the file manually: ${YELLOW}\e[1m$output_file\e[0m${NC}"
             ;;
     esac
 fi

@@ -92,16 +92,16 @@ finished=0
 
 # Detect non-interactive shell without arguments
 if ! [ -t 0 ]; then
-    echo -e "\n${RED}Error:${NC} ${YELLOW}Non-interactive shell detected.${NC} ${GREEN}Please provide an argument.${NC}"
+    echo -e "\n${RED}\e[1mError\e[0m:${NC} Non-interactive shell detected. Please provide an argument."
     exit 1
 fi
 
 while [ $finished -ne 1 ]; do
     echo -e "\nWhat do you want to test?\n"
-    echo -e "\t1. Extract Aliases: ${GREEN}ea${NC}"
-    echo -e "\t2. Recover Passwords: ${GREEN}rp${NC}"
-    echo -e "\t3. Exit: ${RED}exit${NC}\n"
-    prompt="Please enter your choice ${YELLOW}(${NC}${GREEN}ea${NC}${YELLOW}/${NC}${GREEN}rp${NC}${YELLOW}/${NC}${RED}exit${NC}${YELLOW})${NC}: "
+    echo -e "\t1. Extract Aliases: ${GREEN}\e[1mea\e[0m${NC}"
+    echo -e "\t2. Recover Passwords: ${GREEN}\e[1mrp\e[0m${NC}"
+    echo -e "\t3. Exit: ${RED}\e[1mexit\e[0m${NC}\n"
+    prompt="Please enter your choice ${BLUE}[${NC} ${GREEN}\e[1mea\e[0m${NC} ${BLUE}/${NC} ${GREEN}\e[1mrp\e[0m${NC} ${BLUE}/${NC} ${RED}\e[1mexit\e[0m${NC} ${BLUE}]${NC}: "
     read -p "$(echo -e "$prompt")" choice
 
     case $choice in
@@ -117,7 +117,7 @@ while [ $finished -ne 1 ]; do
             echo -e "\n${GREEN}Exiting the script. Goodbye!${NC}"
             ;;
         *)
-            echo -e "\n${RED}Error:${NC} ${YELLOW}Invalid choice.${NC} Please enter: ${GREEN}ea${NC}, ${GREEN}rp${NC}, or ${RED}exit${NC}."
+            echo -e "\n${RED}\e[1mError\e[0m:${NC} Invalid choice. Please enter: ${GREEN}\e[1mea\e[0m${NC}, ${GREEN}\e[1mrp\e[0m${NC}, or ${RED}\e[1mexit\e[0m${NC}."
             ;;
     esac
 done
