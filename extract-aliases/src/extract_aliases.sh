@@ -80,7 +80,8 @@ case "$ext" in
     html)
         echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Aliases</title>" > "$output_file"
         # Add your style here
-        echo "<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/Gabriel-Dakinah-Vincent/Bash-exercises/extract-aliases/css/styles.css'>" >> "$output_file"
+        #echo "<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/Gabriel-Dakinah-Vincent/Bash-exercises/extract-aliases/css/styles.css'>" >> "$output_file"
+        echo "<script src='https://cdn.jsdelivr.net/gh/Gabriel-Dakinah-Vincent/Bash-exercises/extract-aliases/js/load-style.js'></script>" >> "$output_file"
         echo "</head><body><table border='1'>" >> "$output_file"
         echo "<tr><th>Alias</th><th>Command</th></tr>" >> "$output_file"
         ;;
