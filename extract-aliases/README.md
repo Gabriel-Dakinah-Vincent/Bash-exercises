@@ -2,7 +2,7 @@
 # Extract Aliases
 
 A simple Bash script that extracts shell aliases from the default shell configuration file and outputs them to a Markdown file in a structured format.
-
+It extracts user-defined shell aliases from your shell configuration file and outputs them in your choice of Markdown, CSV, or HTML format, all in a structured table.
 ## Try Before You Clone
 
 You can test this script without cloning the repository by running the following command:
@@ -48,7 +48,8 @@ curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises
 
 ## Example
 
-After running the script, the output will be saved in `aliases.md` (or a specified filename), structured as follows:
+
+After running the script, the output will be saved in your chosen format (Markdown, CSV, or HTML). Example Markdown output:
 
 ```markdown
 # Aliases
@@ -56,6 +57,22 @@ After running the script, the output will be saved in `aliases.md` (or a specifi
 |-------|----------------|
 | ll    | ls -la        |
 | gs    | git status     |
+```
+
+Example CSV output:
+```csv
+Alias,Command
+ll,ls -la
+gs,git status
+```
+
+Example HTML output:
+```html
+<table border='1'>
+    <tr><th>Alias</th><th>Command</th></tr>
+    <tr><td>ll</td><td>ls -la</td></tr>
+    <tr><td>gs</td><td>git status</td></tr>
+</table>
 ```
 
 ## Testing

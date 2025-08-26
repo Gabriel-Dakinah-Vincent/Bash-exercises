@@ -12,15 +12,32 @@ NC='\033[0m' # No Color
 
 # Function to display usage information
 usage() {
-    echo -e "${BLUE}Usage${NC}: $0 ${BLUE}[${NC}${GREEN}-o${NC} ${YELLOW}output_file${NC}${BLUE}]${NC} ${BLUE}[${NC}${GREEN}-q${NC}${BLUE}]${NC}"
-    echo -e "  ${GREEN}-o${NC} ${YELLOW}output_file${NC}  Specify the output file name (default: ${YELLOW}aliases.md${NC})"
-    echo -e "  ${GREEN}-q${NC}              Quiet mode, do not open the output file\n"
-    exit 1
+    echo -e "${MAGENTA}Extract Aliases Script${NC} - ${YELLOW}Bash-exercises${NC}"
+    echo -e "${GREEN}USAGE:${NC} ${WHITE}$0 [OPTIONS]${NC}"
+    echo -e "${GREEN}DESCRIPTION:${NC} Extract user-defined shell aliases and output them in Markdown, CSV, or HTML format."
+    echo -e "${GREEN}OPTIONS:${NC}"
+    echo -e "  ${GREEN}-o${NC} ${YELLOW}output_file${NC}   Specify output file name (default: ${YELLOW}aliases.md${NC})"
+    echo -e "  ${GREEN}-q${NC}               Quiet mode, do not open the output file"
+    echo -e "  ${GREEN}-h${NC}, ${GREEN}--help${NC}        Show this help message and exit"
+    echo -e "${GREEN}EXAMPLES:${NC}"
+    echo -e "  ${WHITE}$0${NC}"
+    echo -e "  ${WHITE}$0 -o my_aliases.csv${NC}"
+    echo -e "  ${WHITE}$0 -q -o aliases.html${NC}"
+    echo -e "For more details, see the README.md."
 }
 
 # Default values
 output_file="aliases.md"
 quiet_mode=false
+
+
+# Check for -h or --help before parsing other options
+for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+    usage
+    exit 0
+    fi
+done
 
 # Parse command-line options
 while getopts ":o:q" opt; do
@@ -33,6 +50,7 @@ while getopts ":o:q" opt; do
             ;;
         *)
             usage
+            exit 1
             ;;
     esac
 done
@@ -48,14 +66,14 @@ case "$default_shell" in
     tcsh) config_file="$HOME/.cshrc" ;;
     ksh)  config_file="$HOME/.kshrc" ;;
     *)
-        echo -e "${RED}\e[1mError\e[0m:${NC} Unsupported shell: ${RED}$default_shell${NC}"
+        echo -e "${RED}Error:${NC} Unsupported shell: ${RED}$default_shell${NC}"
         exit 1
         ;;
 esac
 
 # Check if the configuration file exists
 if [[ ! -f "$config_file" ]]; then
-    echo -e "${RED}\e[1mError\e[0m:${NC} Configuration file not found: ${RED}$config_file${NC}"
+    echo -e "${RED}Error:${NC} Configuration file not found: ${RED}$config_file${NC}"
     exit 1
 fi
 

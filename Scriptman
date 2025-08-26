@@ -12,40 +12,27 @@ CYAN='\033[0;36m'
 WHITE='\033[0;37m'
 NC='\033[0m' # No Color
 
-# Function to display help message.
-show_help() {
-    cat << EOF
-NAME: $(basename "$0") - A utility script.
-
-SYNOPSIS: $(basename "$0") COMMAND [OPTIONS]
-
-DESCRIPTION:A simple script that provides different functionalities:
-        - Extract user-defined aliases from the system.
-        - Recover stored passwords (not yet implemented).
-
-COMMANDS:
-    ea: Extract aliases by fetching and executing the extract_aliases.sh script.
-        -q: Run in quiet mode (suppress non-essential output).
-        -o <file>: Write extracted aliases to the specified output file.
-
-    rp: Recover passwords (currently not implemented).
-
-    exit: Exit the script.
-
-OPTIONS:
-    -h, --help
-        Display this help message and exit.
-
-EXAMPLES:
-    Direct mode:
-        $(basename "$0") ea
-        $(basename "$0") ea -q -o output.md
-        $(basename "$0") rp
-    Interactive mode:
-        $(basename "$0")
-
-AUTHOR: Gabriel D. Vincent
-EOF
+# usage/help function
+usage() {
+    echo -e "${MAGENTA}$(basename \"$0\")${NC} - ${YELLOW}Bash-exercises Launcher Script${NC}"
+    echo -e "${GREEN}USAGE:${NC} ${WHITE}$(basename \"$0\") [COMMAND] [OPTIONS]${NC}"
+    echo -e "${GREEN}DESCRIPTION:${NC} Run project features:"
+    echo -e "  ${YELLOW}•${NC} Extract shell aliases to Markdown, CSV, or HTML"
+    echo -e "  ${YELLOW}•${NC} Recover stored passwords (coming soon)"
+    echo -e "${GREEN}COMMANDS:${NC}"
+    echo -e "  ${MAGENTA}ea${NC}    Extract aliases (options: -o, -q, -h)"
+    echo -e "  ${MAGENTA}rp${NC}    Recover passwords (not yet implemented)"
+    echo -e "  ${RED}exit${NC}  Exit the script"
+    echo -e "${GREEN}OPTIONS:${NC}"
+    echo -e "  ${YELLOW}-h, --help${NC}   Show this help message and exit"
+    echo -e "${GREEN}EXAMPLES:${NC}"
+    echo -e "  ${WHITE}$(basename \"$0\") ea${NC}"
+    echo -e "  ${WHITE}$(basename \"$0\") ea -o my_aliases.csv${NC}"
+    echo -e "  ${WHITE}$(basename \"$0\") ea -q -o aliases.html${NC}"
+    echo -e "  ${WHITE}$(basename \"$0\") rp${NC}"
+    echo -e "  ${WHITE}$(basename \"$0\")${NC}"
+    echo -e "For more details, see the README.md in each feature folder."
+    echo -e "${CYAN}AUTHOR:${NC} Gabriel D. Vincent"
 }
 
 # Function to extract aliases
@@ -78,7 +65,7 @@ case "$1" in
         ;;
    
     -h|--help)
-        show_help
+        usage
         exit 0
         ;;
 
@@ -97,11 +84,11 @@ if ! [ -t 0 ]; then
 fi
 
 while [ $finished -ne 1 ]; do
-    echo -e "\nWhat do you want to test?\n"
-    echo -e "\t1. Extract Aliases: ${GREEN}\e[1mea\e[0m${NC}"
-    echo -e "\t2. Recover Passwords: ${GREEN}\e[1mrp\e[0m${NC}"
-    echo -e "\t3. Exit: ${RED}\e[1mexit\e[0m${NC}\n"
-    prompt="Please enter your choice ${BLUE}[${NC} ${GREEN}\e[1mea\e[0m${NC} ${BLUE}/${NC} ${GREEN}\e[1mrp\e[0m${NC} ${BLUE}/${NC} ${RED}\e[1mexit\e[0m${NC} ${BLUE}]${NC}: "
+    echo -e "\n${MAGENTA}Main Menu: What do you want to test?${NC}"
+    echo -e "  1. ${GREEN}Extract Aliases${NC}: ${MAGENTA}ea${NC}"
+    echo -e "  2. ${GREEN}Recover Passwords${NC}: ${MAGENTA}rp${NC}"
+    echo -e "  3. ${RED}Exit${NC}: ${RED}exit${NC}"
+    prompt="${BLUE}Please enter your choice [${NC} ${MAGENTA}ea${NC} ${BLUE}/${NC} ${MAGENTA}rp${NC} ${BLUE}/${NC} ${RED}exit${NC} ${BLUE}]: ${NC}"
     read -p "$(echo -e "$prompt")" choice
 
     case $choice in
@@ -117,7 +104,7 @@ while [ $finished -ne 1 ]; do
             echo -e "\n${GREEN}Exiting the script. Goodbye!${NC}"
             ;;
         *)
-            echo -e "\n${RED}\e[1mError\e[0m:${NC} Invalid choice. Please enter: ${GREEN}\e[1mea\e[0m${NC}, ${GREEN}\e[1mrp\e[0m${NC}, or ${RED}\e[1mexit\e[0m${NC}."
+            echo -e "\n${RED}\e[1mError\e[0m:${NC} Invalid choice. Please enter: ${MAGENTA}ea${NC}, ${MAGENTA}rp${NC}, or ${RED}exit${NC}."
             ;;
     esac
 done
