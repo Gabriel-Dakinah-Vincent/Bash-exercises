@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-
-# Colors
-
+# Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -12,10 +10,21 @@ CYAN='\033[0;36m'
 WHITE='\033[0;37m'
 NC='\033[0m' # No Color
 
+# Check for required commands
+for cmd in curl mktemp bash; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        echo -e "${RED}Error:${NC} Required command '$cmd' not found. Please install it."
+        exit 2
+    fi
+done
+
+# Handle Ctrl+C gracefully
+trap 'echo -e "\n${RED}Interrupted. Exiting.${NC}"; exit 130' SIGINT
+
 # usage/help function
 usage() {
-    echo -e "${MAGENTA}$(basename \"$0\")${NC} - ${YELLOW}Bash-exercises Launcher Script${NC}"
-    echo -e "${GREEN}USAGE:${NC} ${WHITE}$(basename \"$0\") [COMMAND] [OPTIONS]${NC}"
+    echo -e "${MAGENTA}$(basename "$0")${NC} - ${YELLOW}Bash-exercises Launcher Script${NC}"
+    echo -e "${GREEN}USAGE:${NC} ${WHITE}$(basename "$0") [COMMAND] [OPTIONS]${NC}"
     echo -e "${GREEN}DESCRIPTION:${NC} Run project features:"
     echo -e "  ${YELLOW}•${NC} Extract shell aliases to Markdown, CSV, or HTML"
     echo -e "  ${YELLOW}•${NC} Recover stored passwords (coming soon)"
@@ -26,11 +35,11 @@ usage() {
     echo -e "${GREEN}OPTIONS:${NC}"
     echo -e "  ${YELLOW}-h, --help${NC}   Show this help message and exit"
     echo -e "${GREEN}EXAMPLES:${NC}"
-    echo -e "  ${WHITE}$(basename \"$0\") ea${NC}"
-    echo -e "  ${WHITE}$(basename \"$0\") ea -o my_aliases.csv${NC}"
-    echo -e "  ${WHITE}$(basename \"$0\") ea -q -o aliases.html${NC}"
-    echo -e "  ${WHITE}$(basename \"$0\") rp${NC}"
-    echo -e "  ${WHITE}$(basename \"$0\")${NC}"
+    echo -e "  ${WHITE}$(basename "$0") ea${NC}"
+    echo -e "  ${WHITE}$(basename "$0") ea -o my_aliases.csv${NC}"
+    echo -e "  ${WHITE}$(basename "$0") ea -q -o aliases.html${NC}"
+    echo -e "  ${WHITE}$(basename "$0") rp${NC}"
+    echo -e "  ${WHITE}$(basename "$0")${NC}"
     echo -e "For more details, see the README.md in each feature folder."
     echo -e "${CYAN}AUTHOR:${NC} Gabriel D. Vincent"
 }
@@ -63,15 +72,20 @@ case "$1" in
         recover_passwords
         exit 0
         ;;
-   
     -h|--help)
         usage
         exit 0
         ;;
-
     exit)
         echo -e "\n${GREEN}Exiting the script. Goodbye!${NC}"
         exit 0
+        ;;
+    "" )
+        # No argument, continue to interactive menu
+        ;;
+    *)
+        echo -e "${RED}Error:${NC} Unknown command '$1'. Use -h for help."
+        exit 1
         ;;
 esac
 
