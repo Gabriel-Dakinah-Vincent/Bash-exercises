@@ -1,180 +1,37 @@
-# b6se - Advanced Base Encoding/Decoding Tool
+# b6se — Secure Modular Encode/Decode/Serve Tool
 
-**b6se** is a Bash-based advanced encoding/decoding tool with support for:
-
-- Base64, Base32, Hex encoding/decoding
-- Optional compression before encoding
-- AES-256-CBC encryption/decryption
-- Chunking of large files
-- Interactive menu mode
-- Serving encoded files over HTTP/HTTPS  
-  - Password-protected access  
-  - One-time links & download limits  
-  - Timeout auto-shutdown
-- Remote fetch & decode
-- Logging to `logs/b6se.log`
+A modular, composable CLI for:
+- 🔐 Encryption / Decryption (AES-256)
+- 📦 Compression / Decompression (tar.gz)
+- 🧬 Encoding / Decoding (base64/base32/hex)
+- 🌍 Secure HTTPS one-time file serving
 
 ---
 
-## ⚠️ Important Note
+## 🚀 Quick Examples
 
-You **do not need to run `run_server.py` manually**.  
-The `b6se.sh` script automatically launches the server helper when required (for example, when you use the `-s` option to serve files).
-
-This makes the tool seamless to run both locally and via **Scriptman internet execution**.
-
----
-
-## 🚀 Installation
-
+### Encode + Compress + Encrypt
 ```bash
-cd b6se-tool/src
-chmod +x b6se.sh
-```
+./b6se.sh encode --file report.txt --method base64 --compress --encrypt --pass secret123
 
-Run directly:
+Decode + Decrypt + Decompress
 
-```bash
-./b6se.sh -h
-```
+./b6se.sh decode --file report.txt.base64.enc.aes --method base64 --decrypt --decompress --pass secret123
 
----
+Serve file over HTTPS (one-time download)
 
-## 📖 Usage Examples
+./b6se.sh serve --file encoded.aes --port 8443 --password secret123 --one-time --tls
 
-### Basic Encode / Decode
+Individual Operations
 
-```bash
-./b6se.sh -e myfile.txt -o myfile.b64
-./b6se.sh -d myfile.b64 -o myfile_decoded.txt
-```
+./b6se.sh encode --file data.txt --method hex
+./b6se.sh compress --file notes.txt
+./b6se.sh encrypt --file notes.tar.gz --pass mypass
 
----
 
-### Switch Encoding Methods
+⸻
 
-**Base32:**
-```bash
-./b6se.sh -e myfile.txt -o myfile.b32 -m base32
-./b6se.sh -d myfile.b32 -o myfile_decoded.txt -m base32
-```
-
-**Hex:**
-```bash
-./b6se.sh -e myfile.txt -o myfile.hex -m hex
-./b6se.sh -d myfile.hex -o myfile_decoded.txt -m hex
-```
-
----
-
-### Compression + Encoding
-
-```bash
-./b6se.sh -e myfolder -o myfolder.tar.b64 --compress
-./b6se.sh -d myfolder.tar.b64 -o myfolder.tar.gz
-tar -xzf myfolder.tar.gz
-```
-
----
-
-### Encryption + Encoding
-
-```bash
-./b6se.sh -e secret.pdf -o secret.enc.b64 -k mypassword
-./b6se.sh -d secret.enc.b64 -o secret.pdf -k mypassword
-```
-
----
-
-### Chunking Large Files
-
-```bash
-./b6se.sh -e big.iso -o big.iso.b64 --chunk 50M
-```
-> Decoding requires concatenating and decoding chunks manually.
-
----
-
-### Serve Encoded File
-
-```bash
-./b6se.sh -e myfile.txt -o myfile.b64 -s -p 9000
-```
-Access: [http://&lt;your-ip&gt;:9000/myfile.b64](http://<your-ip>:9000/myfile.b64)
-
----
-
-### Serve with Password
-
-```bash
-./b6se.sh -e myfile.txt -o myfile.b64 -s -p 8080 -P test123
-```
-
----
-
-### Serve with TLS (HTTPS)
-
-```bash
-./b6se.sh -e myfile.txt -o myfile.b64 -s -p 8443 --tls
-```
-Access: [https://&lt;your-ip&gt;:8443/myfile.b64](https://<your-ip>:8443/myfile.b64)
-
----
-
-### One-Time Download
-
-```bash
-./b6se.sh -e myfile.txt -o myfile.b64 -s -p 9001 --one-time
-```
-
----
-
-### Limit Downloads
-
-```bash
-./b6se.sh -e myfile.txt -o myfile.b64 -s -p 9002 --max-downloads 3
-```
-
----
-
-### Timeout Auto-Shutdown
-
-```bash
-./b6se.sh -e myfile.txt -o myfile.b64 -s -p 9003 -t 2
-```
-
----
-
-### Fetch & Decode Remote File
-
-```bash
-./b6se.sh -f http://example.com/file.b64 -o file.txt
-```
-
----
-
-### Interactive Menu
-
-```bash
-./b6se.sh
-```
-
----
-
-### Logs
-
-```bash
-cat b6se-tool/logs/b6se.log
-```
-
----
-
-## 📝 Notes
-
-- TLS uses a self-signed certificate (browsers will show a warning).
-- Chunked encoding requires manual reassembly for decoding.
-- AES-256 encryption is provided via OpenSSL.
-- For large files, encoding increases size (~33% for Base64).
-- Ensure `openssl`, `tar`, and `curl` are installed.
-
----
+🧠 Notes
+	•	Requires: bash, tar, openssl, python3, base64, xxd.
+	•	Files are processed in chained order: Compress → Encode → Encrypt.
+	•	Decryption reverses that chain: Decrypt → Decode → Decompress.
