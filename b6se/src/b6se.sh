@@ -1,182 +1,214 @@
-#!/bin/bash
-# b6se - Advanced Base Encoding/Decoding & Server Tool
+#!/usr/bin/env bash
+# b6se.sh — Modular Secure Encode/Decode/Compression/Encryption Tool
+set -euo pipefail
+IFS=$'\n\t'
 
-LOG_DIR="$(dirname "$0")/../logs"
-mkdir -p "$LOG_DIR"
-LOG_FILE="$LOG_DIR/b6se.log"
+# ======== LOGGING AND HELPERS ========
+log() { echo "[INFO] $*"; }
+die() { echo "[ERROR] $*" >&2; exit 1; }
 
 usage() {
-  cat <<EOF
-Usage: b6se.sh [OPTIONS]
+    cat <<EOF
+Usage: $0 <command> [options]
 
-Options:
-  -e <file>        Encode file
-  -d <file>        Decode file
-  -m <method>      Method: base64 (default), base32, hex
-  -o <out>         Output file name
-  --compress       Compress before encoding
-  -k <password>    Encrypt/Decrypt with AES-256-CBC
-  --chunk <size>   Chunk encoding for large files (e.g., 50M)
-  -s               Serve encoded file(s)
-  -p <port>        Port for server (default: 8000)
-  -P <password>    Password-protect server access
-  --one-time       Auto-delete after first download
-  --max-downloads N Limit downloads
-  -t <mins>        Timeout in minutes (default 10)
-  --tls            Enable HTTPS (self-signed cert)
-  -f <url>         Fetch remote encoded file and decode
-  -h               Help
+Commands:
+  encode          Encode a file (optionally compress & encrypt)
+  decode          Decode a file (optionally decrypt & decompress)
+  serve           Serve a file over HTTPS (using run_server.py)
+  help            Show this message
+
+Examples:
+  $0 encode --file report.txt --method base64 --compress --encrypt --pass secret
+  $0 decode --file report.txt.base64.enc.aes --method base64 --decrypt --decompress --pass secret
+  $0 serve  --file data.enc --port 8443 --password secret --one-time
+
 EOF
 }
 
-log() {
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$LOG_FILE"
+# ======== CORE FILE OPERATIONS ========
+
+compress_file() {
+    local infile="$1"
+    local outfile="${infile}.tar.gz"
+    tar -czf "$outfile" -C "$(dirname "$infile")" "$(basename "$infile")"
+    echo "$outfile"
+}
+
+decompress_file() {
+    local infile="$1"
+    local outdir="${2:-./extracted}"
+    mkdir -p "$outdir"
+    tar -xzf "$infile" -C "$outdir"
+    echo "$outdir"
 }
 
 encode_file() {
-  local infile="$1" out="$2" method="$3" compress="$4" key="$5" chunk="$6"
-  local tmp="$infile"
-
-  [[ "$compress" == "yes" ]] && { tmp="$infile.tar.gz"; tar -czf "$tmp" "$infile"; }
-
-  if [[ -n "$key" ]]; then
-    tmp="$tmp.enc"
-    openssl enc -aes-256-cbc -salt -pbkdf2 -in "$infile" -out "$tmp" -k "$key"
-  fi
-
-  case "$method" in
-    base32) base_cmd="base32" ;;
-    hex) base_cmd="xxd -p" ;;
-    *) base_cmd="base64" ;;
-  esac
-
-  if [[ -n "$chunk" ]]; then
-    split -b "$chunk" "$tmp" "$out.part."
-    for f in "$out.part."*; do
-      $base_cmd "$f" > "$f.enc"
-      rm "$f"
-    done
-    log "Chunked encode $infile → $out.part.*"
-  else
-    $base_cmd "$tmp" > "$out"
-    log "Encoded $infile → $out"
-  fi
+    local infile="$1" method="$2"
+    local outfile="${infile}.${method}.enc"
+    case "$method" in
+        base64) base64 "$infile" > "$outfile" ;;
+        base32) base32 "$infile" > "$outfile" ;;
+        hex) xxd -p "$infile" > "$outfile" ;;
+        *) die "Unsupported encoding method: $method" ;;
+    esac
+    echo "$outfile"
 }
 
 decode_file() {
-  local infile="$1" out="$2" method="$3" key="$4"
-  case "$method" in
-    base32) base_cmd="base32 -d" ;;
-    hex) base_cmd="xxd -r -p" ;;
-    *) base_cmd="base64 -d" ;;
-  esac
-
-  $base_cmd "$infile" > "$out"
-
-  if [[ -n "$key" ]]; then
-    openssl enc -d -aes-256-cbc -pbkdf2 -in "$out" -out "${out%.enc}" -k "$key"
-    out="${out%.enc}"
-  fi
-
-  log "Decoded $infile → $out"
+    local infile="$1" method="$2"
+    local outfile="${infile}.${method}.dec"
+    case "$method" in
+        base64) base64 -d "$infile" > "$outfile" ;;
+        base32) base32 -d "$infile" > "$outfile" ;;
+        hex) xxd -r -p "$infile" > "$outfile" ;;
+        *) die "Unsupported decoding method: $method" ;;
+    esac
+    echo "$outfile"
 }
+
+encrypt_file() {
+    local infile="$1" pass="$2"
+    local outfile="${infile}.aes"
+    openssl enc -aes-256-cbc -pbkdf2 -salt -in "$infile" -out "$outfile" -pass pass:"$pass"
+    echo "$outfile"
+}
+
+decrypt_file() {
+    local infile="$1" pass="$2"
+    local outfile="${infile%.aes}.dec"
+    openssl enc -d -aes-256-cbc -pbkdf2 -in "$infile" -out "$outfile" -pass pass:"$pass"
+    echo "$outfile"
+}
+
+# ======== COMPOSABLE WORKFLOWS ========
+
+process_encode() {
+    local infile="$1"
+    local method="${2:-base64}"
+    local compress="${3:-false}"
+    local encrypt="${4:-false}"
+    local pass="${5:-}"
+
+    local current="$infile"
+
+    if [ "$compress" = true ]; then
+        log "Compressing..."
+        current=$(compress_file "$current")
+    fi
+
+    log "Encoding ($method)..."
+    current=$(encode_file "$current" "$method")
+
+    if [ "$encrypt" = true ]; then
+        [ -n "$pass" ] || die "Password required for encryption"
+        log "Encrypting..."
+        current=$(encrypt_file "$current" "$pass")
+    fi
+
+    log "✅ Final output: $current"
+}
+
+process_decode() {
+    local infile="$1"
+    local method="${2:-base64}"
+    local decrypt="${3:-false}"
+    local decompress="${4:-false}"
+    local pass="${5:-}"
+
+    local current="$infile"
+
+    if [ "$decrypt" = true ]; then
+        [ -n "$pass" ] || die "Password required for decryption"
+        log "Decrypting..."
+        current=$(decrypt_file "$current" "$pass")
+    fi
+
+    log "Decoding ($method)..."
+    current=$(decode_file "$current" "$method")
+
+    if [ "$decompress" = true ]; then
+        log "Decompressing..."
+        current=$(decompress_file "$current")
+    fi
+
+    log "✅ Final output directory: $current"
+}
+
+# ======== SERVER ========
 
 serve_file() {
-  local file="$1" port="$2" pass="$3" onetime="$4" maxdl="$5" timeout="$6" tls="$7"
+    local file=""
+    local port="8080"
+    local password=""
+    local one_time=false
+    local max_downloads=0
+    local tls=false
 
-  log "Serving $file on 0.0.0.0:$port"
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --file) file="$2"; shift 2 ;;
+            --port) port="$2"; shift 2 ;;
+            --password) password="$2"; shift 2 ;;
+            --one-time) one_time=true; shift ;;
+            --max) max_downloads="$2"; shift 2 ;;
+            --tls) tls=true; shift ;;
+            *) die "Unknown option: $1" ;;
+        esac
+    done
 
-  # Locate run_server.py automatically, even if running over the internet
-  local server_script
-  server_script="$(dirname "$(realpath "$0")")/server/run_server.py"
+    [ -f "$file" ] || die "File not found: $file"
 
-  if [[ ! -f "$server_script" ]]; then
-    echo "[!] run_server.py not found. Exiting." >&2
-    exit 1
-  fi
-
-  # Launch server automatically, no manual steps needed
-  python3 "$server_script" \
-    --file "$file" \
-    --port "$port" \
-    --password "$pass" \
-    --one-time "$onetime" \
-    --max-downloads "$maxdl" \
-    --timeout "$timeout" \
-    --tls "$tls" &
-    #--tls "$tls" # Uncomment to enable TLS by default
+    log "Starting Python HTTPS server..."
+    python3 run_server.py --file "$file" --port "$port" \
+        --password "$password" \
+        $( [ "$one_time" = true ] && echo "--one-time" ) \
+        $( [ "$tls" = true ] && echo "--tls" ) \
+        $( [ "$max_downloads" -gt 0 ] && echo "--max $max_downloads" )
 }
 
-fetch_remote() {
-  local url="$1" out="$2"
-  curl -s "$url" | base64 -d > "$out"
-  log "Fetched $url → $out"
-}
+# ======== MAIN COMMAND HANDLER ========
 
-# Interactive mode
-interactive_menu() {
-  while true; do
-    echo -e "\n=== b6se Interactive Menu ==="
-    echo "1. Encode file"
-    echo "2. Decode file"
-    echo "3. Encode & Serve"
-    echo "4. Fetch remote file"
-    echo "5. Quit"
-    read -p "Choose option: " opt
-    case $opt in
-      1) read -p "File: " f; read -p "Output: " o; encode_file "$f" "$o" base64 "" "" ;;
-      2) read -p "File: " f; read -p "Output: " o; decode_file "$f" "$o" base64 "" ;;
-      3) read -p "File: " f; read -p "Port: " p; serve_file "$f" "$p" "" "" "" 10 "" ;;
-      4) read -p "URL: " u; read -p "Output: " o; fetch_remote "$u" "$o" ;;
-      5) exit 0 ;;
-    esac
-  done
-}
+cmd="${1:-help}"
+shift || true
 
-# === Main parser ===
-[[ $# -eq 0 ]] && interactive_menu
-
-METHOD="base64"
-OUT=""
-COMPRESS=""
-KEY=""
-CHUNK=""
-SERVE=""
-PORT=8000
-PASS=""
-ONETIME=""
-MAXDL=""
-TIMEOUT=10
-TLS=""
-FETCH=""
-
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-    -e) ACTION="encode"; IN="$2"; shift ;;
-    -d) ACTION="decode"; IN="$2"; shift ;;
-    -m) METHOD="$2"; shift ;;
-    -o) OUT="$2"; shift ;;
-    --compress) COMPRESS="yes" ;;
-    -k) KEY="$2"; shift ;;
-    --chunk) CHUNK="$2"; shift ;;
-    -s) SERVE="yes" ;;
-    -p) PORT="$2"; shift ;;
-    -P) PASS="$2"; shift ;;
-    --one-time) ONETIME="yes" ;;
-    --max-downloads) MAXDL="$2"; shift ;;
-    -t) TIMEOUT="$2"; shift ;;
-    --tls) TLS="yes" ;;
-    -f) FETCH="$2"; ACTION="fetch"; shift ;;
-    -h) usage; exit 0 ;;
-    *) echo "Unknown: $1"; usage; exit 1 ;;
-  esac
-  shift
-done
-
-case "$ACTION" in
-  encode) encode_file "$IN" "${OUT:-$IN.$METHOD}" "$METHOD" "$COMPRESS" "$KEY" "$CHUNK" ;;
-  decode) decode_file "$IN" "${OUT:-$IN.decoded}" "$METHOD" "$KEY" ;;
-  fetch) fetch_remote "$FETCH" "${OUT:-out.decoded}" ;;
+case "$cmd" in
+    encode)
+        infile=""; method="base64"; compress=false; encrypt=false; pass=""
+        while [[ $# -gt 0 ]]; do
+            case "$1" in
+                --file) infile="$2"; shift 2 ;;
+                --method) method="$2"; shift 2 ;;
+                --compress) compress=true; shift ;;
+                --encrypt) encrypt=true; shift ;;
+                --pass) pass="$2"; shift 2 ;;
+                *) die "Unknown option: $1" ;;
+            esac
+        done
+        [ -n "$infile" ] || die "--file required"
+        process_encode "$infile" "$method" "$compress" "$encrypt" "$pass"
+        ;;
+    decode)
+        infile=""; method="base64"; decrypt=false; decompress=false; pass=""
+        while [[ $# -gt 0 ]]; do
+            case "$1" in
+                --file) infile="$2"; shift 2 ;;
+                --method) method="$2"; shift 2 ;;
+                --decrypt) decrypt=true; shift ;;
+                --decompress) decompress=true; shift ;;
+                --pass) pass="$2"; shift 2 ;;
+                *) die "Unknown option: $1" ;;
+            esac
+        done
+        [ -n "$infile" ] || die "--file required"
+        process_decode "$infile" "$method" "$decrypt" "$decompress" "$pass"
+        ;;
+    serve)
+        serve_file "$@"
+        ;;
+    help|--help|-h)
+        usage
+        ;;
+    *)
+        die "Unknown command: $cmd"
+        ;;
 esac
-
-[[ "$SERVE" == "yes" ]] && serve_file "${OUT:-$IN.$METHOD}" "$PORT" "$PASS" "$ONETIME" "$MAXDL" "$TIMEOUT" "$TLS"
