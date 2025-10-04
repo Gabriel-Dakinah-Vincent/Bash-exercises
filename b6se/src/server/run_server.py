@@ -1,54 +1,82 @@
 #!/usr/bin/env python3
-import http.server, ssl, argparse, os, time
+"""
+run_server.py — Secure Temporary HTTPS File Server
+Supports password protection, one-time download, TLS auto-generation, and limited downloads.
+"""
 
-class Handler(http.server.SimpleHTTPRequestHandler):
+import argparse, os, base64, ssl
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+from functools import partial
+
+class SecureHandler(SimpleHTTPRequestHandler):
+    def __init__(self, *args, file_path=None, password=None, one_time=False, max_downloads=0, **kwargs):
+        self.file_path = file_path
+        self.password = password
+        self.one_time = one_time
+        self.max_downloads = max_downloads
+        self.downloads = 0
+        super().__init__(*args, **kwargs)
+
     def do_GET(self):
-        if self.server.password:
-            auth = self.headers.get('Authorization')
-            if not auth or auth != "Basic " + self.server.password:
-                self.send_response(401)
-                self.send_header('WWW-Authenticate', 'Basic realm="b6se"')
-                self.end_headers()
+        if self.password:
+            auth = self.headers.get("Authorization")
+            if not auth or not auth.startswith("Basic "):
+                self._unauthorized()
                 return
-        filepath = os.path.join(self.server.dir, self.server.file)
-        if not os.path.exists(filepath):
+            _, encoded = auth.split(" ", 1)
+            user_pass = base64.b64decode(encoded).decode()
+            if ":" not in user_pass or user_pass.split(":", 1)[1] != self.password:
+                self._unauthorized()
+                return
+
+        if not os.path.exists(self.file_path):
             self.send_error(404, "File not found")
             return
-        self.send_response(200)
-        self.end_headers()
-        with open(filepath, "rb") as f:
-            self.wfile.write(f.read())
-        self.server.downloads += 1
-        if self.server.one_time or (self.server.max_downloads and self.server.downloads >= self.server.max_downloads):
-            os.remove(filepath)
 
-def run(args):
-    os.chdir(os.path.dirname(args.file))
-    handler = Handler
-    server = http.server.HTTPServer(("0.0.0.0", args.port), handler)
-    server.file = os.path.basename(args.file)
-    server.dir = os.getcwd()
-    server.password = args.password
-    server.one_time = bool(args.one_time)
-    server.max_downloads = args.max_downloads
-    server.downloads = 0
+        with open(self.file_path, "rb") as f:
+            content = f.read()
+
+        self.send_response(200)
+        self.send_header("Content-Type", "application/octet-stream")
+        self.send_header("Content-Disposition", f'attachment; filename="{os.path.basename(self.file_path)}"')
+        self.send_header("Content-Length", str(len(content)))
+        self.end_headers()
+        self.wfile.write(content)
+
+        self.downloads += 1
+        if self.one_time or (self.max_downloads and self.downloads >= self.max_downloads):
+            os.remove(self.file_path)
+            os._exit(0)
+
+    def _unauthorized(self):
+        self.send_response(401)
+        self.send_header("WWW-Authenticate", 'Basic realm="Protected"')
+        self.end_headers()
+        self.wfile.write(b"Unauthorized")
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file", required=True)
+    parser.add_argument("--port", type=int, default=8080)
+    parser.add_argument("--password")
+    parser.add_argument("--one-time", action="store_true")
+    parser.add_argument("--max", type=int, default=0)
+    parser.add_argument("--tls", action="store_true")
+    args = parser.parse_args()
+
+    handler = partial(SecureHandler, file_path=args.file, password=args.password, one_time=args.one_time, max_downloads=args.max)
+    httpd = ThreadingHTTPServer(("0.0.0.0", args.port), handler)
 
     if args.tls:
-        if not os.path.exists("cert.pem") or not os.path.exists("key.pem"):
-            os.system("openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -subj '/CN=localhost'")
-        server.socket = ssl.wrap_socket(server.socket, certfile="cert.pem", keyfile="key.pem", server_side=True)
+        cert, key = "server.crt", "server.key"
+        if not os.path.exists(cert) or not os.path.exists(key):
+            os.system(f"openssl req -x509 -newkey rsa:2048 -keyout {key} -out {cert} -days 1 -nodes -subj '/CN=localhost'")
+        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+        ctx.load_cert_chain(cert, key)
+        httpd.socket = ctx.wrap_socket(httpd.socket, server_side=True)
 
-    deadline = time.time() + args.timeout * 60
-    while time.time() < deadline:
-        server.handle_request()
+    print(f"Serving {args.file} on port {args.port} (TLS={args.tls})")
+    httpd.serve_forever()
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--file", required=True)
-    ap.add_argument("--port", type=int, default=8000)
-    ap.add_argument("--password", default=None)
-    ap.add_argument("--one-time", default=False)
-    ap.add_argument("--max-downloads", type=int, default=None)
-    ap.add_argument("--timeout", type=int, default=10)
-    ap.add_argument("--tls", default=False)
-    run(ap.parse_args())
+    main()
