@@ -3,7 +3,7 @@ Available Commands:
   decompress   - Extract .tar.gz file
   encode       - Base64 encode file
   decode       - Base64 decode file
-  encrypt      - AES-256 encrypt file
-  decrypt      - AES-256 decrypt file
+  encrypt      - AES-256 encrypt file (uses default or --password flag)
+  decrypt      - AES-256 decrypt file (uses default or --password flag)
   serve        - Start local secure HTTP file server
   help         - Show detailed help and usage

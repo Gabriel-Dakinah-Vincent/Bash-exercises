@@ -51,6 +51,20 @@ get_config_value() {
 DEFAULT_PORT=$(get_config_value server default_port || echo "8080")
 DEFAULT_PASSWORD=$(get_config_value server default_password || echo "changeme")
 
+# ====== PASSWORD FLAG SUPPORT ======
+PASSWORD_OVERRIDE=""
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --password)
+            PASSWORD_OVERRIDE="$2"
+            shift 2
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
 # ====== UTILITIES ======
 resolve_path() {
     [[ "$1" = /* ]] && echo "$1" || echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
@@ -91,8 +105,13 @@ decode_file() {
 encrypt_file() {
     local file=$(resolve_path "$1")
     local output=$(resolve_path "${2:-${file}.enc}")
-    local password="$DEFAULT_PASSWORD"
-    [ -z "$password" ] && die "Password required for encryption"
+    local password="${PASSWORD_OVERRIDE:-$DEFAULT_PASSWORD}"
+
+    if [ -z "$password" ]; then
+        die "Password required for encryption"
+    fi
+
+    log "Encrypting $file with AES-256..."
     openssl enc -aes-256-cbc -salt -in "$file" -out "$output" -pass pass:"$password"
     success "Encrypted $file -> $output"
 }
@@ -100,8 +119,13 @@ encrypt_file() {
 decrypt_file() {
     local file=$(resolve_path "$1")
     local output=$(resolve_path "${2:-${file%.enc}}")
-    local password="$DEFAULT_PASSWORD"
-    [ -z "$password" ] && die "Password required for decryption"
+    local password="${PASSWORD_OVERRIDE:-$DEFAULT_PASSWORD}"
+
+    if [ -z "$password" ]; then
+        die "Password required for decryption"
+    fi
+
+    log "Decrypting $file with AES-256..."
     openssl enc -d -aes-256-cbc -in "$file" -out "$output" -pass pass:"$password"
     success "Decrypted $file -> $output"
 }
