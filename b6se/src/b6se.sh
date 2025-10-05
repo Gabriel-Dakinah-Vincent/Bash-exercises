@@ -49,7 +49,11 @@ get_config_value() {
 }
 
 DEFAULT_PORT=$(get_config_value server default_port || echo "8080")
-DEFAULT_PASSWORD=$(get_config_value server default_password || echo "changeme")
+# Note: For security reasons, the use of a default password is discouraged.
+# DEFAULT_PASSWORD is now intentionally disabled.
+# Encryption and decryption must use the --password flag explicitly.
+# This line is kept commented for reference and backward compatibility.
+# DEFAULT_PASSWORD=$(get_config_value server default_password || echo "changeme")
 
 # ====== PASSWORD FLAG SUPPORT ======
 PASSWORD_OVERRIDE=""
