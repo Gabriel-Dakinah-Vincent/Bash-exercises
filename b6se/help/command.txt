@@ -6,5 +6,4 @@ Available Commands:
   encrypt      - AES-256 encrypt file
   decrypt      - AES-256 decrypt file
   serve        - Start local secure HTTP file server
-  interactive  - Launch guided CLI assistant
   help         - Show detailed help and usage

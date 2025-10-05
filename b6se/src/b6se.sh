@@ -91,7 +91,7 @@ decode_file() {
 encrypt_file() {
     local file=$(resolve_path "$1")
     local output=$(resolve_path "${2:-${file}.enc}")
-    local password="${3:-$DEFAULT_PASSWORD}"
+    local password="$DEFAULT_PASSWORD"
     [ -z "$password" ] && die "Password required for encryption"
     openssl enc -aes-256-cbc -salt -in "$file" -out "$output" -pass pass:"$password"
     success "Encrypted $file -> $output"
@@ -100,7 +100,7 @@ encrypt_file() {
 decrypt_file() {
     local file=$(resolve_path "$1")
     local output=$(resolve_path "${2:-${file%.enc}}")
-    local password="${3:-$DEFAULT_PASSWORD}"
+    local password="$DEFAULT_PASSWORD"
     [ -z "$password" ] && die "Password required for decryption"
     openssl enc -d -aes-256-cbc -in "$file" -out "$output" -pass pass:"$password"
     success "Decrypted $file -> $output"
@@ -108,14 +108,10 @@ decrypt_file() {
 
 serve_file() {
     local file=$(resolve_path "$1")
-    local port="${2:-$DEFAULT_PORT}"
-    local password="${3:-$DEFAULT_PASSWORD}"
-
-    log "Starting HTTP server for $file on port $port"
-    python3 "$SERVER_SCRIPT" --file "$file" --port "$port" --password "$password" >> "$LOG_FILE" 2>&1 &
+    log "Starting HTTP server for $file on port $DEFAULT_PORT"
+    python3 "$SERVER_SCRIPT" --file "$file" >> "$LOG_FILE" 2>&1 &
     SERVER_PID=$!
     warn "Server started (PID $SERVER_PID). Press Ctrl+C to stop."
-
     trap "warn 'Stopping server...'; kill $SERVER_PID 2>/dev/null; success 'Server stopped'; exit 0" INT TERM
     wait $SERVER_PID
 }
@@ -127,30 +123,8 @@ show_help() {
         cat "${HELP_DIR}/usage.txt"
         echo -e "${RESET}"
     else
-        echo "Help files missing. Run ./b6se.sh --interactive for guidance."
+        echo "Help files missing."
     fi
-}
-
-# ====== INTERACTIVE MODE ======
-interactive_mode() {
-    echo -e "${CYAN}💬 Welcome to the b6se Interactive Assistant${RESET}"
-    echo -e "${YELLOW}Type 'help' to see available commands.${RESET}"
-    while true; do
-        echo -ne "${BOLD}b6se>${RESET} "
-        read -r choice
-        case "$choice" in
-            compress) read -rp "Input: " i; read -rp "Output (optional): " o; compress_file "$i" "${o:-}";;
-            decompress) read -rp "File: " f; read -rp "Output dir: " o; decompress_file "$f" "${o:-}";;
-            encode) read -rp "File: " f; read -rp "Output: " o; encode_file "$f" "${o:-}";;
-            decode) read -rp "File: " f; read -rp "Output: " o; decode_file "$f" "${o:-}";;
-            encrypt) read -rp "File: " f; read -rp "Output: " o; read -rp "Password: " p; encrypt_file "$f" "${o:-}" "${p:-}";;
-            decrypt) read -rp "File: " f; read -rp "Output: " o; read -rp "Password: " p; decrypt_file "$f" "${o:-}" "${p:-}";;
-            serve) read -rp "File: " f; read -rp "Port: " port; read -rp "Password: " pw; serve_file "$f" "${port:-$DEFAULT_PORT}" "${pw:-$DEFAULT_PASSWORD}";;
-            help|--help|-h) show_help;;
-            exit|quit) echo -e "${GREEN}👋 Goodbye${RESET}"; break;;
-            *) echo -e "${RED}❌ Unknown command. Type 'help' for options.${RESET}";;
-        esac
-    done
 }
 
 # ====== MAIN ENTRY ======
@@ -162,7 +136,6 @@ case "${1:-}" in
     -E|--encrypt) shift; encrypt_file "$@";;
     -D|--decrypt) shift; decrypt_file "$@";;
     -s|--serve) shift; serve_file "$@";;
-    -i|--interactive) interactive_mode;;
     -h|--help|help) show_help;;
-    *) echo -e "${YELLOW}💡 Run './b6se.sh --help' or './b6se.sh --interactive' for guidance.${RESET}";;
+    *) echo -e "${YELLOW}💡 Run './b6se.sh --help' for guidance.${RESET}";;
 esac
