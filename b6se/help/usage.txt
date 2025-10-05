@@ -1,0 +1,29 @@
+b6se - Multi-Functional CLI Tool
+=================================
+Perform file compression, encoding, encryption, and secure file sharing.
+
+Usage:
+  ./b6se.sh [COMMAND] [OPTIONS]
+
+Commands:
+  -c,  --compress <input> [output]
+  -x,  --decompress <input> [output_dir]
+  -e,  --encode <input> [output]
+  -d,  --decode <input> [output]
+  -E,  --encrypt <input> [output]
+  -D,  --decrypt <input> [output]
+  -s,  --serve <file>
+  -i,  --interactive
+  -h,  --help
+
+Options:
+  --port <port>        Set server port (default from config.ini)
+  --password <pass>    Set password for encryption or server
+
+Examples:
+  ./b6se.sh --compress report.txt
+  ./b6se.sh --encode data.csv
+  ./b6se.sh --serve file.tar.gz --port 9090
+
+Tip:
+  Run './b6se.sh --interactive' for a guided experience.

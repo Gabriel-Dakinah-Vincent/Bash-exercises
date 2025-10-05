@@ -1,0 +1,10 @@
+Available Commands:
+  compress     - Compress file or folder (.tar.gz)
+  decompress   - Extract .tar.gz file
+  encode       - Base64 encode file
+  decode       - Base64 decode file
+  encrypt      - AES-256 encrypt file
+  decrypt      - AES-256 decrypt file
+  serve        - Start local secure HTTP file server
+  interactive  - Launch guided CLI assistant
+  help         - Show detailed help and usage

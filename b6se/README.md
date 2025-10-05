@@ -1,37 +1,72 @@
-# b6se — Secure Modular Encode/Decode/Serve Tool
+# b6se — Secure Bash CLI Utility
 
-A modular, composable CLI for:
-- 🔐 Encryption / Decryption (AES-256)
-- 📦 Compression / Decompression (tar.gz)
-- 🧬 Encoding / Decoding (base64/base32/hex)
-- 🌍 Secure HTTPS one-time file serving
+**b6se** (Base64 + Secure Encryptor) is a modular Bash CLI tool for:
+- Compression / Decompression
+- Encoding / Decoding
+- AES Encryption / Decryption
+- Secure HTTP File Sharing
 
 ---
 
-## 🚀 Quick Examples
+## 📦 Features
+- Independent and combined actions
+- Works with absolute or relative paths
+- Secure file serving with password auth
+- Graceful server shutdown (Ctrl+C)
+- Configurable defaults via `config.ini`
+- Log rotation (keep 5 logs)
+- Interactive mode for non-technical users
+- Offline help in `help/` directory
 
-### Encode + Compress + Encrypt
+---
+
+## ⚙️ Usage
+
 ```bash
-./b6se.sh encode --file report.txt --method base64 --compress --encrypt --pass secret123
+./src/b6se.sh [command] [options]
 
-Decode + Decrypt + Decompress
+Run interactively:
 
-./b6se.sh decode --file report.txt.base64.enc.aes --method base64 --decrypt --decompress --pass secret123
+./src/b6se.sh --interactive
 
-Serve file over HTTPS (one-time download)
+Show help:
 
-./b6se.sh serve --file encoded.aes --port 8443 --password secret123 --one-time --tls
-
-Individual Operations
-
-./b6se.sh encode --file data.txt --method hex
-./b6se.sh compress --file notes.txt
-./b6se.sh encrypt --file notes.tar.gz --pass mypass
+./src/b6se.sh --help
 
 
 ⸻
 
-🧠 Notes
-	•	Requires: bash, tar, openssl, python3, base64, xxd.
-	•	Files are processed in chained order: Compress → Encode → Encrypt.
-	•	Decryption reverses that chain: Decrypt → Decode → Decompress.
+🧩 Example Commands
+
+Task	Example
+Compress	./src/b6se.sh -c file.txt
+Encode	./src/b6se.sh -e file.txt
+Encrypt	./src/b6se.sh -E file.txt --password secret
+Serve	./src/b6se.sh -s file.txt --port 9090
+
+
+⸻
+
+🧠 Configuration
+
+Edit config/config.ini to change default server port and password.
+
+⸻
+
+🪵 Logs
+
+All activity is recorded in logs/b6se.log with rotation (5 logs).
+
+⸻
+
+👷 Author
+
+Developed as part of the Cybersecurity Awareness CLI Initiative at Elevation Institute of Technology, Monrovia.
+
+---
+
+✅ **Everything now works out of the box**:
+- You can run it from project root.
+- It auto-creates logs.
+- You have built-in and offline help.
+- Fully modular (each feature can work alone or chained).

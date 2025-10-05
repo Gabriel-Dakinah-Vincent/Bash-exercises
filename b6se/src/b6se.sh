@@ -1,214 +1,168 @@
 #!/usr/bin/env bash
-# b6se.sh — Modular Secure Encode/Decode/Compression/Encryption Tool
+# =========================================================
+# b6se.sh — Secure CLI Tool for Compression, Encoding,
+# Encryption, and Secure File Sharing
+# =========================================================
+
 set -euo pipefail
-IFS=$'\n\t'
 
-# ======== LOGGING AND HELPERS ========
-log() { echo "[INFO] $*"; }
-die() { echo "[ERROR] $*" >&2; exit 1; }
+# ====== PATHS ======
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+LOG_DIR="${PROJECT_ROOT}/logs"
+LOG_FILE="${LOG_DIR}/b6se.log"
+SERVER_SCRIPT="${SCRIPT_DIR}/server/run_server.py"
+CONFIG_FILE="${PROJECT_ROOT}/config/config.ini"
+HELP_DIR="${PROJECT_ROOT}/help"
 
-usage() {
-    cat <<EOF
-Usage: $0 <command> [options]
+mkdir -p "$LOG_DIR" "$HELP_DIR"
 
-Commands:
-  encode          Encode a file (optionally compress & encrypt)
-  decode          Decode a file (optionally decrypt & decompress)
-  serve           Serve a file over HTTPS (using run_server.py)
-  help            Show this message
+# ====== COLORS ======
+RED="\033[31m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+BLUE="\033[34m"
+CYAN="\033[36m"
+BOLD="\033[1m"
+RESET="\033[0m"
 
-Examples:
-  $0 encode --file report.txt --method base64 --compress --encrypt --pass secret
-  $0 decode --file report.txt.base64.enc.aes --method base64 --decrypt --decompress --pass secret
-  $0 serve  --file data.enc --port 8443 --password secret --one-time
+# ====== LOGGING (ROTATION: KEEP 5 LOGS) ======
+rotate_logs() {
+    for i in 5 4 3 2 1; do
+        [ -f "${LOG_FILE}.${i}" ] && mv "${LOG_FILE}.${i}" "${LOG_FILE}.$((i+1))" 2>/dev/null || true
+    done
+    [ -f "$LOG_FILE" ] && mv "$LOG_FILE" "${LOG_FILE}.1" 2>/dev/null || true
+    touch "$LOG_FILE"
+}
+rotate_logs
 
-EOF
+log() { echo -e "${CYAN}[INFO]$(date '+ %Y-%m-%d %H:%M:%S')${RESET} $*" | tee -a "$LOG_FILE"; }
+success() { echo -e "${GREEN}[SUCCESS]$(date '+ %Y-%m-%d %H:%M:%S')${RESET} $*" | tee -a "$LOG_FILE"; }
+warn() { echo -e "${YELLOW}[WARN]$(date '+ %Y-%m-%d %H:%M:%S')${RESET} $*" | tee -a "$LOG_FILE"; }
+error() { echo -e "${RED}[ERROR]$(date '+ %Y-%m-%d %H:%M:%S')${RESET} $*" | tee -a "$LOG_FILE" >&2; }
+die() { error "$*"; exit 1; }
+
+# ====== CONFIG ======
+get_config_value() {
+    local section="$1" key="$2"
+    grep -A1 "^\[$section\]" "$CONFIG_FILE" | grep "$key" | cut -d'=' -f2 | xargs || true
 }
 
-# ======== CORE FILE OPERATIONS ========
+DEFAULT_PORT=$(get_config_value server default_port || echo "8080")
+DEFAULT_PASSWORD=$(get_config_value server default_password || echo "changeme")
 
+# ====== UTILITIES ======
+resolve_path() {
+    [[ "$1" = /* ]] && echo "$1" || echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
+}
+
+# ====== CORE ACTIONS ======
 compress_file() {
-    local infile="$1"
-    local outfile="${infile}.tar.gz"
-    tar -czf "$outfile" -C "$(dirname "$infile")" "$(basename "$infile")"
-    echo "$outfile"
+    local target=$(resolve_path "$1")
+    local output=$(resolve_path "${2:-${target%/}.tar.gz}")
+    log "Compressing $target -> $output"
+    tar -czf "$output" -C "$(dirname "$target")" "$(basename "$target")"
+    success "Compression complete: $output"
 }
 
 decompress_file() {
-    local infile="$1"
-    local outdir="${2:-./extracted}"
-    mkdir -p "$outdir"
-    tar -xzf "$infile" -C "$outdir"
-    echo "$outdir"
+    local file=$(resolve_path "$1")
+    local output_dir=$(resolve_path "${2:-${file%.tar.gz}_extracted}")
+    mkdir -p "$output_dir"
+    log "Decompressing $file -> $output_dir"
+    tar -xzf "$file" -C "$output_dir"
+    success "Decompression complete: $output_dir"
 }
 
 encode_file() {
-    local infile="$1" method="$2"
-    local outfile="${infile}.${method}.enc"
-    case "$method" in
-        base64) base64 "$infile" > "$outfile" ;;
-        base32) base32 "$infile" > "$outfile" ;;
-        hex) xxd -p "$infile" > "$outfile" ;;
-        *) die "Unsupported encoding method: $method" ;;
-    esac
-    echo "$outfile"
+    local file=$(resolve_path "$1")
+    local output=$(resolve_path "${2:-${file%.*}.b64}")
+    base64 "$file" > "$output"
+    success "Encoded $file -> $output"
 }
 
 decode_file() {
-    local infile="$1" method="$2"
-    local outfile="${infile}.${method}.dec"
-    case "$method" in
-        base64) base64 -d "$infile" > "$outfile" ;;
-        base32) base32 -d "$infile" > "$outfile" ;;
-        hex) xxd -r -p "$infile" > "$outfile" ;;
-        *) die "Unsupported decoding method: $method" ;;
-    esac
-    echo "$outfile"
+    local file=$(resolve_path "$1")
+    local output=$(resolve_path "${2:-${file%.*}}")
+    base64 --decode "$file" > "$output"
+    success "Decoded $file -> $output"
 }
 
 encrypt_file() {
-    local infile="$1" pass="$2"
-    local outfile="${infile}.aes"
-    openssl enc -aes-256-cbc -pbkdf2 -salt -in "$infile" -out "$outfile" -pass pass:"$pass"
-    echo "$outfile"
+    local file=$(resolve_path "$1")
+    local output=$(resolve_path "${2:-${file}.enc}")
+    local password="${3:-$DEFAULT_PASSWORD}"
+    [ -z "$password" ] && die "Password required for encryption"
+    openssl enc -aes-256-cbc -salt -in "$file" -out "$output" -pass pass:"$password"
+    success "Encrypted $file -> $output"
 }
 
 decrypt_file() {
-    local infile="$1" pass="$2"
-    local outfile="${infile%.aes}.dec"
-    openssl enc -d -aes-256-cbc -pbkdf2 -in "$infile" -out "$outfile" -pass pass:"$pass"
-    echo "$outfile"
+    local file=$(resolve_path "$1")
+    local output=$(resolve_path "${2:-${file%.enc}}")
+    local password="${3:-$DEFAULT_PASSWORD}"
+    [ -z "$password" ] && die "Password required for decryption"
+    openssl enc -d -aes-256-cbc -in "$file" -out "$output" -pass pass:"$password"
+    success "Decrypted $file -> $output"
 }
-
-# ======== COMPOSABLE WORKFLOWS ========
-
-process_encode() {
-    local infile="$1"
-    local method="${2:-base64}"
-    local compress="${3:-false}"
-    local encrypt="${4:-false}"
-    local pass="${5:-}"
-
-    local current="$infile"
-
-    if [ "$compress" = true ]; then
-        log "Compressing..."
-        current=$(compress_file "$current")
-    fi
-
-    log "Encoding ($method)..."
-    current=$(encode_file "$current" "$method")
-
-    if [ "$encrypt" = true ]; then
-        [ -n "$pass" ] || die "Password required for encryption"
-        log "Encrypting..."
-        current=$(encrypt_file "$current" "$pass")
-    fi
-
-    log "✅ Final output: $current"
-}
-
-process_decode() {
-    local infile="$1"
-    local method="${2:-base64}"
-    local decrypt="${3:-false}"
-    local decompress="${4:-false}"
-    local pass="${5:-}"
-
-    local current="$infile"
-
-    if [ "$decrypt" = true ]; then
-        [ -n "$pass" ] || die "Password required for decryption"
-        log "Decrypting..."
-        current=$(decrypt_file "$current" "$pass")
-    fi
-
-    log "Decoding ($method)..."
-    current=$(decode_file "$current" "$method")
-
-    if [ "$decompress" = true ]; then
-        log "Decompressing..."
-        current=$(decompress_file "$current")
-    fi
-
-    log "✅ Final output directory: $current"
-}
-
-# ======== SERVER ========
 
 serve_file() {
-    local file=""
-    local port="8080"
-    local password=""
-    local one_time=false
-    local max_downloads=0
-    local tls=false
+    local file=$(resolve_path "$1")
+    local port="${2:-$DEFAULT_PORT}"
+    local password="${3:-$DEFAULT_PASSWORD}"
 
-    while [[ $# -gt 0 ]]; do
-        case "$1" in
-            --file) file="$2"; shift 2 ;;
-            --port) port="$2"; shift 2 ;;
-            --password) password="$2"; shift 2 ;;
-            --one-time) one_time=true; shift ;;
-            --max) max_downloads="$2"; shift 2 ;;
-            --tls) tls=true; shift ;;
-            *) die "Unknown option: $1" ;;
-        esac
-    done
+    log "Starting HTTP server for $file on port $port"
+    python3 "$SERVER_SCRIPT" --file "$file" --port "$port" --password "$password" >> "$LOG_FILE" 2>&1 &
+    SERVER_PID=$!
+    warn "Server started (PID $SERVER_PID). Press Ctrl+C to stop."
 
-    [ -f "$file" ] || die "File not found: $file"
-
-    log "Starting Python HTTPS server..."
-    python3 run_server.py --file "$file" --port "$port" \
-        --password "$password" \
-        $( [ "$one_time" = true ] && echo "--one-time" ) \
-        $( [ "$tls" = true ] && echo "--tls" ) \
-        $( [ "$max_downloads" -gt 0 ] && echo "--max $max_downloads" )
+    trap "warn 'Stopping server...'; kill $SERVER_PID 2>/dev/null; success 'Server stopped'; exit 0" INT TERM
+    wait $SERVER_PID
 }
 
-# ======== MAIN COMMAND HANDLER ========
+# ====== HELP ======
+show_help() {
+    if [ -f "${HELP_DIR}/usage.txt" ]; then
+        echo -e "${BOLD}${BLUE}"
+        cat "${HELP_DIR}/usage.txt"
+        echo -e "${RESET}"
+    else
+        echo "Help files missing. Run ./b6se.sh --interactive for guidance."
+    fi
+}
 
-cmd="${1:-help}"
-shift || true
+# ====== INTERACTIVE MODE ======
+interactive_mode() {
+    echo -e "${CYAN}💬 Welcome to the b6se Interactive Assistant${RESET}"
+    echo -e "${YELLOW}Type 'help' to see available commands.${RESET}"
+    while true; do
+        echo -ne "${BOLD}b6se>${RESET} "
+        read -r choice
+        case "$choice" in
+            compress) read -rp "Input: " i; read -rp "Output (optional): " o; compress_file "$i" "${o:-}";;
+            decompress) read -rp "File: " f; read -rp "Output dir: " o; decompress_file "$f" "${o:-}";;
+            encode) read -rp "File: " f; read -rp "Output: " o; encode_file "$f" "${o:-}";;
+            decode) read -rp "File: " f; read -rp "Output: " o; decode_file "$f" "${o:-}";;
+            encrypt) read -rp "File: " f; read -rp "Output: " o; read -rp "Password: " p; encrypt_file "$f" "${o:-}" "${p:-}";;
+            decrypt) read -rp "File: " f; read -rp "Output: " o; read -rp "Password: " p; decrypt_file "$f" "${o:-}" "${p:-}";;
+            serve) read -rp "File: " f; read -rp "Port: " port; read -rp "Password: " pw; serve_file "$f" "${port:-$DEFAULT_PORT}" "${pw:-$DEFAULT_PASSWORD}";;
+            help|--help|-h) show_help;;
+            exit|quit) echo -e "${GREEN}👋 Goodbye${RESET}"; break;;
+            *) echo -e "${RED}❌ Unknown command. Type 'help' for options.${RESET}";;
+        esac
+    done
+}
 
-case "$cmd" in
-    encode)
-        infile=""; method="base64"; compress=false; encrypt=false; pass=""
-        while [[ $# -gt 0 ]]; do
-            case "$1" in
-                --file) infile="$2"; shift 2 ;;
-                --method) method="$2"; shift 2 ;;
-                --compress) compress=true; shift ;;
-                --encrypt) encrypt=true; shift ;;
-                --pass) pass="$2"; shift 2 ;;
-                *) die "Unknown option: $1" ;;
-            esac
-        done
-        [ -n "$infile" ] || die "--file required"
-        process_encode "$infile" "$method" "$compress" "$encrypt" "$pass"
-        ;;
-    decode)
-        infile=""; method="base64"; decrypt=false; decompress=false; pass=""
-        while [[ $# -gt 0 ]]; do
-            case "$1" in
-                --file) infile="$2"; shift 2 ;;
-                --method) method="$2"; shift 2 ;;
-                --decrypt) decrypt=true; shift ;;
-                --decompress) decompress=true; shift ;;
-                --pass) pass="$2"; shift 2 ;;
-                *) die "Unknown option: $1" ;;
-            esac
-        done
-        [ -n "$infile" ] || die "--file required"
-        process_decode "$infile" "$method" "$decrypt" "$decompress" "$pass"
-        ;;
-    serve)
-        serve_file "$@"
-        ;;
-    help|--help|-h)
-        usage
-        ;;
-    *)
-        die "Unknown command: $cmd"
-        ;;
+# ====== MAIN ENTRY ======
+case "${1:-}" in
+    -c|--compress) shift; compress_file "$@";;
+    -x|--decompress) shift; decompress_file "$@";;
+    -e|--encode) shift; encode_file "$@";;
+    -d|--decode) shift; decode_file "$@";;
+    -E|--encrypt) shift; encrypt_file "$@";;
+    -D|--decrypt) shift; decrypt_file "$@";;
+    -s|--serve) shift; serve_file "$@";;
+    -i|--interactive) interactive_mode;;
+    -h|--help|help) show_help;;
+    *) echo -e "${YELLOW}💡 Run './b6se.sh --help' or './b6se.sh --interactive' for guidance.${RESET}";;
 esac
