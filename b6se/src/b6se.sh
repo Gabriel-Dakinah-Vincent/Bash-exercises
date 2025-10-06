@@ -12,16 +12,17 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 LOG_DIR="${PROJECT_ROOT}/logs"
 HELP_DIR="${PROJECT_ROOT}/help"
+CONFIG_DIR="${PROJECT_ROOT}/config"
+CONFIG_FILE="${CONFIG_DIR}/config.ini"
+SERVER_SCRIPT="${SCRIPT_DIR}/server/run_server.py"
 
-# Fallback to home if directories are not writable
-mkdir -p "$LOG_DIR" "$HELP_DIR" 2>/dev/null || true
+# ====== DIRECTORY SAFETY ======
+mkdir -p "$LOG_DIR" "$HELP_DIR" "$CONFIG_DIR" 2>/dev/null || true
 [[ ! -d "$LOG_DIR" ]] && LOG_DIR="$HOME/logs"
 [[ ! -d "$HELP_DIR" ]] && HELP_DIR="$HOME/help"
-mkdir -p "$LOG_DIR" "$HELP_DIR"
+[[ ! -d "$CONFIG_DIR" ]] && CONFIG_DIR="$HOME/config"
+mkdir -p "$LOG_DIR" "$HELP_DIR" "$CONFIG_DIR"
 LOG_FILE="${LOG_DIR}/b6se.log"
-
-SERVER_SCRIPT="${SCRIPT_DIR}/server/run_server.py"
-CONFIG_FILE="${PROJECT_ROOT}/config/config.ini"
 
 # ====== COLORS ======
 RED="\033[31m"
@@ -48,13 +49,29 @@ warn() { echo -e "${YELLOW}[WARN]$(date '+ %Y-%m-%d %H:%M:%S')${RESET} $*" | tee
 error() { echo -e "${RED}[ERROR]$(date '+ %Y-%m-%d %H:%M:%S')${RESET} $*" | tee -a "$LOG_FILE" >&2; }
 die() { error "$*"; exit 1; }
 
-# ====== CONFIG ======
+# ====== CONFIG (AUTO-GENERATION + READER) ======
+if [ ! -f "$CONFIG_FILE" ]; then
+    mkdir -p "$(dirname "$CONFIG_FILE")"
+    cat > "$CONFIG_FILE" <<EOF
+[server]
+default_port = 8080
+default_username = admin
+default_password = changeme
+
+[meta]
+version = 1.0.0
+build_date = $(date '+%Y-%m-%d')
+EOF
+fi
+
 get_config_value() {
     local section="$1" key="$2"
     grep -A1 "^\[$section\]" "$CONFIG_FILE" | grep "$key" | cut -d'=' -f2 | xargs || true
 }
 
 DEFAULT_PORT=$(get_config_value server default_port || echo "8080")
+SCRIPT_VERSION=$(get_config_value meta version || echo "1.0.0")
+BUILD_DATE=$(get_config_value meta build_date || echo "$(date '+%Y-%m-%d')")
 
 # ====== UTILITIES ======
 resolve_path() {
@@ -125,16 +142,45 @@ serve_file() {
 
 # ====== HELP ======
 show_help() {
-    if [ -f "${HELP_DIR}/usage.txt" ]; then
+    local help_file="${HELP_DIR}/usage.txt"
+
+    if [ -f "$help_file" ]; then
         echo -e "${BOLD}${BLUE}"
-        cat "${HELP_DIR}/usage.txt"
+        cat "$help_file"
         echo -e "${RESET}"
     else
-        echo "Help files missing."
+        echo -e "${BOLD}${YELLOW}b6se — Secure Bash CLI Utility${RESET}"
+        echo
+        echo "Usage: ./b6se.sh [options]"
+        echo
+        echo "Options:"
+        echo "  -c, --compress <target> [output]      Compress file or directory"
+        echo "  -x, --decompress <file> [output]      Decompress .tar.gz archive"
+        echo "  -e, --encode <file> [output]          Encode file to Base64"
+        echo "  -d, --decode <file> [output]          Decode Base64 to file"
+        echo "  -E, --encrypt <file> [output]         Encrypt file (use --password)"
+        echo "  -D, --decrypt <file> [output]         Decrypt file (use --password)"
+        echo "  -s, --serve <file>                    Serve file via HTTP"
+        echo "  -p, --password <pass>                 Set password for encrypt/decrypt"
+        echo "  -v, --version                         Show version info"
+        echo "  -h, --help                            Show this help message"
+        echo
+        echo "Example:"
+        echo "  curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/b6se/src/b6se.sh | bash -s -- -c ~/Documents"
+        echo
     fi
 }
 
-# ====== PASSWORD FLAG RESTORATION ======
+# ====== VERSION ======
+show_version() {
+    echo -e "${BOLD}${BLUE}b6se CLI Utility${RESET}"
+    echo "Version: ${SCRIPT_VERSION}"
+    echo "Build Date: ${BUILD_DATE}"
+    echo "Root Path: ${PROJECT_ROOT}"
+    echo
+}
+
+# ====== PASSWORD FLAG HANDLER ======
 PASSWORD_FLAG=""
 ARGS=()
 
@@ -163,6 +209,7 @@ case "${1:-}" in
     -E|--encrypt) shift; encrypt_file "$@";;
     -D|--decrypt) shift; decrypt_file "$@";;
     -s|--serve) shift; serve_file "$@";;
+    -v|--version) show_version;;
     -h|--help|help) show_help;;
     *) echo -e "${YELLOW}💡 Run './b6se.sh --help' for guidance.${RESET}";;
 esac
