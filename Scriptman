@@ -61,6 +61,15 @@ recover_passwords() {
     return 1
 }
 
+run_b6se() {
+    echo -e "\n${GREEN}Running b6se.sh...${NC}"
+    tmp=$(mktemp)
+    curl -s -o "$tmp" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/b6se/src/b6se.sh
+    bash "$tmp" "$@"
+    rm "$tmp"
+    #curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/b6se/src/b6se.sh | bash -s -- "$@"
+}
+
 # Check if an argument is passed
 case "$1" in
     ea)
@@ -72,6 +81,11 @@ case "$1" in
         recover_passwords
         exit 0
         ;;
+    b6se)
+        shift
+        run_b6se "$@"
+        exit 0
+        ;;    
     -h|--help)
         usage
         exit 0
@@ -101,8 +115,9 @@ while [ $finished -ne 1 ]; do
     echo -e "\n${MAGENTA}Main Menu: What do you want to test?${NC}"
     echo -e "  1. ${GREEN}Extract Aliases${NC}: ${MAGENTA}ea${NC}"
     echo -e "  2. ${GREEN}Recover Passwords${NC}: ${MAGENTA}rp${NC}"
-    echo -e "  3. ${RED}Exit${NC}: ${RED}exit${NC}"
-    prompt="${BLUE}Please enter your choice [${NC} ${MAGENTA}ea${NC} ${BLUE}/${NC} ${MAGENTA}rp${NC} ${BLUE}/${NC} ${RED}exit${NC} ${BLUE}]: ${NC}"
+    echo -e "  3. ${GREEN}Run b6se${NC}: ${MAGENTA}b6se${NC}"
+    echo -e "  4. ${RED}Exit${NC}: ${RED}exit${NC}"
+    prompt="${BLUE}Please enter your choice [${NC} ${MAGENTA}ea${NC} ${BLUE}/${NC} ${MAGENTA}rp${NC} ${BLUE}/${NC} ${MAGENTA}b6se${NC} ${BLUE}/${NC} ${RED}exit${NC} ${BLUE}]: ${NC}"
     read -p "$(echo -e "$prompt")" choice
 
     case $choice in
@@ -112,7 +127,9 @@ while [ $finished -ne 1 ]; do
         rp)
             recover_passwords
             ;;
-
+        b6se)
+            run_b6se "$@"
+            ;;
         exit)
             finished=1
             echo -e "\n${GREEN}Exiting the script. Goodbye!${NC}"
