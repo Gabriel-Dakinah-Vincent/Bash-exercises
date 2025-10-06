@@ -1,22 +1,24 @@
 # b6se — Secure Bash CLI Utility
 
 **b6se** (Base64 + Secure Encryptor) is a modular Bash CLI tool for:
-- Compression / Decompression  
-- Encoding / Decoding  
-- AES Encryption / Decryption  
-- Secure HTTP File Sharing  
+
+- Compression / Decompression
+- Encoding / Decoding
+- AES Encryption / Decryption
+- Secure HTTP File Sharing
 
 ---
 
 ## 📦 Features
-- Independent and combined actions  
-- Works with absolute or relative paths  
-- Secure file serving with username + password authentication  
-- Graceful server shutdown (Ctrl+C)  
-- Configurable defaults via `config.ini`  
-- Log rotation (keep 5 logs)  
-- Interactive mode for non-technical users  
-- Offline help in `help/` directory  
+
+- Independent and combined actions
+- Works with absolute or relative paths
+- Secure file serving with username + password authentication
+- Graceful server shutdown (Ctrl+C)
+- Configurable defaults via `config.ini`
+- Log rotation (keep 5 logs)
+- Interactive mode for non-technical users
+- Offline help in `help/` directory
 
 ---
 
@@ -43,9 +45,7 @@ Compress	./src/b6se.sh -c file.txt
 Decompress	./src/b6se.sh -x file.txt.tar.gz
 Encode	./src/b6se.sh -e file.txt
 Decode	./src/b6se.sh -d file.b64
-Encrypt (default password)	./src/b6se.sh -E file.txt
 Encrypt (custom password)	./src/b6se.sh --password mySecret123 -E file.txt
-Decrypt (default password)	./src/b6se.sh -D file.txt.enc
 Decrypt (custom password)	./src/b6se.sh --password mySecret123 -D file.txt.enc
 Serve securely on custom port	./src/b6se.sh -s file.txt
 
@@ -61,8 +61,6 @@ default_port = 8080
 default_username = admin
 default_password = changeme
 
-You can override the password dynamically with the --password flag for encryption, decryption, or secure file serving.
-
 ⸻
 
 🧪 Test Scenarios
@@ -72,9 +70,8 @@ Compress a directory	./src/b6se.sh -c ./project	Creates project.tar.gz
 Decompress an archive	./src/b6se.sh -x project.tar.gz	Extracts files to project_extracted/
 Encode a file	./src/b6se.sh -e notes.txt	Creates notes.b64
 Decode a Base64 file	./src/b6se.sh -d notes.b64	Restores notes.txt
-Encrypt with default password	./src/b6se.sh -E report.pdf	Creates report.pdf.enc
 Encrypt with custom password	./src/b6se.sh --password mySecret -E report.pdf	Creates report.pdf.enc
-Decrypt with default password	./src/b6se.sh -D report.pdf.enc	Restores report.pdf
+Decrypt with custom password	./src/b6se.sh --password mySecret -D report.pdf.enc	Restores report.pdf
 Serve file securely	./src/b6se.sh -s report.pdf	Starts local HTTP file server
 Stop server safely	Ctrl + C	Server shuts down gracefully
 
@@ -103,3 +100,4 @@ at Elevation Institute of Technology, Monrovia.
 	•	Fully modular — each feature works standalone or in combination
 
 ---
+```

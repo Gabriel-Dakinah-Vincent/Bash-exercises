@@ -6,6 +6,7 @@ import configparser
 import base64
 from functools import partial
 
+
 class SecureHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, username=None, password=None, **kwargs):
         self.username = username
@@ -34,16 +35,21 @@ class SecureHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def _unauthorized(self):
         self.send_response(401)
-        self.send_header('WWW-Authenticate', 'Basic realm=\"b6se Secure Server\"')
+        self.send_header('WWW-Authenticate',
+                         'Basic realm=\"b6se Secure Server\"')
         self.end_headers()
         self.wfile.write(b"Unauthorized")
 
+
 def main():
     config = configparser.ConfigParser()
-    config.read(os.path.join(os.path.dirname(__file__), '../../config/config.ini'))
+    config.read(os.path.join(os.path.dirname(
+        __file__), '../../config/config.ini'))
     default_port = int(config.get('server', 'default_port', fallback='8080'))
-    default_username = config.get('server', 'default_username', fallback='user')
-    default_password = config.get('server', 'default_password', fallback='changeme')
+    default_username = config.get(
+        'server', 'default_username', fallback='user')
+    default_password = config.get(
+        'server', 'default_password', fallback='changeme')
 
     if len(sys.argv) < 3 or sys.argv[1] != '--file':
         print("Usage: run_server.py --file <path>")
@@ -52,10 +58,12 @@ def main():
     file_path = sys.argv[2]
     os.chdir(os.path.dirname(os.path.abspath(file_path)))
 
-    handler = partial(SecureHTTPRequestHandler, username=default_username, password=default_password)
+    handler = partial(SecureHTTPRequestHandler,
+                      username=default_username, password=default_password)
     with socketserver.TCPServer(("", default_port), handler) as httpd:
         print(f"Serving '{file_path}' at http://localhost:{default_port}")
-        print(f"🔐 Authentication required → Username: {default_username}, Password: {default_password}")
+        print(
+            f"🔐 Authentication required → Username: {default_username}, Password: {default_password}")
         print("Press Ctrl+C to stop.")
         try:
             httpd.serve_forever()
@@ -63,5 +71,7 @@ def main():
             print("\nServer stopped gracefully.")
             sys.exit(0)
 
+
 if __name__ == "__main__":
     main()
+# Note: This script sets up a simple HTTP server with basic authentication.

@@ -16,13 +16,11 @@ Commands:
   -h,  --help
 
 Options:
-  --password <pass>    Override default password (for encryption/decryption only)
+  --password <pass> (for encryption/decryption only)
 
 Examples:
   ./b6se.sh --compress report.txt
   ./b6se.sh --encode data.csv
-  ./b6se.sh --encrypt secret.pdf
   ./b6se.sh --password mySecret123 --encrypt secret.pdf
-  ./b6se.sh --decrypt secret.pdf.enc
   ./b6se.sh --password mySecret123 --decrypt secret.pdf.enc
   ./b6se.sh --serve file.tar.gz

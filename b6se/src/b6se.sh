@@ -49,25 +49,6 @@ get_config_value() {
 }
 
 DEFAULT_PORT=$(get_config_value server default_port || echo "8080")
-# Note: For security reasons, the use of a default password is discouraged.
-# DEFAULT_PASSWORD is now intentionally disabled.
-# Encryption and decryption must use the --password flag explicitly.
-# This line is kept commented for reference and backward compatibility.
-# DEFAULT_PASSWORD=$(get_config_value server default_password || echo "changeme")
-
-# ====== PASSWORD FLAG SUPPORT ======
-PASSWORD_OVERRIDE=""
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        --password)
-            PASSWORD_OVERRIDE="$2"
-            shift 2
-            ;;
-        *)
-            break
-            ;;
-    esac
-done
 
 # ====== UTILITIES ======
 resolve_path() {
@@ -109,13 +90,8 @@ decode_file() {
 encrypt_file() {
     local file=$(resolve_path "$1")
     local output=$(resolve_path "${2:-${file}.enc}")
-    local password="${PASSWORD_OVERRIDE:-$DEFAULT_PASSWORD}"
-
-    if [ -z "$password" ]; then
-        die "Password required for encryption"
-    fi
-
-    log "Encrypting $file with AES-256..."
+    local password="$PASSWORD_FLAG"
+    [ -z "$password" ] && die "Password required for encryption (use --password)"
     openssl enc -aes-256-cbc -salt -in "$file" -out "$output" -pass pass:"$password"
     success "Encrypted $file -> $output"
 }
@@ -123,13 +99,8 @@ encrypt_file() {
 decrypt_file() {
     local file=$(resolve_path "$1")
     local output=$(resolve_path "${2:-${file%.enc}}")
-    local password="${PASSWORD_OVERRIDE:-$DEFAULT_PASSWORD}"
-
-    if [ -z "$password" ]; then
-        die "Password required for decryption"
-    fi
-
-    log "Decrypting $file with AES-256..."
+    local password="$PASSWORD_FLAG"
+    [ -z "$password" ] && die "Password required for decryption (use --password)"
     openssl enc -d -aes-256-cbc -in "$file" -out "$output" -pass pass:"$password"
     success "Decrypted $file -> $output"
 }
@@ -154,6 +125,26 @@ show_help() {
         echo "Help files missing."
     fi
 }
+
+# ====== PASSWORD FLAG RESTORATION ======
+PASSWORD_FLAG=""
+ARGS=()
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -p|--password)
+            shift
+            PASSWORD_FLAG="$1"
+            shift
+            ;;
+        *)
+            ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+
+set -- "${ARGS[@]}"
 
 # ====== MAIN ENTRY ======
 case "${1:-}" in
