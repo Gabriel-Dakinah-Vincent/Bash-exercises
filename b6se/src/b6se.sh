@@ -7,15 +7,21 @@
 set -euo pipefail
 
 # ====== PATHS ======
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-${0}}")" >/dev/null 2>&1 && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
 LOG_DIR="${PROJECT_ROOT}/logs"
-LOG_FILE="${LOG_DIR}/b6se.log"
-SERVER_SCRIPT="${SCRIPT_DIR}/server/run_server.py"
-CONFIG_FILE="${PROJECT_ROOT}/config/config.ini"
 HELP_DIR="${PROJECT_ROOT}/help"
 
+# Fallback to home if directories are not writable
+mkdir -p "$LOG_DIR" "$HELP_DIR" 2>/dev/null || true
+[[ ! -d "$LOG_DIR" ]] && LOG_DIR="$HOME/logs"
+[[ ! -d "$HELP_DIR" ]] && HELP_DIR="$HOME/help"
 mkdir -p "$LOG_DIR" "$HELP_DIR"
+LOG_FILE="${LOG_DIR}/b6se.log"
+
+SERVER_SCRIPT="${SCRIPT_DIR}/server/run_server.py"
+CONFIG_FILE="${PROJECT_ROOT}/config/config.ini"
 
 # ====== COLORS ======
 RED="\033[31m"
@@ -52,7 +58,9 @@ DEFAULT_PORT=$(get_config_value server default_port || echo "8080")
 
 # ====== UTILITIES ======
 resolve_path() {
-    [[ "$1" = /* ]] && echo "$1" || echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
+    local path="$1"
+    path="${path/#\~/$HOME}"  # Expand ~ to home
+    [[ "$path" = /* ]] && echo "$path" || echo "$(pwd)/$path"
 }
 
 # ====== CORE ACTIONS ======
