@@ -133,7 +133,17 @@ decrypt_file() {
 serve_file() {
     local file=$(resolve_path "$1")
     log "Starting HTTP server for $file on port $DEFAULT_PORT"
-    python3 "$SERVER_SCRIPT" --file "$file" >> "$LOG_FILE" 2>&1 &
+
+    local server_script="$SERVER_SCRIPT"
+
+    # Fallback: download temporary copy if missing
+    if [ ! -f "$server_script" ]; then
+        warn "Server script not found locally. Downloading temporary copy..."
+        server_script=$(mktemp)
+        curl -s -o "$server_script" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/b6se/src/server/run_server.py
+    fi
+
+    python3 "$server_script" --file "$file" >> "$LOG_FILE" 2>&1 &
     SERVER_PID=$!
     warn "Server started (PID $SERVER_PID). Press Ctrl+C to stop."
     trap "warn 'Stopping server...'; kill $SERVER_PID 2>/dev/null; success 'Server stopped'; exit 0" INT TERM
