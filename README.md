@@ -64,8 +64,8 @@ sudo chmod +x /usr/local/bin/Scriptman
 
 Now you can use:
 
-scriptman ea -q -o output.html
-scriptman rp
+Scriptman ea -q -o output.html
+Scriptman rp
 
 
 ⸻
