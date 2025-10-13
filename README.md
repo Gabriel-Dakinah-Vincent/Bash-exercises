@@ -131,13 +131,22 @@ curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises
 
 ### Local Execution
 
+```bash
 bash Scriptman ea -q -o aliases.md
+```
+```bash
 bash Scriptman b6se --encrypt file.txt --password mySecret123
-bash Scriptman b6se -c myfolder        # Compress folder (auto-detect format)
-bash Scriptman b6se -x archive.zip     # Decompress ZIP
-bash Scriptman b6se -x archive.7z      # Decompress 7Z
-
-Remote Execution
+```
+```bash
+bash Scriptman b6se -c myfolder  
+```
+```bash
+bash Scriptman b6se -x archive.zip 
+```
+```bash
+bash Scriptman b6se -x archive.7z
+```
+## Remote Execution
 ```bash
 curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- ea -q -o aliases.md
 ```
@@ -176,13 +185,21 @@ Aliases have been written to output.md
 ⸻
 
 ### Example 2: Run b6se Secure CLI
-
+```bash
 bash Scriptman b6se --serve ~/Documents
-bash Scriptman b6se -c myfolder            # Compress folder (auto-detect)
-bash Scriptman b6se -x archive.tar.gz      # Decompress TAR.GZ
-bash Scriptman b6se -x archive.zip         # Decompress ZIP
-bash Scriptman b6se -x archive.7z          # Decompress 7Z
-
+```
+```bash
+bash Scriptman b6se -c myfolder 
+```
+```bash
+bash Scriptman b6se -x archive.tar.gz 
+```
+```bash
+bash Scriptman b6se -x archive.zip  
+```
+```bash
+bash Scriptman b6se -x archive.7z  
+```
 ## Output:
 
 [INFO] 2025-10-07 20:30:26 Starting HTTP server for ~/Documents on port 8080
