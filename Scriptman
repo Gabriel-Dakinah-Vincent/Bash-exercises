@@ -115,9 +115,9 @@ while [ $finished -ne 1 ]; do
     echo -e "\n${MAGENTA}Main Menu: What do you want to test?${NC}"
     echo -e "  1. ${GREEN}Extract Aliases${NC}: ${MAGENTA}ea${NC}"
     echo -e "  2. ${GREEN}Recover Passwords${NC}: ${MAGENTA}rp${NC}"
-    echo -e "  3. ${GREEN}Run b6se${NC}: ${MAGENTA}b6se${NC}"
+    #echo -e "  3. ${GREEN}Run b6se${NC}: ${MAGENTA}b6se${NC}"
     echo -e "  4. ${RED}Exit${NC}: ${RED}exit${NC}"
-    prompt="${BLUE}Please enter your choice [${NC} ${MAGENTA}ea${NC} ${BLUE}/${NC} ${MAGENTA}rp${NC} ${BLUE}/${NC} ${MAGENTA}b6se${NC} ${BLUE}/${NC} ${RED}exit${NC} ${BLUE}]: ${NC}"
+    prompt="${BLUE}Please enter your choice [${NC} ${MAGENTA}ea${NC} ${BLUE}/${NC} ${MAGENTA}rp${NC} ${BLUE}/${NC}s ${BLUE}/${NC} ${RED}exit${NC} ${BLUE}]: ${NC}"
     read -p "$(echo -e "$prompt")" choice
 
     case $choice in
@@ -127,9 +127,9 @@ while [ $finished -ne 1 ]; do
         rp)
             recover_passwords
             ;;
-        b6se)
-            run_b6se "$@"
-            ;;
+        #b6se)
+        #    run_b6se "$@"
+        #    ;;
         exit)
             finished=1
             echo -e "\n${GREEN}Exiting the script. Goodbye!${NC}"
