@@ -272,4 +272,4 @@ Version 1.3.0 — Multi-Format Compression Update
 	•	Enhanced compatibility for Linux and WSL environments
 	•	Fully integrated with Scriptman CLI for both local and remote execution
 
----
+----
