@@ -32,6 +32,7 @@ Run Scriptman directly from the internet with one command:
 ```bash
 curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- --help
 ```
+![Demo Preview](./gif/quick-start.gif)
 
 ⸻
 
@@ -77,6 +78,7 @@ sudo curl -s -o /usr/local/bin/Scriptman https://raw.githubusercontent.com/Gabri
 ```bash
 sudo chmod +x /usr/local/bin/Scriptman
 ```
+![Demo Preview](./gif/make-permanent.gif)
 Now you can use commands like:
 ```bash
 Scriptman ea -q -o output.html
@@ -87,7 +89,7 @@ Scriptman rp
 ```bash
 Scriptman b6se --help
 ```
-
+![Demo Preview](./gif/b6se-help.gif)
 ⸻
 
 ## Usage
@@ -118,13 +120,15 @@ Please enter your choice (ea/rp/exit):
 ```bash
 curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- ea -h
 ```
+![Demo Preview](./gif/ea-h.gif)
 ```bash
 curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- rp --help
 ```
+![Demo Preview](./gif/rp-h.gif)
 ```bash
 curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | sudo bash -s -- b6se --version
 ```
-
+![Demo Preview](./gif/b6se-version.gif)
 ⸻
 
 ## Passing Arguments
@@ -150,13 +154,15 @@ bash Scriptman b6se -x archive.7z
 ```bash
 curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- ea -q -o aliases.md
 ```
+![Demo Preview](./gif/re1.gif)
 ```bash
 curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- rp
 ```
+![Demo Preview](./gif/re2.gif)
 ```bash
 curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | sudo bash -s -- b6se -c myfolder
 ```
-
+![Demo Preview](./gif/re3.gif)
 ⸻
 
 ## Useful Links
