@@ -169,10 +169,10 @@ curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises
 
 | **Description** | **Command** |
 |-----------------|-------------|
-| Run Scriptman with Extract Aliases | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- ea --help</code></pre></details> |
-| Run Extract Aliases directly | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/extract-aliases/src/extract_aliases.sh | bash -s -- --help</code></pre></details> |
-| Run Scriptman with Secure CLI Utility | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | sudo bash -s -- b6se --help</code></pre></details> |
-| Run b6se Secure CLI | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/b6se/src/b6se.sh | sudo bash -s -- --help</code></pre></details> |
+| Displays Scriptman help and usage | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman \| bash -s -- --help</code></pre></details> |
+| Run Extract Aliases | <details><summary>Show Command</summary><pre><code>curl -s curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman \| bash -s -- ea -q -o aliases.html</code></pre></details> |
+| Display CLI Utility  help and usage | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman \| sudo bash -s -- b6se --help</code></pre></details> |
+| Serve file via HTTP | <details><summary>Show Command</summary><pre><code> curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman \| sudo bash -s -- b6se --serve</code></pre></details> |
 
 ## Examples
 
