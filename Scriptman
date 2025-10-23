@@ -47,7 +47,7 @@ usage() {
 
 # Function to extract aliases
 extract_aliases() {
-    echo -e "\n${GREEN}Extracting aliases...${NC}"
+    echo -e "\n${GREEN}Running extract_aliases.sh...${NC}"
     tmp=$(mktemp)
     curl -s -o "$tmp" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/main/extract-aliases/src/extract_aliases.sh
     bash "$tmp" "$@"
