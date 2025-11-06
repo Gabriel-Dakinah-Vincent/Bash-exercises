@@ -30,9 +30,9 @@
 Run Scriptman directly from the internet with one command:
 
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- --help
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | bash -s -- --help
 ```
-![Demo Preview](./.assets/.gif/quick-start.gif)
+![Demo Preview](./assets/.gif/quick-start.gif)
 
 ⸻
 
@@ -73,12 +73,12 @@ No installation is required — everything runs directly in your shell.
 To make it permanent:
 
 ```bash
-sudo curl -s -o /usr/local/bin/Scriptman https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman
+sudo curl -s -o /usr/local/bin/Scriptman https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman
 ```
 ```bash
 sudo chmod +x /usr/local/bin/Scriptman
 ```
-![Demo Preview](./.assets/.gif/make-permanent.gif)
+![Demo Preview](./assets/.gif/make-permanent.gif)
 Now you can use commands like:
 ```bash
 Scriptman ea -q -o output.html
@@ -89,7 +89,7 @@ Scriptman rp
 ```bash
 Scriptman b6se --help
 ```
-![Demo Preview](./.assets/.gif/b6se-help.gif)
+![Demo Preview](./assets/.gif/b6se-help.gif)
 ⸻
 
 ## Usage
@@ -118,17 +118,17 @@ Please enter your choice (ea/rp/exit):
 
 ## Direct Execution
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- ea -h
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | bash -s -- ea -h
 ```
-![Demo Preview](./.assets/.gif/ea-h.gif)
+![Demo Preview](./assets/.gif/ea-h.gif)
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- rp --help
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | bash -s -- rp --help
 ```
-![Demo Preview](./.assets/.gif/rp-h.gif)
+![Demo Preview](./assets/.gif/rp-h.gif)
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | sudo bash -s -- b6se --version
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | sudo bash -s -- b6se --version
 ```
-![Demo Preview](./.assets/.gif/b6se-version.gif)
+![Demo Preview](./assets/.gif/b6se-version.gif)
 ⸻
 
 ## Passing Arguments
@@ -152,27 +152,27 @@ bash Scriptman b6se -x archive.7z
 ```
 ## Remote Execution
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- ea -q -o aliases.md
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | bash -s -- ea -q -o aliases.md
 ```
-![Demo Preview](./.assets/.gif/re1.gif)
+![Demo Preview](./assets/.gif/re1.gif)
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | bash -s -- rp
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | bash -s -- rp
 ```
-![Demo Preview](./.assets/.gif/re2.gif)
+![Demo Preview](./assets/.gif/re2.gif)
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman | sudo bash -s -- b6se -c myfolder
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | sudo bash -s -- b6se -c myfolder
 ```
-![Demo Preview](./.assets/.gif/re3.gif)
+![Demo Preview](./assets/.gif/re3.gif)
 ⸻
 
 ## Useful Links
 
 | **Description** | **Command** |
 |-----------------|-------------|
-| Displays Scriptman help and usage | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman \| bash -s -- --help</code></pre></details> |
-| Run Extract Aliases | <details><summary>Show Command</summary><pre><code>curl -s curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman \| bash -s -- ea -q -o aliases.html</code></pre></details> |
-| Display CLI Utility  help and usage | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman \| sudo bash -s -- b6se --help</code></pre></details> |
-| Serve file via HTTP | <details><summary>Show Command</summary><pre><code> curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/Scriptman \| sudo bash -s -- b6se --serve</code></pre></details> |
+| Displays Scriptman help and usage | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- --help</code></pre></details> |
+| Run Extract Aliases | <details><summary>Show Command</summary><pre><code>curl -s curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea -q -o aliases.html</code></pre></details> |
+| Display CLI Utility  help and usage | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se --help</code></pre></details> |
+| Serve file via HTTP | <details><summary>Show Command</summary><pre><code> curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se --serve</code></pre></details> |
 
 ## Examples
 
