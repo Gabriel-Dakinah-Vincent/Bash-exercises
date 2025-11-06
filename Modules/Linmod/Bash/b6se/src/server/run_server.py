@@ -44,7 +44,7 @@ class SecureHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 def main():
     config = configparser.ConfigParser()
     config.read(os.path.join(os.path.dirname(
-        __file__), '../../config/config.ini'))
+        __file__), '../../config/config.ini')) # Adjust path as needed
     default_port = int(config.get('server', 'default_port', fallback='8080'))
     default_username = config.get(
         'server', 'default_username', fallback='user')

@@ -49,10 +49,10 @@ usage() {
 extract_aliases() {
     echo -e "\n${GREEN}Running extract_aliases.sh...${NC}"
     tmp=$(mktemp)
-    curl -s -o "$tmp" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/main/extract-aliases/src/extract_aliases.sh
+    curl -s -o "$tmp" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Modules/Linmod/Bash/extract-aliases/src/extract_aliases.sh
     bash "$tmp" "$@"
     rm "$tmp"
-    #curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/main/extract-aliases/src/extract_aliases.sh | bash -s -- "$@"
+    #curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Modules/Linmod/Bash/extract-aliases/src/extract_aliases.sh | bash -s -- "$@"
 }
 
 # Function to recover passwords (not implemented yet)
@@ -65,10 +65,10 @@ recover_passwords() {
 run_b6se() {
     echo -e "\n${GREEN}Running b6se.sh...${NC}"
     tmp=$(mktemp)
-    curl -s -o "$tmp" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/b6se/src/b6se.sh
+    curl -s -o "$tmp" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Modules/Linmod/Bash/b6se/src/b6se.sh
     bash "$tmp" "$@"
     rm -f "$tmp"
-    #curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se/b6se/src/b6se.sh | bash -s -- "$@"
+    #curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Modules/Linmod/Bash/b6se/src/b6se.sh | bash -s -- "$@"
 }
 
 # Check if an argument is passed
