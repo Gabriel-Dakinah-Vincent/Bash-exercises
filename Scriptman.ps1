@@ -14,7 +14,7 @@ param(
     [Parameter(Position = 0)]
     [string]$Module,
     [Parameter(Position = 1)]
-    [string[]]$Args
+    [string[]]$ModuleArgs
 )
 
 # === Paths ===
@@ -30,7 +30,7 @@ function Write-Color($text, $color = 'White') {
 function Show-Banner {
     Write-Color "`n=== Scriptman PowerShell Launcher ===" Magenta
     Write-Color "Environment: Windows PowerShell" Yellow
-    Write-Color "Version: 1.0.0`n" DarkGray
+    Write-Color "Version: 1.0.1`n" DarkGray
 }
 Show-Banner
 
@@ -41,13 +41,14 @@ function Invoke-ModuleRemote {
         [string]$ModuleScript
     )
 
-    $rawUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/$RepoPath/$ModuleScript"
+    # ✅ Corrected raw GitHub URL format
+    $rawUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/$RepoPath/$ModuleScript"
 
     try {
         Write-Color "[*] Fetching remote module from GitHub..." Cyan
         $tmp = New-TemporaryFile
         Invoke-WebRequest -Uri $rawUrl -OutFile $tmp -UseBasicParsing
-        Write-Color "[+] Executing module remotely..." Green
+        Write-Color "[+] Executing remote module..." Green
         . $tmp
         Remove-Item $tmp -Force
     }
@@ -79,11 +80,10 @@ switch ($Module.ToLower()) {
         else {
             Write-Color "[!] Local module not found. Running remotely..." Yellow
             Invoke-ModuleRemote "modules/Winmod/powershell/UserAudit" "UserAudit.psm1"
-            exit
         }
 
         # === Handle Help Argument ===
-        if ($Args -and ($Args -contains '--help' -or $Args -contains '-h')) {
+        if ($ModuleArgs -and ($ModuleArgs -contains '--help' -or $ModuleArgs -contains '-h')) {
             Show-UserAuditHelp
             exit
         }
