@@ -32,7 +32,7 @@ function Scriptman {
     function Show-Banner {
         Write-Color "`n=== Scriptman PowerShell Launcher ===" Magenta
         Write-Color "Environment: Windows PowerShell" Yellow
-        Write-Color "Version: 1.0.3`n" DarkGray
+        Write-Color "Version: 1.0.4`n" DarkGray
     }
     Show-Banner
 
@@ -50,8 +50,8 @@ function Scriptman {
             Write-Color "[*] Fetching remote module from GitHub..." Cyan
             $tmp = New-TemporaryFile
             Invoke-WebRequest -Uri $rawUrl -OutFile $tmp -UseBasicParsing
-            Write-Color "[+] Executing remote module..." Green
-            . $tmp
+            Write-Color "[+] Importing remote module..." Green
+            Import-Module $tmp -Force
             Remove-Item $tmp -Force
         }
         catch {
