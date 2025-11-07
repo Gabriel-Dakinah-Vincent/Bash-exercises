@@ -3,7 +3,7 @@
  Scriptman PowerShell launcher for Bash-Exercises Project.
 
 .DESCRIPTION
- Runs local PowerShell modules under modules\Winmod\powershell\
+ Runs local PowerShell modules under Modules\Winmod\PowerShell\
  or automatically fetches them remotely from GitHub if missing.
 
 .AUTHOR
@@ -21,7 +21,7 @@ function Scriptman {
     # === Paths ===
     # ✅ Compatible with remote execution (no file path dependency)
     $Root = (Get-Location).Path
-    $ModuleRoot = Join-Path $Root "modules\Winmod\powershell"
+    $ModuleRoot = Join-Path $Root "Modules\Winmod\PowerShell"
 
     # === Colors ===
     function Write-Color($text, $color = 'White') {
@@ -81,7 +81,7 @@ function Scriptman {
             }
             else {
                 Write-Color "[!] Local module not found. Running remotely..." Yellow
-                Invoke-ModuleRemote "modules/Winmod/powershell/UserAudit" "UserAudit.psm1"
+                Invoke-ModuleRemote "Modules/Winmod/PowerShell/UserAudit" "UserAudit.psm1"
             }
 
             # === Handle Help Argument ===
