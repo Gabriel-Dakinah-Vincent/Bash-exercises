@@ -10,7 +10,7 @@ bash Scriptman -h > /dev/null 2>&1 || { echo "Test failed: Scriptman help not wo
 echo "Scriptman basic test passed."
 
 # Test extract_aliases.sh
-if [[ ! -f "extract-aliases/src/extract_aliases.sh" ]]; then
+if [[ ! -f "Modules\Linmod\Bash\extract-aliases\src\extract_aliases.sh" ]]; then
     echo "Test failed: extract_aliases.sh not found."
     exit 1
 fi
