@@ -84,11 +84,9 @@ This script automatically imports the module and runs all three audit commands s
 You can run UserAudit directly from GitHub:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/modules/Winmod/powershell/UserAudit/UserAudit.ps1 | iex"
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman audit-user"
 ```
-```powershell
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman.ps1 | iex; Scriptman user-audit"
-```
+
 💬 This is useful for quick remote audits or testing environments where the module is not yet cloned locally.
 
 ⸻
