@@ -10,93 +10,105 @@
  Gabriel Dakinah Vincent
 #>
 
-param(
-    [Parameter(Position = 0)]
-    [string]$Module,
-    [Parameter(Position = 1)]
-    [string[]]$ModuleArgs
-)
-
-# === Paths ===
-$Root = Split-Path -Parent $MyInvocation.MyCommand.Definition
-$ModuleRoot = Join-Path $Root "modules\Winmod\powershell"
-
-# === Colors ===
-function Write-Color($text, $color = 'White') {
-    Write-Host $text -ForegroundColor $color
-}
-
-# === Banner ===
-function Show-Banner {
-    Write-Color "`n=== Scriptman PowerShell Launcher ===" Magenta
-    Write-Color "Environment: Windows PowerShell" Yellow
-    Write-Color "Version: 1.0.1`n" DarkGray
-}
-Show-Banner
-
-# === Helper: Run a remote PowerShell module from GitHub ===
-function Invoke-ModuleRemote {
+function Scriptman {
     param(
-        [string]$RepoPath,
-        [string]$ModuleScript
+        [Parameter(Position = 0)]
+        [string]$Module,
+        [Parameter(Position = 1)]
+        [string[]]$ModuleArgs
     )
 
-    # ✅ Corrected raw GitHub URL format
-    $rawUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/$RepoPath/$ModuleScript"
+    # === Paths ===
+    # ✅ Compatible with remote execution (no file path dependency)
+    $Root = (Get-Location).Path
+    $ModuleRoot = Join-Path $Root "modules\Winmod\powershell"
 
-    try {
-        Write-Color "[*] Fetching remote module from GitHub..." Cyan
-        $tmp = New-TemporaryFile
-        Invoke-WebRequest -Uri $rawUrl -OutFile $tmp -UseBasicParsing
-        Write-Color "[+] Executing remote module..." Green
-        . $tmp
-        Remove-Item $tmp -Force
+    # === Colors ===
+    function Write-Color($text, $color = 'White') {
+        Write-Host $text -ForegroundColor $color
     }
-    catch {
-        Write-Color "[!] Failed to fetch remote module: $_" Red
+
+    # === Banner ===
+    function Show-Banner {
+        Write-Color "`n=== Scriptman PowerShell Launcher ===" Magenta
+        Write-Color "Environment: Windows PowerShell" Yellow
+        Write-Color "Version: 1.0.3`n" DarkGray
     }
+    Show-Banner
+
+    # === Helper: Run a remote PowerShell module from GitHub ===
+    function Invoke-ModuleRemote {
+        param(
+            [string]$RepoPath,
+            [string]$ModuleScript
+        )
+
+        # ✅ Corrected raw GitHub URL format
+        $rawUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/$RepoPath/$ModuleScript"
+
+        try {
+            Write-Color "[*] Fetching remote module from GitHub..." Cyan
+            $tmp = New-TemporaryFile
+            Invoke-WebRequest -Uri $rawUrl -OutFile $tmp -UseBasicParsing
+            Write-Color "[+] Executing remote module..." Green
+            . $tmp
+            Remove-Item $tmp -Force
+        }
+        catch {
+            Write-Color "[!] Failed to fetch remote module: $_" Red
+        }
+    }
+
+    # === Usage Help ===
+    if (-not $Module) {
+        Write-Color "Usage: Scriptman <module-name> [options]" Cyan
+        Write-Host "`nAvailable Local Modules:`n"
+        if (Test-Path $ModuleRoot) {
+            Get-ChildItem "$ModuleRoot" -Directory | ForEach-Object { Write-Color "  - $($_.Name)" Green }
+        } else {
+            Write-Color "No local modules found." Yellow
+        }
+        return
+    }
+
+    # === Dispatcher ===
+    switch ($Module.ToLower()) {
+        'audit-user' {
+            $ModulePath = Join-Path $ModuleRoot "UserAudit\UserAudit.psm1"
+            if (Test-Path $ModulePath) {
+                Write-Color "[+] Loading local module: UserAudit" Cyan
+                Import-Module $ModulePath -Force
+            }
+            else {
+                Write-Color "[!] Local module not found. Running remotely..." Yellow
+                Invoke-ModuleRemote "modules/Winmod/powershell/UserAudit" "UserAudit.psm1"
+            }
+
+            # === Handle Help Argument ===
+            if ($ModuleArgs -and ($ModuleArgs -contains '--help' -or $ModuleArgs -contains '-h')) {
+                Show-UserAuditHelp
+                return
+            }
+
+            # === Run main module actions ===
+            Write-Color "`n--- User Audit Report ---" Magenta
+            Get-UserAudit
+            Get-LocalAdmins
+            Get-UserLastLogon
+        }
+
+        default {
+            Write-Color "[!] Unknown module: '$Module'" Red
+            Write-Color "Try: Scriptman audit-user" Cyan
+            return
+        }
+    }
+
+    # === Completion Message ===
+    Write-Color "`n✅ Module execution complete.`n" Green
 }
 
-# === Usage Help ===
-if (-not $Module) {
-    Write-Color "Usage: .\Scriptman.ps1 <module-name> [options]" Cyan
-    Write-Host "`nAvailable Local Modules:`n"
-    if (Test-Path $ModuleRoot) {
-        Get-ChildItem "$ModuleRoot" -Directory | ForEach-Object { Write-Color "  - $($_.Name)" Green }
-    } else {
-        Write-Color "No local modules found." Yellow
-    }
-    exit
-}
-
-# === Dispatcher ===
-switch ($Module.ToLower()) {
-    'audit-user' {
-        $ModulePath = Join-Path $ModuleRoot "UserAudit\UserAudit.psm1"
-        if (Test-Path $ModulePath) {
-            Write-Color "[+] Loading local module: UserAudit" Cyan
-            Import-Module $ModulePath -Force
-        }
-        else {
-            Write-Color "[!] Local module not found. Running remotely..." Yellow
-            Invoke-ModuleRemote "modules/Winmod/powershell/UserAudit" "UserAudit.psm1"
-        }
-
-        # === Handle Help Argument ===
-        if ($ModuleArgs -and ($ModuleArgs -contains '--help' -or $ModuleArgs -contains '-h')) {
-            Show-UserAuditHelp
-            exit
-        }
-
-        # === Run main module actions ===
-        Write-Color "`n--- User Audit Report ---" Magenta
-        Get-UserAudit
-        Get-LocalAdmins
-        Get-UserLastLogon
-    }
-
-    default {
-        Write-Color "[!] Unknown module: '$Module'" Red
-        Write-Color "Try: .\Scriptman.ps1 audit-user" Cyan
-    }
+# === Auto-run if parameters were passed ===
+if ($args.Count -gt 0) {
+    Scriptman @args
 }
