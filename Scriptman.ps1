@@ -19,7 +19,6 @@ function Scriptman {
     )
 
     # === Paths ===
-    # ✅ Compatible with remote execution (no file path dependency)
     $Root = (Get-Location).Path
     $ModuleRoot = Join-Path $Root "Modules\Winmod\PowerShell"
 
@@ -43,16 +42,20 @@ function Scriptman {
             [string]$ModuleScript
         )
 
-        # ✅ Corrected raw GitHub URL format
         $rawUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/$RepoPath/$ModuleScript"
 
         try {
             Write-Color "[*] Fetching remote module from GitHub..." Cyan
-            $tmp = New-TemporaryFile
-            Invoke-WebRequest -Uri $rawUrl -OutFile $tmp -UseBasicParsing
+
+            # ✅ Save with correct .psm1 extension
+            $tmpPath = Join-Path $env:TEMP $ModuleScript
+            Invoke-WebRequest -Uri $rawUrl -OutFile $tmpPath -UseBasicParsing
+
             Write-Color "[+] Importing remote module..." Green
-            Import-Module $tmp -Force
-            Remove-Item $tmp -Force
+            Import-Module $tmpPath -Force
+
+            # Remove the temp file
+            Remove-Item $tmpPath -Force
         }
         catch {
             Write-Color "[!] Failed to fetch remote module: $_" Red
