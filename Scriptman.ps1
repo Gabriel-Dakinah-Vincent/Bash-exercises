@@ -52,11 +52,12 @@ function Scriptman {
     # --- Remote fallback if no local manifest ---
     if (-not $Manifest) {
         Write-Color "[!] Local manifest not found. Fetching remote version..." Yellow
-        $ManifestUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/core/psm-manifest.json"
+        $ManifestUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/core/psm-manifest.json"
         try {
-            # ✅ FIX: Ensure proper JSON parsing from GitHub Raw
-            $ManifestRaw = Invoke-RestMethod -Uri $ManifestUrl -UseBasicParsing
-            $Manifest = $ManifestRaw | ConvertFrom-Json
+            # ✅ FIX: Use WebRequest and trim before parsing
+            $response = Invoke-WebRequest -Uri $ManifestUrl -UseBasicParsing
+            $json = $response.Content.Trim()
+            $Manifest = $json | ConvertFrom-Json
             Write-Color "[+] Loaded remote manifest successfully." Green
         }
         catch {
