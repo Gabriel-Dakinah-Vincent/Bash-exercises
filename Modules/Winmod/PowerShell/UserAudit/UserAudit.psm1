@@ -82,4 +82,11 @@ function Show-UserAuditHelp {
     Write-Host "  Show-UserAuditHelp"
 }
 
-Export-ModuleMember -Function Get-UserAudit, Get-LocalAdmins, Get-UserLastLogon, Show-UserAuditHelp
+function Invoke-UserAudit {
+    Write-Host "`n[+] Running default UserAudit summary..." -ForegroundColor Cyan
+    Get-UserAudit
+    Get-LocalAdmins
+    Get-UserLastLogon
+}
+
+Export-ModuleMember -Function Get-UserAudit, Get-LocalAdmins, Get-UserLastLogon, Show-UserAuditHelp, Invoke-UserAudit
