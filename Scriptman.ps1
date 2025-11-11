@@ -54,7 +54,9 @@ function Scriptman {
         Write-Color "[!] Local manifest not found. Fetching remote version..." Yellow
         $ManifestUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/core/psm-manifest.json"
         try {
-            $Manifest = Invoke-RestMethod -Uri $ManifestUrl | ConvertFrom-Json
+            # ✅ FIX: Ensure proper JSON parsing from GitHub Raw
+            $ManifestRaw = Invoke-RestMethod -Uri $ManifestUrl -UseBasicParsing
+            $Manifest = $ManifestRaw | ConvertFrom-Json
             Write-Color "[+] Loaded remote manifest successfully." Green
         }
         catch {
@@ -108,6 +110,11 @@ function Scriptman {
                 Import-Module $ModulePath -Force
             } else {
                 Write-Color "[!] Local module path not found: $ModulePath" Yellow
+                # Try remote fallback if defined
+                if ($entry.fallback.url) {
+                    Write-Color "[*] Attempting remote fallback for $matchedKey..." Cyan
+                    Invoke-ModuleRemote -Url $entry.fallback.url
+                }
             }
         }
         elseif ($entry.type -eq "remote") {
