@@ -9,7 +9,7 @@
 .AUTHOR
  Gabriel Dakinah Vincent
 .VERSION
- 2.0.2
+ 2.0.3
 #>
 
 function Scriptman {
@@ -33,9 +33,17 @@ function Scriptman {
     function Show-Banner {
         Write-Color "`n=== Scriptman PowerShell Launcher ===" Magenta
         Write-Color "Environment: Windows PowerShell" Yellow
-        Write-Color "Version: 2.0.2`n" DarkGray
+        Write-Color "Version: 2.0.3`n" DarkGray
     }
     Show-Banner
+
+    # === Split module and optional cmdlet ===
+    $TargetCmdlet = $null
+    if ($Module -match ":") {
+        $parts = $Module -split ":", 2
+        $Module = $parts[0]
+        $TargetCmdlet = $parts[1]
+    }
 
     # === Load Manifest ===
     $Manifest = $null
@@ -54,7 +62,6 @@ function Scriptman {
         Write-Color "[!] Local manifest not found. Fetching remote version..." Yellow
         $ManifestUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/core/psm-manifest.json"
         try {
-            # ✅ FIX: Use WebRequest and trim before parsing
             $response = Invoke-WebRequest -Uri $ManifestUrl -UseBasicParsing
             $json = $response.Content.Trim()
             $Manifest = $json | ConvertFrom-Json
@@ -68,9 +75,7 @@ function Scriptman {
 
     # === Helper: Fetch and import remote PowerShell module ===
     function Invoke-ModuleRemote {
-        param(
-            [string]$Url
-        )
+        param([string]$Url)
         try {
             Write-Color "[*] Fetching remote module from GitHub..." Cyan
             $tmpPath = Join-Path $env:TEMP ("RemoteModule_" + (Get-Random) + ".psm1")
@@ -86,8 +91,11 @@ function Scriptman {
 
     # === Usage Help ===
     if (-not $Module) {
-        Write-Color "Usage: Scriptman <module-name> [options]" Cyan
-        Write-Host "`nAvailable Modules:`n"
+        Write-Color "Usage: Scriptman <module-name>[:cmdlet] [options]" Cyan
+        Write-Host "`nExamples:`n"
+        Write-Host "  Scriptman UserAudit             # Runs the module's default entry" -ForegroundColor DarkGray
+        Write-Host "  Scriptman UserAudit:Get-LocalAdmins   # Runs only that cmdlet`n" -ForegroundColor DarkGray
+        Write-Host "Available Modules:`n"
         foreach ($key in $Manifest.PSObject.Properties.Name) {
             $info = $Manifest.$key
             $type = if ($info.type -eq "remote") { "Remote" } else { "Local" }
@@ -111,7 +119,6 @@ function Scriptman {
                 Import-Module $ModulePath -Force
             } else {
                 Write-Color "[!] Local module path not found: $ModulePath" Yellow
-                # Try remote fallback if defined
                 if ($entry.fallback.url) {
                     Write-Color "[*] Attempting remote fallback for $matchedKey..." Cyan
                     Invoke-ModuleRemote -Url $entry.fallback.url
@@ -128,6 +135,17 @@ function Scriptman {
     else {
         Write-Color "[!] Module not listed in manifest: '$Module'" Red
         Write-Color "Try adding it to core\psm-manifest.json (use the module name as the key)." Cyan
+        return
+    }
+
+    # === Cmdlet-specific or module-wide execution ===
+    if ($TargetCmdlet) {
+        Write-Color "[*] Running targeted cmdlet: $TargetCmdlet" Cyan
+        if (Get-Command $TargetCmdlet -ErrorAction SilentlyContinue) {
+            & $TargetCmdlet @ModuleArgs
+        } else {
+            Write-Color "[!] Cmdlet '$TargetCmdlet' not found in module '$matchedKey'." Red
+        }
         return
     }
 
