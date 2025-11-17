@@ -167,13 +167,25 @@ curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises
 
 ## Useful Links
 
+# Scriptman Commands
+
+## Bash Scripts
+
 | **Description** | **Command** |
 |-----------------|-------------|
-| Displays Scriptman help and usage | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- --help</code></pre></details> |
-| Run Extract Aliases | <details><summary>Show Command</summary><pre><code>curl -s curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea -q -o aliases.html</code></pre></details> |
-| Display CLI Utility  help and usage | <details><summary>Show Command</summary><pre><code>curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se --help</code></pre></details> |
-| Serve file via HTTP | <details><summary>Show Command</summary><pre><code> curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se --serve</code></pre></details> |
+| Displays Scriptman help and usage | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- --help`</details> |
+| Run Extract Aliases | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea -q -o aliases.html`</details> |
+| Display CLI Utility help and usage | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se --help`</details> |
+| Serve file via HTTP | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se --serve`</details> |
 
+## PowerShell Scripts
+
+| **Description** | **Command** |
+|-----------------|-------------|
+| Module for auditing Windows users | <details><summary>Show Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman audit-user"`</details> |
+| RDescription | <details><summary>Show Command</summary></details> |
+| Description | <details><summary>Show Command</summary></details> |
+| Description | <details><summary>Show Command</summary></details> |
 ## Examples
 
 Example 1: Extract Aliases
