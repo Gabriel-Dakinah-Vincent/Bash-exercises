@@ -86,6 +86,9 @@ You can run UserAudit directly from GitHub:
 ```powershell
 powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman UserAudit"
 ```
+```powershell
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman UserAudit:Show-UserAuditHelp"
+```
 
 💬 This is useful for quick remote audits or testing environments where the module is not yet cloned locally.
 
