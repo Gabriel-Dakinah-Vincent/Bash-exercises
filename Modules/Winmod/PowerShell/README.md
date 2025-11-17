@@ -1,140 +1,152 @@
-# 🧩 UserAudit PowerShell Module
+# UserAudit PowerShell Module  
+### Windows Local Account Auditing Toolkit
 
-> **Module Name:** `UserAudit`  
-> **Version:** 1.0.0  
-> **Author:** Gabriel Dakinah Vincent  
-> **Project:** [Bash-Exercises](https://github.com/Gabriel-Dakinah-Vincent/Bash-exercises)
+---
+
+![PowerShell](https://img.shields.io/badge/PowerShell-Module-blue)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Version](https://img.shields.io/badge/Version-1.0.0-purple)
+![Status](https://img.shields.io/badge/Status-Stable-brightgreen)
 
 ---
 
 ## 📘 Overview
 
-`UserAudit` is a PowerShell module designed to **audit local users and account permissions** on Windows systems.  
-It provides administrators and security interns with quick visibility into:
+UserAudit is a lightweight PowerShell module that provides fast and reliable insights into local user accounts and the security posture of Windows systems.
 
-- Local user accounts  
-- Enabled or disabled states  
-- Membership of the Administrators group  
+It is designed for:
+
+- System Administrators  
+- Security Analysts  
+- Cybersecurity Interns  
+- Incident Responders  
+- Workstation and Server Auditors  
+
+The module collects and summarizes key security data including:
+
+- Local users & account states  
+- Local Administrators group members  
 - Last logon timestamps  
-
-This module supports both **local execution** and **remote GitHub-based execution**, enabling portable use across environments.
+- Active user sessions  
+- Windows Defender & core security services  
+- Basic EDR/AV detection  
+- Password and lockout policies  
 
 ---
 
-## ⚙️ Module Files
+## 📁 Project Structure
 
+```
 UserAudit/
-├── UserAudit.psm1   # Core module functions
-├── UserAudit.psd1   # Module manifest (metadata)
-└── UserAudit.ps1    # Optional standalone runner
+│
+├── UserAudit.psm1     # Main module implementation
+├── UserAudit.psd1     # Module manifest metadata
+└── UserAudit.ps1      # Optional standalone runner
+```
+
+---
+
+## ⚙️ Installation
+
+### 1️⃣ Import the Module
+
+```powershell
+Import-Module .\UserAudit.psm1 -Force
+```
+
+Verify:
+
+```powershell
+Get-Module UserAudit
+```
 
 ---
 
 ## 🚀 Usage
 
-### 🧠 1. Import the Module
-To load the module manually:
+### 2️⃣ Core Commands
+
+| Function | Description |
+|----------|-------------|
+| Get-UserAudit | Lists all local users with state + last logon |
+| Get-LocalAdmins | Displays Administrators group members |
+| Get-UserLastLogon | Shows last logon timestamps |
+| Get-UserSessions | Lists currently active sessions |
+| Get-DefensiveServices | Detects Defender & security services |
+| Get-EDRSolutions | Basic EDR/AV detection |
+| Get-PasswordPolicy | Displays password & lockout policies |
+| Show-UserAuditHelp | Shows module usage help |
+| Invoke-UserAudit | Runs a full audit summary |
+
+### Example Session
 
 ```powershell
 Import-Module .\UserAudit.psm1 -Force
 ```
-Verify it’s loaded:
-
-Get-Module UserAudit
-
-
-⸻
-
-🧾 2. Run the Audit Functions
-
-List all local users
-
 ```powershell
 Get-UserAudit
-```
-```powershell
-View local administrators
 ```
 ```powershell
 Get-LocalAdmins
 ```
 ```powershell
-Show last logon timestamps
-```
-```powershell
 Get-UserLastLogon
 ```
-
-⸻
-
-💡 3. Run via the Included Launcher (Optional)
-
-You can also use the launcher script for quick access:
-
 ```powershell
-.\UserAudit.ps1
+Get-UserSessions
+```
+```powershell
+Get-PasswordPolicy
+```
+```powershell
+Get-DefensiveServices
 ```
 
-This script automatically imports the module and runs all three audit commands sequentially.
+---
 
-⸻
+## 🤖 Full Automated Audit
 
-🌐 4. Remote Execution (No Local Files Required)
+```powershell
+Invoke-UserAudit
+```
 
-You can run UserAudit directly from GitHub:
+---
+
+## 🌐 Remote Execution (No Clone Needed)
 
 ```powershell
 powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman UserAudit"
 ```
+
+Open remote help:
+
 ```powershell
 powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman UserAudit:Show-UserAuditHelp"
 ```
 
-💬 This is useful for quick remote audits or testing environments where the module is not yet cloned locally.
+---
 
-⸻
+## 🧰 Best Practices
 
-🧾 Module Functions
+- Run PowerShell as **Administrator**  
+- Use **ExecutionPolicy Bypass** only when needed  
+- Verify remote script URLs before executing  
+- Pin to a specific branch (e.g., `b6se_`)  
+- Update often to access new features  
 
-Function	Description
-Get-UserAudit	Lists all local users with their enabled/disabled state and last logon timestamp.
-Get-LocalAdmins	Displays all members of the local Administrators group.
-Get-UserLastLogon	Shows the last logon date for each local account.
-Show-UserAuditHelp (optional)	Displays module help and usage examples.
+---
 
+## 🧩 Extending the Module
 
-⸻
+To add new features:
 
-🧰 Best Practices
-	1.	Run PowerShell as Administrator for accurate results.
-	2.	Use ExecutionPolicy Bypass when running remote scripts.
-	3.	Always verify remote script sources before executing them in production.
-	4.	For reproducibility, reference a specific GitHub branch or tag (e.g., b6se_).
-	5.	Regularly update the module to get the latest auditing improvements.
+1. Add the function inside **UserAudit.psm1**  
+2. Add its name to **FunctionsToExport** in *UserAudit.psd1*  
+3. Increment the version number  
 
-⸻
+### Example Extension
 
-🧑‍💻 Example: Full Audit Session
-
-# Step 1: Import the module
-Import-Module .\UserAudit.psm1 -Force
-
-# Step 2: Run audit commands
-Get-UserAudit
-Get-LocalAdmins
-Get-UserLastLogon
-
-
-⸻
-
-🧩 Extend or Customize
-
-To extend functionality, simply:
-	1.	Add new functions inside UserAudit.psm1.
-	2.	Update the FunctionsToExport list in UserAudit.psd1.
-	3.	Increment the version number before committing.
-
-Example new function:
 ```powershell
 function Get-UserGroups {
     Get-LocalGroup | ForEach-Object {
@@ -146,27 +158,25 @@ function Get-UserGroups {
 }
 ```
 
-⸻
+---
 
-🧾 Version & Metadata
+## 📄 Module Metadata
 
-Property	Value
-Module Name	UserAudit
-Version	1.0.0
-Author	Gabriel Dakinah Vincent
-Compatible PowerShell	5.1, Core 7+
-License	MIT
-Project URI	https://github.com/Gabriel-Dakinah-Vincent/Bash-exercises
+| Property | Value |
+|----------|--------|
+| Module Name | UserAudit |
+| Version | 1.0.0 |
+| Author | Gabriel Dakinah Vincent |
+| Compatible PowerShell | Windows PowerShell 5.1, PowerShell 7+ |
+| License | MIT |
+| Repository | https://github.com/Gabriel-Dakinah-Vincent/Bash-exercises |
 
+---
 
-⸻
+## 👤 Author
 
-🧑‍💻 Author
-
-Gabriel Dakinah Vincent
-Cybersecurity Intern • Developer • Project Maintainer
-📦 Bash-Exercises Repository
+**Gabriel Dakinah Vincent**  
+Cybersecurity Intern • Developer • PowerShell Automation Enthusiast  
+Maintainer of *Bash-Exercises* Repository  
 
 © 2025 Gabriel Dakinah Vincent. All rights reserved.
-
-⸻

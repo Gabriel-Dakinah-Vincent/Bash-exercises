@@ -1,4 +1,3 @@
-
 # Scriptman  
 **Current Version:** 1.3.0  
 **Author:** Gabriel Dakinah Vincent  
@@ -182,7 +181,7 @@ curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises
 
 | **Description** | **Command** |
 |-----------------|-------------|
-| Module for auditing Windows users | <details><summary>Show Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman audit-user"`</details> |
+| Module for auditing Windows users | <details><summary>Show Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Show-UserAuditHelp"`</details> |
 | RDescription | <details><summary>Show Command</summary></details> |
 | Description | <details><summary>Show Command</summary></details> |
 | Description | <details><summary>Show Command</summary></details> |
