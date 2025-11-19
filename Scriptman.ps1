@@ -29,11 +29,39 @@ function Scriptman {
         Write-Host $text -ForegroundColor $color
     }
 
-    # === Banner ===
+    # === Enhanced Typewriter with Glitch ===
+    function Write-Typewriter($text, $color = 'White', $speed = 80) {
+        $chars = $text.ToCharArray()
+        
+        for ($i = 0; $i -lt $chars.Count; $i++) {
+            Write-Host $chars[$i] -ForegroundColor $color -NoNewline
+            Start-Sleep -Milliseconds $speed
+            
+            # Random glitch effect
+            if ((Get-Random -Maximum 100) -lt 8) {
+                Start-Sleep -Milliseconds 80
+                Write-Host "`b " -NoNewline
+                Start-Sleep -Milliseconds 40
+                Write-Host "`b$($chars[$i])" -ForegroundColor $color -NoNewline
+                Start-Sleep -Milliseconds 60
+            }
+        }
+        Write-Host ""
+    }
+
+    # === Banner with Prompt ===
     function Show-Banner {
-        Write-Color "`n=== Scriptman PowerShell Launcher ===" Magenta
-        Write-Color "Environment: Windows PowerShell" Yellow
-        Write-Color "Version: 2.0.3`n" DarkGray
+        Write-Host "`n" -NoNewline
+        Write-Host "PS > " -ForegroundColor Cyan -NoNewline
+        Write-Typewriter "Scriptman" Magenta 80
+        Write-Host "PS > " -ForegroundColor Cyan -NoNewline
+        Write-Typewriter "Environment: Windows PowerShell" Yellow 70
+        Write-Host "PS > " -ForegroundColor Cyan -NoNewline
+        Write-Typewriter "Version: 2.0.3" DarkGray 70
+        Write-Host "PS > " -ForegroundColor Cyan -NoNewline
+        Write-Typewriter "Author: Gabriel Dakinah Vincent" Green 70
+        Start-Sleep -Milliseconds 800
+        Write-Host ""
     }
     Show-Banner
 
@@ -140,7 +168,8 @@ function Scriptman {
 
     # === Cmdlet-specific or module-wide execution ===
     if ($TargetCmdlet) {
-        Write-Color "[*] Running targeted cmdlet: $TargetCmdlet" Cyan
+        Write-Host "[*] Running targeted cmdlet: " -ForegroundColor Cyan -NoNewline
+        Write-Color $TargetCmdlet Yellow
         if (Get-Command $TargetCmdlet -ErrorAction SilentlyContinue) {
             & $TargetCmdlet @ModuleArgs
         } else {
