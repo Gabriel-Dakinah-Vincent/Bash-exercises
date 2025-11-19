@@ -18,9 +18,8 @@
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Modules](#modules)
-- [Command Reference](#command-reference)
+- [Quick Start - Get Help](#quick-start---get-help)
 - [Usage](#usage)
-- [Examples](#examples)
 - [FAQ](#faq)
 - [Contributing](#contributing)
 - [License](#license)
@@ -65,6 +64,7 @@ Bash-exercises/
 │   └── test_project.sh    # Project test suite
 ├── assets/
 │   └── .gif/              # Demo GIFs
+├── CHEATSHEET.md          # Complete command reference
 ├── CONTRIBUTING.md
 ├── LICENSE
 └── README.md
@@ -199,27 +199,24 @@ Invoke-UserAudit           # Full audit summary
 
 ---
 
-## Command Reference
+## Quick Start - Get Help
 
 ### Bash Scripts
 
-| **Description** | **Command** |
-|-----------------|-------------|
-| Displays Scriptman help and usage | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- --help`</details> |
-| Run Extract Aliases | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea -q -o aliases.html`</details> |
-| Display CLI Utility help and usage | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se --help`</details> |
-| Serve file via HTTP | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se --serve`</details> |
-| Compress directory | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -c myfolder`</details> |
-| Decompress archive | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -x archive.tar.gz`</details> |
+| Description | Command |
+|---|---|
+| Show Scriptman help | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- --help`</details> |
+| Show Extract Aliases help | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea -h`</details> |
+| Show b6se help | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se --help`</details> |
 
 ### PowerShell Scripts
 
-| **Description** | **Command** |
-|-----------------|-------------|
-| Module for auditing Windows users | <details><summary>Show Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit"`</details> |
+| Description | Command |
+|---|---|
+| Show Scriptman help | <details><summary>Show Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman"`</details> |
 | Show UserAudit help | <details><summary>Show Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Show-UserAuditHelp"`</details> |
-| Get all local users | <details><summary>Show Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-UserAudit"`</details> |
-| Get local administrators | <details><summary>Show Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-LocalAdmins"`</details> |
+
+**For complete command reference, see [CHEATSHEET.md](CHEATSHEET.md)**
 
 ---
 
@@ -229,81 +226,26 @@ Invoke-UserAudit           # Full audit summary
 
 **Bash:**
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | bash -s -- ea -h
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | bash -s -- b6se --help
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | bash -s -- --help
 ```
 
 **PowerShell:**
 ```powershell
-irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman UserAudit
+irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman
 ```
 
 ### Local Execution
 
 **Bash:**
 ```bash
-bash Scriptman ea -q -o aliases.md
-bash Scriptman b6se -c myfolder
-bash Scriptman b6se -x archive.zip
-bash Scriptman b6se --password mySecret123 -E file.txt
+bash Scriptman --help
 ```
 
 **PowerShell:**
 ```powershell
 Import-Module .\Modules\Winmod\PowerShell\UserAudit\UserAudit.psm1 -Force
-Get-UserAudit
-Get-LocalAdmins
-Invoke-UserAudit
+Show-UserAuditHelp
 ```
-
----
-
-## Examples
-
-### Example 1: Extract Aliases to HTML
-
-```bash
-bash Scriptman ea -q -o my_aliases.html
-```
-
-Output: Creates `my_aliases.html` with all shell aliases in a formatted table.
-
----
-
-### Example 2: Compress and Encrypt a Folder
-
-```bash
-bash Scriptman b6se -c ~/Documents
-bash Scriptman b6se --password mySecret123 -E Documents.tar.gz
-```
-
-Output: Creates encrypted `Documents.tar.gz.enc` file.
-
----
-
-### Example 3: Serve a File Securely
-
-```bash
-bash Scriptman b6se -s ~/report.pdf
-```
-
-Output:
-```
-[INFO] Starting HTTP server for ~/report.pdf on port 8080
-[INFO] Server started (PID 3495)
-Press Ctrl+C to stop
-```
-
----
-
-### Example 4: Full Windows Audit
-
-```powershell
-Import-Module .\Modules\Winmod\PowerShell\UserAudit\UserAudit.psm1 -Force
-Invoke-UserAudit
-```
-
-Output: Comprehensive audit report including users, admins, sessions, security services, and policies.
 
 ---
 
