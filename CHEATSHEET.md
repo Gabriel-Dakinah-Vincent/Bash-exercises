@@ -24,35 +24,35 @@
 
 | Description | Command |
 |---|---|
-| Compress to tar.gz | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -c myfolder`</details> |
-| Compress to zip | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -c myfolder archive.zip`</details> |
-| Compress to 7z | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -c myfolder data.7z`</details> |
-| Decompress tar.gz | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -x archive.tar.gz`</details> |
-| Decompress zip | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -x archive.zip`</details> |
-| Decompress 7z | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -x archive.7z`</details> |
+| Compress to tar.gz | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -c myfolder`</details> |
+| Compress to zip | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -c myfolder archive.zip`</details> |
+| Compress to 7z | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -c myfolder data.7z`</details> |
+| Decompress tar.gz | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -x archive.tar.gz`</details> |
+| Decompress zip | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -x archive.zip`</details> |
+| Decompress 7z | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -x archive.7z`</details> |
 
 ### b6se - Encoding
 
 | Description | Command |
 |---|---|
-| Encode to Base64 | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -e myfile.txt`</details> |
-| Decode Base64 | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -d encoded.b64`</details> |
+| Encode to Base64 | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -e myfile.txt`</details> |
+| Decode Base64 | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -d encoded.b64`</details> |
 
 ### b6se - Encryption
 
 | Description | Command |
 |---|---|
-| Encrypt file | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -E myfile.txt`</details> |
-| Encrypt with password | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -E myfile.txt --password mySecret123`</details> |
-| Decrypt file | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -D encrypted.enc`</details> |
-| Decrypt with password | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -D encrypted.enc --password mySecret123`</details> |
+| Encrypt file | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -E myfile.txt`</details> |
+| Encrypt with password | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -E myfile.txt --password mySecret123`</details> |
+| Decrypt file | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -D encrypted.enc`</details> |
+| Decrypt with password | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -D encrypted.enc --password mySecret123`</details> |
 
 ### b6se - Checksums
 
 | Description | Command |
 |---|---|
-| Generate checksum | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -C archive.tar.gz`</details> |
-| Verify checksum | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se -V archive.tar.gz archive.tar.gz.sha256`</details> |
+| Generate checksum | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -C archive.tar.gz`</details> |
+| Verify checksum | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -V archive.tar.gz archive.tar.gz.sha256`</details> |
 
 ### b6se - HTTP Server
 

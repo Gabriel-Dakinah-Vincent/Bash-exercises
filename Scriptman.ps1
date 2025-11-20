@@ -30,7 +30,7 @@ function Scriptman {
     }
 
     # === Enhanced Typewriter with Glitch ===
-    function Write-Typewriter($text, $color = 'White', $speed = 80) {
+    function Write-Typewriter($text, $color = 'White', $speed = 45) {
         $chars = $text.ToCharArray()
         
         for ($i = 0; $i -lt $chars.Count; $i++) {
