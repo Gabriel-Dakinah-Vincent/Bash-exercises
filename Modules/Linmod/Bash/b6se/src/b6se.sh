@@ -229,9 +229,13 @@ serve_file() {
         curl -s -o "$server_script" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Modules/Linmod/Bash/b6se/src/server/run_server.py
     fi
 
+    local ip=$(hostname -I | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | grep -v '^127\.' | head -1)
+    [ -z "$ip" ] && ip=$(hostname -I | awk '{print $1}')
+
     python3 "$server_script" --file "$file" >> "$LOG_FILE" 2>&1 &
     SERVER_PID=$!
-    warn "Server started (PID $SERVER_PID). Press Ctrl+C to stop."
+    success "Server started (PID $SERVER_PID) at http://$ip:$DEFAULT_PORT"
+    warn "Press Ctrl+C to stop."
     trap 'warn "Stopping server..."; kill -TERM $SERVER_PID 2>/dev/null; wait $SERVER_PID 2>/dev/null; success "Server stopped"; exit 0' INT TERM
     wait $SERVER_PID
 }
