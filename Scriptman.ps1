@@ -117,8 +117,9 @@ function Scriptman {
     if (-not $Module) {
         Write-Color "Usage: Scriptman <module-name>[:cmdlet] [options]" Cyan
         Write-Host "`nExamples:`n"
-        Write-Host "  Scriptman UserAudit             # Runs the module's default entry" -ForegroundColor DarkGray
-        Write-Host "  Scriptman UserAudit:Get-LocalAdmins   # Runs only that cmdlet`n" -ForegroundColor DarkGray
+        Write-Host "  .\Scriptman.ps1 -help"
+        Write-Host "  .\Scriptman.ps1 UserAudit             # Runs the module's default entry" -ForegroundColor DarkGray
+        Write-Host "  .\Scriptman.ps1 UserAudit:Get-LocalAdmins   # Runs only that cmdlet`n" -ForegroundColor DarkGray
         Write-Host "Available Modules:`n"
         foreach ($key in $Manifest.PSObject.Properties.Name) {
             $info = $Manifest.$key

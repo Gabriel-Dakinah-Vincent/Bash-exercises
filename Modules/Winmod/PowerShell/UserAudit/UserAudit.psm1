@@ -75,6 +75,7 @@ function Show-UserAuditHelp {
     Write-Host "  Show-UserAuditHelp      - Displays this help menu"
 
     Write-Host "`nUsage Examples:" -ForegroundColor Yellow
+    Write-Host "  .\Scriptman.ps1 -help"
     Write-Host "  .\Scriptman.ps1 UserAudit"
     Write-Host "  .\Scriptman.ps1 UserAudit:Get-UserSessions"
     Write-Host "  .\Scriptman.ps1 UserAudit:Get-DLLSideloading -MaxProcesses 25 -TimeoutSeconds 15"
