@@ -4,36 +4,43 @@
 #>
 
 function Get-UserAudit {
-    Write-Host "`n[+] Collecting user account information..." -ForegroundColor Cyan
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Collecting user account information..." -ForegroundColor DarkGray
     try {
         $users = Get-LocalUser | Select-Object Name, Enabled, LastLogon
         if ($users) {
             $users | Format-Table Name, Enabled, LastLogon -AutoSize
         } else {
-            Write-Host "No local users found." -ForegroundColor Yellow
+            Write-Host "[!]" -ForegroundColor Red -NoNewline
+            Write-Host " No local users found." -ForegroundColor DarkGray
         }
     } catch {
-        Write-Host "Error fetching local users: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Error fetching local users: $($_.Exception.Message)" -ForegroundColor DarkGray
     }
 }
 
 function Get-LocalAdmins {
-    Write-Host "`n[+] Enumerating local administrators..." -ForegroundColor Cyan
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Enumerating local administrators..." -ForegroundColor DarkGray
     try {
         $admins = Get-LocalGroupMember -Group "Administrators" |
                   Select-Object Name, ObjectClass
         if ($admins) {
             $admins | Format-Table Name, ObjectClass -AutoSize
         } else {
-            Write-Host "No administrators found." -ForegroundColor Yellow
+            Write-Host "[!]" -ForegroundColor Red -NoNewline
+            Write-Host " No administrators found." -ForegroundColor DarkGray
         }
     } catch {
-        Write-Host "Error retrieving administrators: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Error retrieving administrators: $($_.Exception.Message)" -ForegroundColor DarkGray
     }
 }
 
 function Get-UserLastLogon {
-    Write-Host "`n[+] Gathering last logon data..." -ForegroundColor Cyan
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Gathering last logon data..." -ForegroundColor DarkGray
     try {
         Get-LocalUser | ForEach-Object {
             [PSCustomObject]@{
@@ -42,14 +49,14 @@ function Get-UserLastLogon {
             }
         } | Format-Table UserName, LastLogon -AutoSize
     } catch {
-        Write-Host "Error retrieving last logon times: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Error retrieving last logon times: $($_.Exception.Message)" -ForegroundColor DarkGray
     }
 }
 
 function Show-UserAuditHelp {
-    Write-Host "`n=== UserAudit Module Help ===" -ForegroundColor Magenta
-    Write-Host "Version: 1.0.0" -ForegroundColor Yellow
-    Write-Host "Description: A PowerShell module to audit users and user accounts." -ForegroundColor Cyan
+    Write-Host "`nUserAudit Module Help" -ForegroundColor Yellow
+    Write-Host "Description: A PowerShell module to audit users and user accounts." -ForegroundColor DarkGray
 
     Write-Host "`nAvailable Commands:`n" -ForegroundColor Green
     Write-Host "  Get-UserAudit           - Displays local user summary"
@@ -59,35 +66,46 @@ function Show-UserAuditHelp {
     Write-Host "  Get-DefensiveServices   - Detects Windows Defender/security services"
     Write-Host "  Get-EDRSolutions        - Best-effort detection of EDR/AV products"
     Write-Host "  Get-PasswordPolicy      - Shows password & lockout policies"
+    Write-Host "  Get-PersistenceAudit    - Scans for common Windows persistence mechanisms"
+    Write-Host "  Get-RegistryPersistence - Checks registry-based persistence"
+    Write-Host "  Get-ScheduledTaskAbuse  - Detects suspicious scheduled tasks"
+    Write-Host "  Get-ServiceHijacking    - Identifies potential service hijacking"
+    Write-Host "  Get-DLLSideloading      - Scans for DLL sideloading indicators (supports -MaxProcesses, -TimeoutSeconds)"
+    Write-Host "  Get-WMIEventSubscription - Checks WMI event subscriptions"
     Write-Host "  Show-UserAuditHelp      - Displays this help menu"
 
     Write-Host "`nUsage Examples:" -ForegroundColor Yellow
-    Write-Host "  Scriptman UserAudit"
-    Write-Host "  Scriptman UserAudit:Get-UserSessions"
+    Write-Host "  .\Scriptman.ps1 UserAudit"
+    Write-Host "  .\Scriptman.ps1 UserAudit:Get-UserSessions"
+    Write-Host "  .\Scriptman.ps1 UserAudit:Get-DLLSideloading -MaxProcesses 25 -TimeoutSeconds 15"
 }
 
 function Invoke-UserAudit {
-    Write-Host "`n[+] Running OPSEC-friendly UserAudit summary..." -ForegroundColor Cyan
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Running OPSEC-friendly UserAudit summary..." -ForegroundColor DarkGray
     
     Get-UserAudit
     Get-LocalAdmins
     Get-UserLastLogon
     Get-UserSessions
     Get-DefensiveServices
+    Get-PersistenceAudit
 }
 
 # 
 # Get-UserSessions
 # 
 function Get-UserSessions {
-    Write-Host "`n[+] Enumerating active user sessions..." -ForegroundColor Cyan
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Enumerating active user sessions..." -ForegroundColor DarkGray
     try {
         $raw = $null
         try { $raw = quser 2>$null } catch {}
         if ($raw) {
             $lines = ($raw -split "`n") | Where-Object { $_ -match '\S' }
             if ($lines.Count -le 1) {
-                Write-Host "No active sessions found." -ForegroundColor Yellow
+                Write-Host "[!]" -ForegroundColor Red -NoNewline
+                Write-Host " No active sessions found." -ForegroundColor DarkGray
                 return
             }
             $parsed = @()
@@ -108,7 +126,8 @@ function Get-UserSessions {
 
         $sessions = Get-CimInstance -ClassName Win32_LoggedOnUser -ErrorAction SilentlyContinue
         if (-not $sessions) {
-            Write-Host "No session information available." -ForegroundColor Yellow
+            Write-Host "[!]" -ForegroundColor Red -NoNewline
+            Write-Host " No session information available." -ForegroundColor DarkGray
             return
         }
         $sessions | ForEach-Object {
@@ -117,7 +136,8 @@ function Get-UserSessions {
         } | Format-Table -AutoSize
 
     } catch {
-        Write-Host "Error retrieving session data: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Error retrieving session data: $($_.Exception.Message)" -ForegroundColor DarkGray
     }
 }
 
@@ -125,7 +145,8 @@ function Get-UserSessions {
 # Get-DefensiveServices
 # 
 function Get-DefensiveServices {
-    Write-Host "`n[+] Checking for Windows Defender/security services..." -ForegroundColor Cyan
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Checking for Windows Defender/security services..." -ForegroundColor DarkGray
 
     $svcNames = @(
         'WinDefend','WdNisSvc','mpssvc','sense','WdFilter','Wscsvc','AppIDSvc'
@@ -159,7 +180,8 @@ function Get-DefensiveServices {
 # Get-EDRSolutions
 # 
 function Get-EDRSolutions {
-    Write-Host "`n[+] Scanning for common EDR/AV indicators..." -ForegroundColor Cyan
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Scanning for common EDR/AV indicators..." -ForegroundColor DarkGray
 
     $indicators = @{
         'CrowdStrike' = @{ Services=@('CSFalconService','csagent'); Processes=@('csagent','falcon'); Reg=@('CrowdStrike') }
@@ -197,7 +219,8 @@ function Get-EDRSolutions {
     if ($found) {
         $found | Format-Table Product, ServiceDetected, ProcessDetected, RegistryDetected -AutoSize
     } else {
-        Write-Host "No EDR detected (best-effort)." -ForegroundColor Yellow
+        Write-Host "[i]" -ForegroundColor Cyan -NoNewline
+        Write-Host " No EDR detected (best-effort)." -ForegroundColor DarkGray
     }
 }
 
@@ -205,10 +228,15 @@ function Get-EDRSolutions {
 # Get-PasswordPolicy
 # 
 function Get-PasswordPolicy {
-    Write-Host "`n[+] Retrieving password policy..." -ForegroundColor Cyan
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Retrieving password policy..." -ForegroundColor DarkGray
     try {
         $raw = net accounts 2>$null
-        if (-not $raw) { Write-Host "Could not retrieve policy." -ForegroundColor Yellow; return }
+        if (-not $raw) { 
+            Write-Host "[!]" -ForegroundColor Red -NoNewline
+            Write-Host " Could not retrieve policy." -ForegroundColor DarkGray
+            return 
+        }
 
         $lines = $raw -split "`n"
         $policy = @{}
@@ -226,7 +254,400 @@ function Get-PasswordPolicy {
         [PSCustomObject]$policy | Format-List
 
     } catch {
-        Write-Host "Error retrieving password policy: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Error retrieving password policy: $($_.Exception.Message)" -ForegroundColor DarkGray
+    }
+}
+
+# 
+# Test-AdminPrivileges - Helper function to check administrator privileges
+# 
+function Test-AdminPrivileges {
+    try {
+        $currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
+        $principal = New-Object Security.Principal.WindowsPrincipal($currentUser)
+        return $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+    } catch {
+        return $false
+    }
+}
+
+# 
+# Get-RiskLevel - Helper function for risk scoring
+# 
+function Get-RiskLevel {
+    param(
+        [string]$Type,
+        [string]$Value,
+        [string]$Signature = 'Unknown',
+        [string]$Location = ''
+    )
+    
+    switch ($Type) {
+        'Registry' {
+            if ($Location -like '*Image File Execution Options*') { return 'High' }
+            if ($Location -like '*Winlogon*') { return 'High' }
+            if ($Value -match '(powershell|cmd|wscript|cscript).*(-enc|-e |-w hidden|bypass)') { return 'High' }
+            if ($Value -match '(temp|appdata|users)') { return 'Medium' }
+            return 'Low'
+        }
+        'Service' {
+            if ($Signature -eq 'Invalid/Unsigned') { return 'High' }
+            if ($Value -match '(temp|appdata|users)') { return 'Medium' }
+            return 'Low'
+        }
+        'Task' {
+            if ($Value -match '(bypass|hidden|encoded)') { return 'High' }
+            if ($Value -match '(powershell|cmd)') { return 'Medium' }
+            return 'Low'
+        }
+        'DLL' { return 'Medium' }
+        'WMI' { return 'High' }
+        default { return 'Low' }
+    }
+}
+
+# 
+# Get-PersistenceAudit - Main persistence audit function
+# 
+function Get-PersistenceAudit {
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Scanning for Windows persistence mechanisms..." -ForegroundColor DarkGray
+    
+    if (-not (Test-AdminPrivileges)) {
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Administrator privileges required for comprehensive persistence audit." -ForegroundColor DarkGray
+    }
+    
+    Get-RegistryPersistence
+    Get-ScheduledTaskAbuse
+    Get-ServiceHijacking
+    Get-DLLSideloading
+    Get-WMIEventSubscription
+}
+
+# 
+# Get-RegistryPersistence
+# 
+function Get-RegistryPersistence {
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Checking registry persistence locations..." -ForegroundColor DarkGray
+    
+    $regKeys = @(
+        'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run',
+        'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce',
+        'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run',
+        'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce',
+        'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run',
+        'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
+        'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options'
+    )
+    
+    $findings = @()
+    foreach ($key in $regKeys) {
+        try {
+            if (Test-Path $key) {
+                if ($key -like '*Winlogon*') {
+                    $entries = Get-ItemProperty $key -ErrorAction SilentlyContinue
+                    @('Shell', 'Userinit', 'Taskman', 'AppSetup') | ForEach-Object {
+                        if ($entries.$_) {
+                            $hash = if (Test-Path ($entries.$_ -split ' ')[0]) { (Get-FileHash ($entries.$_ -split ' ')[0] -ErrorAction SilentlyContinue).Hash } else { 'N/A' }
+                            $risk = Get-RiskLevel -Type 'Registry' -Value $entries.$_ -Location $key
+                            $findings += [PSCustomObject]@{
+                                Location = $key
+                                Name = $_
+                                Value = $entries.$_
+                                FileHash = $hash
+                                Risk = $risk
+                            }
+                        }
+                    }
+                } elseif ($key -like '*Image File Execution Options*') {
+                    Get-ChildItem $key -ErrorAction SilentlyContinue | ForEach-Object {
+                        $debugger = Get-ItemProperty $_.PSPath -Name 'Debugger' -ErrorAction SilentlyContinue
+                        if ($debugger.Debugger) {
+                            $hash = if (Test-Path ($debugger.Debugger -split ' ')[0]) { (Get-FileHash ($debugger.Debugger -split ' ')[0] -ErrorAction SilentlyContinue).Hash } else { 'N/A' }
+                            $risk = Get-RiskLevel -Type 'Registry' -Value $debugger.Debugger -Location $_.PSPath
+                            $findings += [PSCustomObject]@{
+                                Location = $_.PSPath
+                                Name = 'Debugger'
+                                Value = $debugger.Debugger
+                                FileHash = $hash
+                                Risk = $risk
+                            }
+                        }
+                    }
+                } else {
+                    $entries = Get-ItemProperty $key -ErrorAction SilentlyContinue
+                    if ($entries) {
+                        $entries.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object {
+                            $hash = if (Test-Path ($_.Value -split ' ')[0]) { (Get-FileHash ($_.Value -split ' ')[0] -ErrorAction SilentlyContinue).Hash } else { 'N/A' }
+                            $risk = Get-RiskLevel -Type 'Registry' -Value $_.Value -Location $key
+                            $findings += [PSCustomObject]@{
+                                Location = $key
+                                Name = $_.Name
+                                Value = $_.Value
+                                FileHash = $hash
+                                Risk = $risk
+                            }
+                        }
+                    }
+                }
+            }
+        } catch {}
+    }
+    
+    if ($findings) {
+        $findings | Sort-Object @{Expression={switch($_.Risk){'High'{1};'Medium'{2};'Low'{3}}}}, Name | Format-Table Risk, Location, Name, Value, FileHash -AutoSize
+    } else {
+        Write-Host "[i]" -ForegroundColor Cyan -NoNewline
+        Write-Host " No registry persistence entries found." -ForegroundColor DarkGray
+    }
+}
+
+# 
+# Get-ScheduledTaskAbuse
+# 
+function Get-ScheduledTaskAbuse {
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Scanning for suspicious scheduled tasks..." -ForegroundColor DarkGray
+    
+    if (-not (Test-AdminPrivileges)) {
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Administrator privileges required for full scheduled task enumeration." -ForegroundColor DarkGray
+    }
+    
+    try {
+        $tasks = Get-ScheduledTask -ErrorAction SilentlyContinue | Where-Object { 
+            $_.State -eq 'Ready' -and 
+            ($_.Actions.Execute -match '(powershell|cmd|wscript|cscript)' -or
+             $_.Actions.Arguments -match '(bypass|hidden|encoded)' -or
+             $_.Principal.UserId -eq 'SYSTEM')
+        }
+        
+        if ($tasks) {
+            $results = @()
+            foreach ($task in $tasks) {
+                $executeValue = $task.Actions.Execute + ' ' + $task.Actions.Arguments
+                $risk = Get-RiskLevel -Type 'Task' -Value $executeValue
+                $results += [PSCustomObject]@{
+                    TaskName = $task.TaskName
+                    State = $task.State
+                    Execute = $task.Actions.Execute
+                    Arguments = $task.Actions.Arguments
+                    Risk = $risk
+                }
+            }
+            $results | Sort-Object @{Expression={switch($_.Risk){'High'{1};'Medium'{2};'Low'{3}}}}, TaskName | Format-Table Risk, TaskName, State, Execute, Arguments -AutoSize
+        } else {
+            Write-Host "[i]" -ForegroundColor Cyan -NoNewline
+            Write-Host " No suspicious scheduled tasks detected." -ForegroundColor DarkGray
+        }
+    } catch {
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Error scanning scheduled tasks: $($_.Exception.Message)" -ForegroundColor DarkGray
+    }
+}
+
+# 
+# Get-ServiceHijacking
+# 
+function Get-ServiceHijacking {
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Checking for potential service hijacking..." -ForegroundColor DarkGray
+    
+    if (-not (Test-AdminPrivileges)) {
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Administrator privileges required for service enumeration." -ForegroundColor DarkGray
+        return
+    }
+    
+    try {
+        $services = Get-WmiObject Win32_Service -ErrorAction SilentlyContinue | Where-Object {
+            $_.PathName -and 
+            ($_.PathName -notmatch '^"?[A-Z]:\\Windows\\' -or
+             $_.PathName -match '\s[^"]*\.(exe|bat|cmd|ps1)' -or
+             $_.StartName -eq 'LocalSystem' -and $_.PathName -match '^[^"]*\s')
+        }
+        
+        if ($services) {
+            $results = @()
+            foreach ($svc in $services) {
+                $exePath = ($svc.PathName -replace '"', '' -split ' ')[0]
+                $signature = 'Unknown'
+                $hash = 'N/A'
+                
+                if (Test-Path $exePath) {
+                    try {
+                        $sig = Get-AuthenticodeSignature $exePath -ErrorAction SilentlyContinue
+                        $signature = if ($sig.Status -eq 'Valid') { 'Valid' } else { 'Invalid/Unsigned' }
+                        $hash = (Get-FileHash $exePath -ErrorAction SilentlyContinue).Hash
+                    } catch {}
+                }
+                
+                $risk = Get-RiskLevel -Type 'Service' -Value $svc.PathName -Signature $signature
+                $results += [PSCustomObject]@{
+                    Name = $svc.Name
+                    State = $svc.State
+                    StartMode = $svc.StartMode
+                    PathName = $svc.PathName
+                    StartName = $svc.StartName
+                    Signature = $signature
+                    FileHash = $hash
+                    Risk = $risk
+                }
+            }
+            $results | Sort-Object @{Expression={switch($_.Risk){'High'{1};'Medium'{2};'Low'{3}}}}, Name | Format-Table Risk, Name, State, StartMode, PathName, StartName, Signature, FileHash -AutoSize
+        } else {
+            Write-Host "[i]" -ForegroundColor Cyan -NoNewline
+            Write-Host " No suspicious service configurations detected." -ForegroundColor DarkGray
+        }
+    } catch {
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Error checking services: $($_.Exception.Message)" -ForegroundColor DarkGray
+    }
+}
+
+# 
+# Get-DLLSideloading
+# 
+function Get-DLLSideloading {
+    param(
+        [int]$MaxProcesses = 50,
+        [int]$TimeoutSeconds = 30
+    )
+    
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Scanning for DLL sideloading indicators..." -ForegroundColor DarkGray
+    
+    if (-not (Test-AdminPrivileges)) {
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Administrator privileges recommended for complete process module access." -ForegroundColor DarkGray
+    }
+    
+    $commonDLLs = @('version.dll', 'dwmapi.dll', 'uxtheme.dll', 'winmm.dll', 'wtsapi32.dll')
+    $systemPaths = @('C:\Windows\System32', 'C:\Windows\SysWOW64')
+    $findings = @()
+    $startTime = Get-Date
+    $processCount = 0
+    
+    try {
+        foreach ($dll in $commonDLLs) {
+            if ((Get-Date) - $startTime -gt [TimeSpan]::FromSeconds($TimeoutSeconds)) {
+                Write-Host "[!]" -ForegroundColor Red -NoNewline
+                Write-Host " Scan timeout reached ($TimeoutSeconds seconds). Results may be incomplete." -ForegroundColor DarkGray
+                break
+            }
+            
+            $processes = Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.Modules -and $_.ProcessName -ne 'Idle' } | Select-Object -First $MaxProcesses
+            
+            foreach ($proc in $processes) {
+                $processCount++
+                if ($processCount -gt $MaxProcesses) {
+                    Write-Host "[!]" -ForegroundColor Red -NoNewline
+                    Write-Host " Process limit reached ($MaxProcesses). Results may be incomplete." -ForegroundColor DarkGray
+                    break
+                }
+                
+                try {
+                    $modules = $proc.Modules | Where-Object { $_.ModuleName -eq $dll }
+                    foreach ($mod in $modules) {
+                        $isSystemPath = $false
+                        foreach ($sysPath in $systemPaths) {
+                            if ($mod.FileName -like "$sysPath\*") { $isSystemPath = $true; break }
+                        }
+                        if (-not $isSystemPath) {
+                            $hash = 'N/A'
+                            try {
+                                if (Test-Path $mod.FileName) {
+                                    $hash = (Get-FileHash $mod.FileName -ErrorAction SilentlyContinue).Hash
+                                }
+                            } catch {}
+                            
+                            $risk = Get-RiskLevel -Type 'DLL' -Value $mod.FileName
+                            $findings += [PSCustomObject]@{
+                                Process = $proc.ProcessName
+                                PID = $proc.Id
+                                DLL = $mod.ModuleName
+                                Path = $mod.FileName
+                                FileHash = $hash
+                                Risk = $risk
+                            }
+                        }
+                    }
+                } catch {}
+            }
+            if ($processCount -gt $MaxProcesses) { break }
+        }
+        
+        if ($findings) {
+            $findings | Sort-Object @{Expression={switch($_.Risk){'High'{1};'Medium'{2};'Low'{3}}}}, Process | Format-Table Risk, Process, PID, DLL, Path, FileHash -AutoSize
+        } else {
+            Write-Host "[i]" -ForegroundColor Cyan -NoNewline
+            Write-Host " No DLL sideloading indicators detected." -ForegroundColor DarkGray
+        }
+    } catch {
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Error scanning for DLL sideloading: $($_.Exception.Message)" -ForegroundColor DarkGray
+    }
+}
+
+# 
+# Get-WMIEventSubscription
+# 
+function Get-WMIEventSubscription {
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Checking WMI event subscriptions..." -ForegroundColor DarkGray
+    
+    if (-not (Test-AdminPrivileges)) {
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Administrator privileges required for WMI subscription access." -ForegroundColor DarkGray
+        return
+    }
+    
+    try {
+        $filters = Get-WmiObject -Namespace root\subscription -Class __EventFilter -ErrorAction SilentlyContinue
+        $consumers = Get-WmiObject -Namespace root\subscription -Class __EventConsumer -ErrorAction SilentlyContinue
+        $bindings = Get-WmiObject -Namespace root\subscription -Class __FilterToConsumerBinding -ErrorAction SilentlyContinue
+        
+        $findings = @()
+        
+        if ($filters) {
+            foreach ($filter in $filters) {
+                $risk = Get-RiskLevel -Type 'WMI' -Value $filter.Query
+                $findings += [PSCustomObject]@{
+                    Type = 'EventFilter'
+                    Name = $filter.Name
+                    Query = $filter.Query
+                    Details = $filter.QueryLanguage
+                    Risk = $risk
+                }
+            }
+        }
+        
+        if ($consumers) {
+            foreach ($consumer in $consumers) {
+                $details = if ($consumer.CommandLineTemplate) { $consumer.CommandLineTemplate } else { $consumer.ScriptText }
+                $risk = Get-RiskLevel -Type 'WMI' -Value $details
+                $findings += [PSCustomObject]@{
+                    Type = 'EventConsumer'
+                    Name = $consumer.Name
+                    Query = $consumer.__CLASS
+                    Details = $details
+                    Risk = $risk
+                }
+            }
+        }
+        
+        if ($findings) {
+            $findings | Sort-Object @{Expression={switch($_.Risk){'High'{1};'Medium'{2};'Low'{3}}}}, Type | Format-Table Risk, Type, Name, Query, Details -AutoSize
+        } else {
+            Write-Host "[i]" -ForegroundColor Cyan -NoNewline
+            Write-Host " No WMI event subscriptions found." -ForegroundColor DarkGray
+        }
+    } catch {
+        Write-Host "[!]" -ForegroundColor Red -NoNewline
+        Write-Host " Error checking WMI subscriptions: $($_.Exception.Message)" -ForegroundColor DarkGray
     }
 }
 
@@ -241,5 +662,11 @@ Export-ModuleMember -Function `
     Get-DefensiveServices, `
     Get-EDRSolutions, `
     Get-PasswordPolicy, `
+    Get-PersistenceAudit, `
+    Get-RegistryPersistence, `
+    Get-ScheduledTaskAbuse, `
+    Get-ServiceHijacking, `
+    Get-DLLSideloading, `
+    Get-WMIEventSubscription, `
     Show-UserAuditHelp, `
     Invoke-UserAudit

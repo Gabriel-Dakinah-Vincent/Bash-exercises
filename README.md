@@ -205,16 +205,16 @@ Invoke-UserAudit           # Full audit summary
 
 | Description | Command |
 |---|---|
-| Show Scriptman help | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- --help`</details> |
-| Show Extract Aliases help | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea -h`</details> |
-| Show b6se help | <details><summary>Show Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se --help`</details> |
+| Show Scriptman help | <details><summary>📋 Copy Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- --help`</details> |
+| Show Extract Aliases help | <details><summary>📋 Copy Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea -h`</details> |
+| Show b6se help | <details><summary>📋 Copy Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se --help`</details> |
 
 ### PowerShell Scripts
 
 | Description | Command |
 |---|---|
-| Show Scriptman help | <details><summary>Show Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman"`</details> |
-| Show UserAudit help | <details><summary>Show Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Show-UserAuditHelp"`</details> |
+| Show Scriptman help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman"`</details> |
+| Show UserAudit help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Show-UserAuditHelp"`</details> |
 
 **For complete command reference, see [CHEATSHEET.md](CHEATSHEET.md)**
 
