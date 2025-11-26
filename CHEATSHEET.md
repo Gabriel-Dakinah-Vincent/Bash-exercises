@@ -105,6 +105,44 @@
 
 | Description | Command |
 |---|---|
+| Complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Invoke-UserAudit"`</details> |
+| Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Show-UserAuditHelp"`</details> |
+
+---
+
+## PowerShell Aliases Installation
+
+### Install Convenient Aliases
+
+| Description | Command |
+|---|---|
+| Install aliases (remote) | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Alias.ps1 \| Invoke-Expression"`</details> |
+| Install aliases (local) | <details><summary>Show</summary>`. .\Modules\Winmod\PowerShell\Alias.ps1`</details> |
+| Clean PowerShell profile | <details><summary>Show</summary>`"" \| Out-File $PROFILE`</details> |
+
+### Available Aliases (After Installation)
+
+| Alias | Function | Description |
+|---|---|---|
+| `UserAudit` | Set-UserAudit | Full user audit |
+| `LocalAdmins` | Set-LocalAdmins | Get local administrators |
+| `UserLastLogon` | Set-UserLastLogon | Get last logon times |
+| `UserSessions` | Set-UserSessions | Get active sessions |
+| `DefensiveServices` | Set-DefensiveServices | Check security services |
+| `EDRSolutions` | Set-EDRSolutions | Scan for EDR/AV |
+| `PasswordPolicy` | Set-PasswordPolicy | Get password policy |
+| `PersistenceAudit` | Set-PersistenceAudit | Full persistence scan |
+| `RegistryPersistence` | Set-RegistryPersistence | Registry persistence |
+| `ScheduledTaskAbuse` | Set-ScheduledTaskAbuse | Scheduled task scan |
+| `ServiceHijacking` | Set-ServiceHijacking | Service hijacking scan |
+| `DLLSideloading` | Set-DLLSideloading | DLL sideloading scan |
+| `WMIEventSubscription` | Set-WMIEventSubscription | WMI event subscriptions |
+| `UserAuditHelp` | Set-UserAuditHelp | Show help |
+
+**Note:** Aliases are permanently installed to PowerShell profile and work in new sessions.
+
+--- Command |
+|---|---|
 | Run complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Invoke-UserAudit"`</details> |
 
 ### UserAudit - Local Import

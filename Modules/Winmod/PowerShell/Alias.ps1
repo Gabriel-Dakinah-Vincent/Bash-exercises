@@ -114,6 +114,14 @@ Set-Alias DLLSideloading Set-DLLSideloading
 Set-Alias WMIEventSubscription Set-WMIEventSubscription
 Set-Alias UserAuditHelp Set-UserAuditHelp
 
+# Set execution policy to allow profile loading
+try {
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force -ErrorAction SilentlyContinue
+    Write-Host "Execution policy set to RemoteSigned for current user" -ForegroundColor Green
+} catch {
+    Write-Host "Could not set execution policy (may require admin rights)" -ForegroundColor Yellow
+}
+
 # Install aliases to PowerShell profile
 if (-not (Test-Path $PROFILE)) { New-Item -Path $PROFILE -ItemType File -Force }
 $profileContent = Get-Content $PROFILE -Raw -ErrorAction SilentlyContinue
