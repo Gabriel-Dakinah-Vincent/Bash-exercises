@@ -116,13 +116,15 @@ Set-Alias UserAuditHelp Set-UserAuditHelp
 
 # Install aliases to PowerShell profile
 if (-not (Test-Path $PROFILE)) { New-Item -Path $PROFILE -ItemType File -Force }
-$url = 'https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Alias.ps1'
-$content = if ($PSCommandPath) { Get-Content $PSCommandPath -Raw } else { (Invoke-WebRequest -Uri $url -UseBasicParsing).Content }
 $profileContent = Get-Content $PROFILE -Raw -ErrorAction SilentlyContinue
 if (-not $profileContent -or -not $profileContent.Contains('# Scriptman PowerShell Aliases')) {
-    Add-Content -Path $PROFILE -Value "`n$content"
+    $url = 'https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Alias.ps1'
+    $content = if ($PSCommandPath) { Get-Content $PSCommandPath -Raw } else { (Invoke-WebRequest -Uri $url -UseBasicParsing).Content }
+    $functionsOnly = $content -split '# Install aliases to PowerShell profile' | Select-Object -First 1
+    Add-Content -Path $PROFILE -Value "`n$functionsOnly"
     Write-Host "Scriptman aliases added to PowerShell profile: $PROFILE" -ForegroundColor Green
 } else {
     Write-Host "Scriptman aliases already exist in PowerShell profile" -ForegroundColor Yellow
 }
+
 
