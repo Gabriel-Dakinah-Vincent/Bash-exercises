@@ -139,7 +139,12 @@
 | `WMIEventSubscription` | Set-WMIEventSubscription | WMI event subscriptions |
 | `UserAuditHelp` | Set-UserAuditHelp | Show help |
 
-**Note:** Aliases are permanently installed to PowerShell profile and work in new sessions.
+**After Installation:**
+1. **Open a new PowerShell window** - Aliases work automatically
+2. **Or reload current session:** `. $PROFILE`
+3. **Test aliases:** `UserAudit`, `LocalAdmins`, `PersistenceAudit`
+
+**Note:** Execution policy is automatically configured. Aliases are permanent.
 
 --- Command |
 |---|---|

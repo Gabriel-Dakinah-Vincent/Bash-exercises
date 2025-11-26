@@ -150,7 +150,12 @@ powershell -ExecutionPolicy Bypass -Command "Invoke-RestMethod https://raw.githu
 - `UserAuditHelp` - Show help
 - And more...
 
-**Note:** Use dot-sourcing (`.`) to load aliases into current session.
+**After Installation:**
+1. **Open a new PowerShell window** - Aliases are automatically available
+2. **Or reload current session:** `. $PROFILE`
+3. **Test aliases:** `UserAudit`, `LocalAdmins`, `PersistenceAudit`
+
+**Note:** Execution policy is automatically configured during installation.
 
 ---
 
