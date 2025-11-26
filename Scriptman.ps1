@@ -124,7 +124,7 @@ function Scriptman {
         foreach ($key in $Manifest.PSObject.Properties.Name) {
             $info = $Manifest.$key
             $type = if ($info.type -eq "remote") { "Remote" } else { "Local" }
-            Write-Color ("  - {0} ({1})" -f $key, $type) Green
+            Write-Color ("  - {0} ({1})" -f $key, $type) Blue
         }
         return
     }

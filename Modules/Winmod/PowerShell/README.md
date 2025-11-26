@@ -127,6 +127,33 @@ powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.c
 
 ---
 
+## 🔗 PowerShell Aliases Installation
+
+Install convenient aliases for all UserAudit functions:
+
+**Local Installation:**
+```powershell
+. .\Modules\Winmod\PowerShell\Alias.ps1
+```
+
+**Remote Installation:**
+```powershell
+powershell -ExecutionPolicy Bypass -Command "Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Alias.ps1 | Invoke-Expression"
+```
+
+**Available Aliases:**
+- `UserAudit` - Full audit
+- `LocalAdmins` - Get administrators
+- `UserSessions` - Active sessions
+- `PersistenceAudit` - Persistence scan
+- `PasswordPolicy` - Password policy
+- `UserAuditHelp` - Show help
+- And more...
+
+**Note:** Use dot-sourcing (`.`) to load aliases into current session.
+
+---
+
 ## 🧰 Best Practices
 
 - Run PowerShell as **Administrator**  
