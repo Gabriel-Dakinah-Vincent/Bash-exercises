@@ -38,7 +38,7 @@ function Get-LocalAdmins {
     }
 }
 
-function Get-UserLastLogon {
+function Get-LastLogon {
     Write-Host "`n[+]" -ForegroundColor Green -NoNewline
     Write-Host " Gathering last logon data..." -ForegroundColor DarkGray
     try {
@@ -61,23 +61,24 @@ function Show-AuditHelp {
     Write-Host "`nAvailable Commands:`n" -ForegroundColor Green
     Write-Host "  Get-Audit           - Displays local user summary"
     Write-Host "  Get-LocalAdmins         - Lists members of the Administrators group"
-    Write-Host "  Get-UserLastLogon       - Shows last logon timestamp for each user"
-    Write-Host "  Get-UserSessions        - Shows currently logged-in user sessions"
+    Write-Host "  Get-LastLogon           - Shows last logon timestamp for each user"
+    Write-Host "  Get-Sessions            - Shows currently logged-in user sessions"
     Write-Host "  Get-DefensiveServices   - Detects Windows Defender/security services"
     Write-Host "  Get-EDRSolutions        - Best-effort detection of EDR/AV products"
     Write-Host "  Get-PasswordPolicy      - Shows password & lockout policies"
-    Write-Host "  Get-PersistenceAudit    - Scans for common Windows persistence mechanisms"
+
     Write-Host "  Get-RegistryPersistence - Checks registry-based persistence"
     Write-Host "  Get-ScheduledTaskAbuse  - Detects suspicious scheduled tasks"
     Write-Host "  Get-ServiceHijacking    - Identifies potential service hijacking"
     Write-Host "  Get-DLLSideloading      - Scans for DLL sideloading indicators (supports -MaxProcesses, -TimeoutSeconds)"
     Write-Host "  Get-WMIEventSubscription - Checks WMI event subscriptions"
+    Write-Host "  Get-ProfilePersistence  - Scans PowerShell profiles for persistence"
     Write-Host "  Show-AuditHelp      - Displays this help menu"
 
     Write-Host "`nUsage Examples:" -ForegroundColor Yellow
     Write-Host "  .\Scriptman.ps1 -help"
     Write-Host "  .\Scriptman.ps1 Audit"
-    Write-Host "  .\Scriptman.ps1 Audit:Get-UserSessions"
+    Write-Host "  .\Scriptman.ps1 Audit:Get-Sessions"
     Write-Host "  .\Scriptman.ps1 Audit:Get-DLLSideloading -MaxProcesses 25 -TimeoutSeconds 15"
 }
 
@@ -87,16 +88,17 @@ function Invoke-Audit {
     
     Get-Audit
     Get-LocalAdmins
-    Get-UserLastLogon
-    Get-UserSessions
+    Get-LastLogon
+    Get-Sessions
     Get-DefensiveServices
-    Get-PersistenceAudit
+    Get-RegistryPersistence
+    Get-ProfilePersistence
 }
 
 # 
 # Get-UserSessions
 # 
-function Get-UserSessions {
+function Get-Sessions {
     Write-Host "`n[+]" -ForegroundColor Green -NoNewline
     Write-Host " Enumerating active user sessions..." -ForegroundColor DarkGray
     try {
@@ -288,6 +290,8 @@ function Get-RiskLevel {
         'Registry' {
             if ($Location -like '*Image File Execution Options*') { return 'High' }
             if ($Location -like '*Winlogon*') { return 'High' }
+            if ($Location -like '*Lsa*') { return 'High' }
+            if ($Value -match '(powershell.*NonInteractive|WindowStyle Hidden|sal a New-Object|IO\.Compression)') { return 'High' }
             if ($Value -match '(powershell|cmd|wscript|cscript).*(-enc|-e |-w hidden|bypass)') { return 'High' }
             if ($Value -match '(temp|appdata|users)') { return 'Medium' }
             return 'Low'
@@ -298,34 +302,20 @@ function Get-RiskLevel {
             return 'Low'
         }
         'Task' {
-            if ($Value -match '(bypass|hidden|encoded)') { return 'High' }
+            if ($Value -match '(NonInteractive|bypass|hidden|encoded)') { return 'High' }
             if ($Value -match '(powershell|cmd)') { return 'Medium' }
             return 'Low'
         }
         'DLL' { return 'Medium' }
-        'WMI' { return 'High' }
+        'WMI' { 
+            if ($Value -match '(SystemUpTime|Win32_LocalTime.*Hour.*Minute|CommandLineTemplate)') { return 'High' }
+            return 'High' 
+        }
         default { return 'Low' }
     }
 }
 
-# 
-# Get-PersistenceAudit - Main persistence audit function
-# 
-function Get-PersistenceAudit {
-    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
-    Write-Host " Scanning for Windows persistence mechanisms..." -ForegroundColor DarkGray
-    
-    if (-not (Test-AdminPrivileges)) {
-        Write-Host "[!]" -ForegroundColor Red -NoNewline
-        Write-Host " Administrator privileges required for comprehensive persistence audit." -ForegroundColor DarkGray
-    }
-    
-    Get-RegistryPersistence
-    Get-ScheduledTaskAbuse
-    Get-ServiceHijacking
-    Get-DLLSideloading
-    Get-WMIEventSubscription
-}
+
 
 # 
 # Get-RegistryPersistence
@@ -341,14 +331,53 @@ function Get-RegistryPersistence {
         'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce',
         'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run',
         'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
-        'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options'
+        'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options',
+        'HKLM:\SYSTEM\CurrentControlSet\Control\Lsa'
     )
     
     $findings = @()
+    
+    # Check PowerShell profiles for persistence
+    $profiles = @($PROFILE.AllUsersAllHosts, $PROFILE.CurrentUserAllHosts, $PROFILE.AllUsersCurrentHost, $PROFILE.CurrentUserCurrentHost)
+    foreach ($prof in $profiles) {
+        if ($prof -and (Test-Path $prof)) {
+            try {
+                $content = Get-Content $prof -Raw -ErrorAction SilentlyContinue
+                if ($content -and ($content -match '\s{200,}' -or $content -match 'sal a New-Object' -or $content -match 'IO\.Compression\.DeflateStream')) {
+                    $risk = 'High'
+                    $findings += [PSCustomObject]@{
+                        Location = 'PowerShell Profile'
+                        Name = Split-Path $prof -Leaf
+                        Value = $prof
+                        FileHash = (Get-FileHash $prof -ErrorAction SilentlyContinue).Hash
+                        Risk = $risk
+                    }
+                }
+            } catch {}
+        }
+    }
+    
     foreach ($key in $regKeys) {
         try {
             if (Test-Path $key) {
-                if ($key -like '*Winlogon*') {
+                if ($key -like '*Lsa*') {
+                    $entries = Get-ItemProperty $key -ErrorAction SilentlyContinue
+                    if ($entries.'Security Packages') {
+                        $packages = $entries.'Security Packages'
+                        foreach ($pkg in $packages) {
+                            if ($pkg -and $pkg -notmatch '^(kerberos|msv1_0|schannel|wdigest|tspkg|pku2u|livessp)$') {
+                                $risk = 'High'
+                                $findings += [PSCustomObject]@{
+                                    Location = $key
+                                    Name = 'Security Packages'
+                                    Value = $pkg
+                                    FileHash = 'N/A'
+                                    Risk = $risk
+                                }
+                            }
+                        }
+                    }
+                } elseif ($key -like '*Winlogon*') {
                     $entries = Get-ItemProperty $key -ErrorAction SilentlyContinue
                     @('Shell', 'Userinit', 'Taskman', 'AppSetup') | ForEach-Object {
                         if ($entries.$_) {
@@ -384,6 +413,8 @@ function Get-RegistryPersistence {
                         $entries.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object {
                             $hash = if (Test-Path ($_.Value -split ' ')[0]) { (Get-FileHash ($_.Value -split ' ')[0] -ErrorAction SilentlyContinue).Hash } else { 'N/A' }
                             $risk = Get-RiskLevel -Type 'Registry' -Value $_.Value -Location $key
+                            # Enhanced detection for PowerSploit-style payloads
+                            if ($_.Value -match '(powershell.*-NonInteractive|WindowStyle Hidden|sal a New-Object)') { $risk = 'High' }
                             $findings += [PSCustomObject]@{
                                 Location = $key
                                 Name = $_.Name
@@ -420,10 +451,12 @@ function Get-ScheduledTaskAbuse {
     
     try {
         $tasks = Get-ScheduledTask -ErrorAction SilentlyContinue | Where-Object { 
-            $_.State -eq 'Ready' -and 
+            ($_.TaskName -eq 'Updater' -or $_.TaskName -like '*Update*') -or
+            ($_.State -eq 'Ready' -and 
             ($_.Actions.Execute -match '(powershell|cmd|wscript|cscript)' -or
-             $_.Actions.Arguments -match '(bypass|hidden|encoded)' -or
-             $_.Principal.UserId -eq 'SYSTEM')
+             $_.Actions.Arguments -match '(bypass|hidden|encoded|NonInteractive)' -or
+             $_.Principal.UserId -eq 'SYSTEM' -or
+             $_.Triggers.Repetition.Interval -eq 'PT1H'))
         }
         
         if ($tasks) {
@@ -431,15 +464,20 @@ function Get-ScheduledTaskAbuse {
             foreach ($task in $tasks) {
                 $executeValue = $task.Actions.Execute + ' ' + $task.Actions.Arguments
                 $risk = Get-RiskLevel -Type 'Task' -Value $executeValue
+                # Enhanced detection for PowerSploit patterns
+                if ($task.TaskName -eq 'Updater' -or $executeValue -match 'NonInteractive' -or $task.Principal.UserId -eq 'SYSTEM') { $risk = 'High' }
+                $triggerType = if ($task.Triggers) { $task.Triggers[0].CimClass.CimClassName } else { 'Unknown' }
                 $results += [PSCustomObject]@{
                     TaskName = $task.TaskName
                     State = $task.State
                     Execute = $task.Actions.Execute
                     Arguments = $task.Actions.Arguments
+                    TriggerType = $triggerType
+                    Principal = $task.Principal.UserId
                     Risk = $risk
                 }
             }
-            $results | Sort-Object @{Expression={switch($_.Risk){'High'{1};'Medium'{2};'Low'{3}}}}, TaskName | Format-Table Risk, TaskName, State, Execute, Arguments -AutoSize
+            $results | Sort-Object @{Expression={switch($_.Risk){'High'{1};'Medium'{2};'Low'{3}}}}, TaskName | Format-Table Risk, TaskName, State, Execute, Arguments, TriggerType, Principal -AutoSize
         } else {
             Write-Host "[i]" -ForegroundColor Cyan -NoNewline
             Write-Host " No suspicious scheduled tasks detected." -ForegroundColor DarkGray
@@ -608,7 +646,8 @@ function Get-WMIEventSubscription {
     
     try {
         $filters = Get-WmiObject -Namespace root\subscription -Class __EventFilter -ErrorAction SilentlyContinue
-        $consumers = Get-WmiObject -Namespace root\subscription -Class __EventConsumer -ErrorAction SilentlyContinue
+        $consumers = Get-WmiObject -Namespace root\subscription -Class CommandLineEventConsumer -ErrorAction SilentlyContinue
+        $allConsumers = Get-WmiObject -Namespace root\subscription -Class __EventConsumer -ErrorAction SilentlyContinue
         $bindings = Get-WmiObject -Namespace root\subscription -Class __FilterToConsumerBinding -ErrorAction SilentlyContinue
         
         $findings = @()
@@ -616,6 +655,8 @@ function Get-WMIEventSubscription {
         if ($filters) {
             foreach ($filter in $filters) {
                 $risk = Get-RiskLevel -Type 'WMI' -Value $filter.Query
+                # Enhanced detection for PowerSploit patterns
+                if ($filter.Name -eq 'Updater' -or $filter.Query -match '(SystemUpTime|Win32_LocalTime.*Hour.*Minute)') { $risk = 'High' }
                 $findings += [PSCustomObject]@{
                     Type = 'EventFilter'
                     Name = $filter.Name
@@ -628,14 +669,31 @@ function Get-WMIEventSubscription {
         
         if ($consumers) {
             foreach ($consumer in $consumers) {
-                $details = if ($consumer.CommandLineTemplate) { $consumer.CommandLineTemplate } else { $consumer.ScriptText }
-                $risk = Get-RiskLevel -Type 'WMI' -Value $details
+                $details = $consumer.CommandLineTemplate
+                $risk = 'High' # CommandLineEventConsumer is always high risk
+                if ($consumer.Name -eq 'Updater' -or $details -match 'NonInteractive') { $risk = 'High' }
                 $findings += [PSCustomObject]@{
-                    Type = 'EventConsumer'
+                    Type = 'CommandLineEventConsumer'
                     Name = $consumer.Name
                     Query = $consumer.__CLASS
                     Details = $details
                     Risk = $risk
+                }
+            }
+        }
+        
+        if ($allConsumers) {
+            foreach ($consumer in $allConsumers) {
+                if ($consumer.__CLASS -ne 'CommandLineEventConsumer') {
+                    $details = if ($consumer.ScriptText) { $consumer.ScriptText } else { $consumer.CommandLineTemplate }
+                    $risk = Get-RiskLevel -Type 'WMI' -Value $details
+                    $findings += [PSCustomObject]@{
+                        Type = $consumer.__CLASS
+                        Name = $consumer.Name
+                        Query = $consumer.__CLASS
+                        Details = $details
+                        Risk = $risk
+                    }
                 }
             }
         }
@@ -653,21 +711,76 @@ function Get-WMIEventSubscription {
 }
 
 # 
+# Get-ProfilePersistence
+# 
+function Get-ProfilePersistence {
+    Write-Host "`n[+]" -ForegroundColor Green -NoNewline
+    Write-Host " Checking PowerShell profile persistence..." -ForegroundColor DarkGray
+    
+    $profiles = @(
+        @{Path=$PROFILE.AllUsersAllHosts; Scope='AllUsersAllHosts'},
+        @{Path=$PROFILE.CurrentUserAllHosts; Scope='CurrentUserAllHosts'},
+        @{Path=$PROFILE.AllUsersCurrentHost; Scope='AllUsersCurrentHost'},
+        @{Path=$PROFILE.CurrentUserCurrentHost; Scope='CurrentUserCurrentHost'}
+    )
+    
+    $findings = @()
+    
+    foreach ($prof in $profiles) {
+        if ($prof.Path -and (Test-Path $prof.Path)) {
+            try {
+                $content = Get-Content $prof.Path -Raw -ErrorAction SilentlyContinue
+                if ($content) {
+                    $risk = 'Low'
+                    $suspicious = @()
+                    
+                    if ($content -match '\s{200,}') { $suspicious += 'Large whitespace padding'; $risk = 'High' }
+                    if ($content -match 'sal a New-Object') { $suspicious += 'Compressed payload'; $risk = 'High' }
+                    if ($content -match 'IO\.Compression\.DeflateStream') { $suspicious += 'Deflate decompression'; $risk = 'High' }
+                    if ($content -match 'FromBase64String') { $suspicious += 'Base64 decoding'; $risk = 'Medium' }
+                    if ($content -match '(bypass|hidden|NonInteractive)') { $suspicious += 'Stealth execution'; $risk = 'High' }
+                    if ($content -match 'Invoke-Expression|iex') { $suspicious += 'Dynamic execution'; $risk = 'Medium' }
+                    
+                    $hash = (Get-FileHash $prof.Path -ErrorAction SilentlyContinue).Hash
+                    $size = (Get-Item $prof.Path -ErrorAction SilentlyContinue).Length
+                    
+                    $findings += [PSCustomObject]@{
+                        ProfileScope = $prof.Scope
+                        Path = $prof.Path
+                        Size = $size
+                        FileHash = $hash
+                        Indicators = ($suspicious -join ', ')
+                        Risk = $risk
+                    }
+                }
+            } catch {}
+        }
+    }
+    
+    if ($findings) {
+        $findings | Sort-Object @{Expression={switch($_.Risk){'High'{1};'Medium'{2};'Low'{3}}}}, ProfileScope | Format-Table Risk, ProfileScope, Path, Size, Indicators, FileHash -AutoSize
+    } else {
+        Write-Host "[i]" -ForegroundColor Cyan -NoNewline
+        Write-Host " No PowerShell profile persistence detected." -ForegroundColor DarkGray
+    }
+}
+
+# 
 # Export functions
 # 
 Export-ModuleMember -Function `
     Get-Audit, `
     Get-LocalAdmins, `
-    Get-UserLastLogon, `
-    Get-UserSessions, `
+    Get-LastLogon, `
+    Get-Sessions, `
     Get-DefensiveServices, `
     Get-EDRSolutions, `
     Get-PasswordPolicy, `
-    Get-PersistenceAudit, `
     Get-RegistryPersistence, `
     Get-ScheduledTaskAbuse, `
     Get-ServiceHijacking, `
     Get-DLLSideloading, `
     Get-WMIEventSubscription, `
+    Get-ProfilePersistence, `
     Show-AuditHelp, `
     Invoke-Audit

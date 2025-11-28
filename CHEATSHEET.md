@@ -78,8 +78,8 @@
 |---|---|
 | Get all users | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-Audit"`</details> |
 | Get administrators | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-LocalAdmins"`</details> |
-| Get last logon | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-UserLastLogon"`</details> |
-| Get sessions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-UserSessions"`</details> |
+| Get last logon | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-LastLogon"`</details> |
+| Get sessions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-Sessions"`</details> |
 
 ### Audit - Security Detection
 
@@ -93,7 +93,7 @@
 
 | Description | Command |
 |---|---|
-| Full persistence audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-PersistenceAudit"`</details> |
+| Profile persistence | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ProfilePersistence"`</details> |
 | Registry persistence | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-RegistryPersistence"`</details> |
 | Scheduled task abuse | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ScheduledTaskAbuse"`</details> |
 | Service hijacking | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ServiceHijacking"`</details> |
@@ -126,12 +126,12 @@
 |---|---|---|
 | `Audit` | Set-Audit | Full user audit |
 | `LocalAdmins` | Set-LocalAdmins | Get local administrators |
-| `UserLastLogon` | Set-UserLastLogon | Get last logon times |
-| `UserSessions` | Set-UserSessions | Get active sessions |
+| `LastLogon` | Set-LastLogon | Get last logon times |
+| `Sessions` | Set-Sessions | Get active sessions |
 | `DefensiveServices` | Set-DefensiveServices | Check security services |
 | `EDRSolutions` | Set-EDRSolutions | Scan for EDR/AV |
 | `PasswordPolicy` | Set-PasswordPolicy | Get password policy |
-| `PersistenceAudit` | Set-PersistenceAudit | Full persistence scan |
+| `ProfilePersistence` | Set-ProfilePersistence | PowerShell profile scan |
 | `RegistryPersistence` | Set-RegistryPersistence | Registry persistence |
 | `ScheduledTaskAbuse` | Set-ScheduledTaskAbuse | Scheduled task scan |
 | `ServiceHijacking` | Set-ServiceHijacking | Service hijacking scan |
@@ -142,7 +142,7 @@
 **After Installation:**
 1. **Open a new PowerShell window** - Aliases work automatically
 2. **Or reload current session:** `. $PROFILE`
-3. **Test aliases:** `Audit`, `LocalAdmins`, `PersistenceAudit`
+3. **Test aliases:** `Audit`, `LocalAdmins`, `ProfilePersistence`
 
 **Note:** Execution policy is automatically configured. Aliases are permanent.
 
@@ -205,8 +205,14 @@
 |---|---|
 | `Get-Audit` | List all local users |
 | `Get-LocalAdmins` | List administrators |
-| `Get-UserLastLogon` | Show last logon times |
-| `Get-UserSessions` | List active sessions |
+| `Get-LastLogon` | Show last logon times |
+| `Get-Sessions` | List active sessions |
+| `Get-RegistryPersistence` | Registry persistence scan |
+| `Get-ScheduledTaskAbuse` | Scheduled task abuse scan |
+| `Get-ServiceHijacking` | Service hijacking scan |
+| `Get-DLLSideloading` | DLL sideloading scan |
+| `Get-WMIEventSubscription` | WMI event subscription scan |
+| `Get-ProfilePersistence` | PowerShell profile persistence |
 | `Get-DefensiveServices` | Detect security services |
 | `Get-EDRSolutions` | Scan for EDR/AV |
 | `Get-PasswordPolicy` | Show password policies |

@@ -44,10 +44,10 @@ function Scriptman {
     function Show-Banner {
         Clear-Host
         Write-Host "`n" -NoNewline
-        Write-Typewriter "SCRIPTMAN FRAMEWORK" Green 60
-        Write-Typewriter "ENVIRONMENT: WINDOWS POWERSHELL" Green 50
-        Write-Host "AUTHOR: " -ForegroundColor White -NoNewline
-        Write-Typewriter "GABRIEL DAKINAH VINCENT" Green 50
+        Write-Typewriter "SCRIPTMAN FRAMEWORK" DarkGray 60
+        Write-Typewriter "ENVIRONMENT: WINDOWS POWERSHELL" DarkGray 50
+        Write-Host "AUTHOR: " -ForegroundColor DarkGray -NoNewline
+        Write-Typewriter "GABRIEL DAKINAH VINCENT" DarkGray 50
         Start-Sleep -Milliseconds 1500
         Clear-Host
     }

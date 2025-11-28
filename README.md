@@ -185,15 +185,29 @@ Comprehensive PowerShell module for auditing local user accounts and Windows sec
 
 **Core Commands:**
 ```powershell
-Get-Audit              # List all local users
+Get-Audit                  # List all local users
 Get-LocalAdmins            # Show Administrators
-Get-UserLastLogon          # Last logon timestamps
-Get-UserSessions           # Active sessions
+Get-LastLogon              # Last logon timestamps
+Get-Sessions               # Active sessions
 Get-DefensiveServices      # Security services
 Get-EDRSolutions           # EDR/AV detection
 Get-PasswordPolicy         # Password policies
-Invoke-Audit           # Full audit summary
+Get-RegistryPersistence    # Registry-based persistence
+Get-ScheduledTaskAbuse     # Suspicious scheduled tasks
+Get-ServiceHijacking       # Service hijacking detection
+Get-DLLSideloading         # DLL sideloading indicators
+Get-WMIEventSubscription   # WMI event subscriptions
+Get-ProfilePersistence     # PowerShell profile persistence
+Invoke-Audit               # Full audit summary
 ```
+
+**Enhanced Detection:**
+- PowerSploit persistence techniques
+- Registry Run keys with stealth payloads
+- WMI CommandLineEventConsumer abuse
+- PowerShell profile modifications
+- Scheduled task persistence patterns
+- LSA Security Support Provider DLLs
 
 **Documentation:** [Audit README](Modules/Winmod/PowerShell/README.md)
 
@@ -215,6 +229,8 @@ Invoke-Audit           # Full audit summary
 |---|---|
 | Show Scriptman help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman"`</details> |
 | Show Audit help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Show-AuditHelp"`</details> |
+| Check Profile Persistence | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ProfilePersistence"`</details> |
+| Check Registry Persistence | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-RegistryPersistence"`</details> |
 
 **For complete command reference, see [CHEATSHEET.md](CHEATSHEET.md)**
 

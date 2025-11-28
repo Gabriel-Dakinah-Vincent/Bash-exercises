@@ -32,6 +32,12 @@ The module collects and summarizes key security data including:
 - Windows Defender & core security services  
 - Basic EDR/AV detection  
 - Password and lockout policies  
+- Registry-based persistence mechanisms
+- Scheduled task abuse detection
+- Service hijacking indicators
+- DLL sideloading detection
+- WMI event subscription monitoring
+- PowerShell profile persistence  
 
 ---
 
@@ -71,11 +77,17 @@ Get-Module Audit
 |----------|-------------|
 | Get-Audit | Lists all local users with state + last logon |
 | Get-LocalAdmins | Displays Administrators group members |
-| Get-UserLastLogon | Shows last logon timestamps |
-| Get-UserSessions | Lists currently active sessions |
+| Get-LastLogon | Shows last logon timestamps |
+| Get-Sessions | Lists currently active sessions |
 | Get-DefensiveServices | Detects Defender & security services |
 | Get-EDRSolutions | Basic EDR/AV detection |
 | Get-PasswordPolicy | Displays password & lockout policies |
+| Get-RegistryPersistence | Scans registry-based persistence |
+| Get-ScheduledTaskAbuse | Detects suspicious scheduled tasks |
+| Get-ServiceHijacking | Identifies service hijacking |
+| Get-DLLSideloading | Scans for DLL sideloading indicators |
+| Get-WMIEventSubscription | Checks WMI event subscriptions |
+| Get-ProfilePersistence | Scans PowerShell profile persistence |
 | Show-AuditHelp | Shows module usage help |
 | Invoke-Audit | Runs a full audit summary |
 
@@ -91,10 +103,16 @@ Get-Audit
 Get-LocalAdmins
 ```
 ```powershell
-Get-UserLastLogon
+Get-LastLogon
 ```
 ```powershell
-Get-UserSessions
+Get-Sessions
+```
+```powershell
+Get-RegistryPersistence
+```
+```powershell
+Get-ProfilePersistence
 ```
 ```powershell
 Get-PasswordPolicy
@@ -148,16 +166,21 @@ powershell -ExecutionPolicy Bypass -Command "Invoke-RestMethod https://raw.githu
 **Available Aliases:**
 - `Audit` - Full audit
 - `LocalAdmins` - Get administrators
-- `UserSessions` - Active sessions
-- `PersistenceAudit` - Persistence scan
+- `LastLogon` - Last logon times
+- `Sessions` - Active sessions
+- `RegistryPersistence` - Registry persistence scan
+- `ProfilePersistence` - PowerShell profile scan
+- `ScheduledTaskAbuse` - Scheduled task scan
+- `ServiceHijacking` - Service hijacking scan
+- `DLLSideloading` - DLL sideloading scan
+- `WMIEventSubscription` - WMI event scan
 - `PasswordPolicy` - Password policy
 - `AuditHelp` - Show help
-- And more...
 
 **After Installation:**
 1. **Open a new PowerShell window** - Aliases are automatically available
 2. **Or reload current session:** `. $PROFILE`
-3. **Test aliases:** `Audit`, `LocalAdmins`, `PersistenceAudit`
+3. **Test aliases:** `Audit`, `LocalAdmins`, `ProfilePersistence`
 
 **Note:** Execution policy is automatically configured during installation.
 

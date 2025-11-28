@@ -2,116 +2,175 @@
 # Add these to your PowerShell profile for quick access
 
 function Set-Audit {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit
+        }
+    } catch {
+        Write-Error "Failed to execute Audit: $($_.Exception.Message)"
     }
 }
 
 function Set-LocalAdmins {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-LocalAdmins
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-LocalAdmins
+        }
+    } catch {
+        Write-Error "Failed to execute LocalAdmins: $($_.Exception.Message)"
     }
 }
 
-function Set-UserLastLogon {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-UserLastLogon
+function Set-LastLogon {
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-LastLogon
+        }
+    } catch {
+        Write-Error "Failed to execute LastLogon: $($_.Exception.Message)"
     }
 }
 
-function Set-UserSessions {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-UserSessions
+function Set-Sessions {
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-Sessions
+        }
+    } catch {
+        Write-Error "Failed to execute Sessions: $($_.Exception.Message)"
     }
 }
 
 function Set-DefensiveServices {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-DefensiveServices
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-DefensiveServices
+        }
+    } catch {
+        Write-Error "Failed to execute DefensiveServices: $($_.Exception.Message)"
     }
 }
 
 function Set-EDRSolutions {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-EDRSolutions
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-EDRSolutions
+        }
+    } catch {
+        Write-Error "Failed to execute EDRSolutions: $($_.Exception.Message)"
     }
 }
 
 function Set-PasswordPolicy {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-PasswordPolicy
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-PasswordPolicy
+        }
+    } catch {
+        Write-Error "Failed to execute PasswordPolicy: $($_.Exception.Message)"
     }
 }
 
-function Set-PersistenceAudit {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-PersistenceAudit
-    }
-}
+
 
 function Set-RegistryPersistence {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-RegistryPersistence
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-RegistryPersistence
+        }
+    } catch {
+        Write-Error "Failed to execute RegistryPersistence: $($_.Exception.Message)"
     }
 }
 
 function Set-ScheduledTaskAbuse {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-ScheduledTaskAbuse
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-ScheduledTaskAbuse
+        }
+    } catch {
+        Write-Error "Failed to execute ScheduledTaskAbuse: $($_.Exception.Message)"
     }
 }
 
 function Set-ServiceHijacking {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-ServiceHijacking
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-ServiceHijacking
+        }
+    } catch {
+        Write-Error "Failed to execute ServiceHijacking: $($_.Exception.Message)"
     }
 }
 
 function Set-DLLSideloading {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-DLLSideloading
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-DLLSideloading
+        }
+    } catch {
+        Write-Error "Failed to execute DLLSideloading: $($_.Exception.Message)"
     }
 }
 
 function Set-WMIEventSubscription {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Get-WMIEventSubscription
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-WMIEventSubscription
+        }
+    } catch {
+        Write-Error "Failed to execute WMIEventSubscription: $($_.Exception.Message)"
+    }
+}
+
+function Set-ProfilePersistence {
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Get-ProfilePersistence
+        }
+    } catch {
+        Write-Error "Failed to execute ProfilePersistence: $($_.Exception.Message)"
     }
 }
 
 function Set-AuditHelp {
-    & powershell -ExecutionPolicy Bypass -Command {
-        Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
-        Scriptman Audit:Show-AuditHelp
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Audit:Show-AuditHelp
+        }
+    } catch {
+        Write-Error "Failed to execute AuditHelp: $($_.Exception.Message)"
     }
 }
 
 Set-Alias Audit Set-Audit
 Set-Alias LocalAdmins Set-LocalAdmins
-Set-Alias UserLastLogon Set-UserLastLogon
-Set-Alias UserSessions Set-UserSessions
+Set-Alias LastLogon Set-LastLogon
+Set-Alias Sessions Set-Sessions
 Set-Alias DefensiveServices Set-DefensiveServices
 Set-Alias EDRSolutions Set-EDRSolutions
 Set-Alias PasswordPolicy Set-PasswordPolicy
-Set-Alias PersistenceAudit Set-PersistenceAudit
+
 Set-Alias RegistryPersistence Set-RegistryPersistence
 Set-Alias ScheduledTaskAbuse Set-ScheduledTaskAbuse
 Set-Alias ServiceHijacking Set-ServiceHijacking
 Set-Alias DLLSideloading Set-DLLSideloading
 Set-Alias WMIEventSubscription Set-WMIEventSubscription
+Set-Alias ProfilePersistence Set-ProfilePersistence
 Set-Alias AuditHelp Set-AuditHelp
 
 # Set execution policy to allow profile loading
@@ -123,16 +182,20 @@ try {
 }
 
 # Install aliases to PowerShell profile
-if (-not (Test-Path $PROFILE)) { New-Item -Path $PROFILE -ItemType File -Force }
-$profileContent = Get-Content $PROFILE -Raw -ErrorAction SilentlyContinue
-if (-not $profileContent -or -not $profileContent.Contains('# Scriptman PowerShell Aliases')) {
-    $url = 'https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Alias.ps1'
-    $content = if ($PSCommandPath) { Get-Content $PSCommandPath -Raw } else { (Invoke-WebRequest -Uri $url -UseBasicParsing).Content }
-    $functionsOnly = ($content -split '# Set execution policy to allow profile loading')[0]
-    Add-Content -Path $PROFILE -Value "`n$functionsOnly"
-    Write-Host "Scriptman aliases added to PowerShell profile: $PROFILE" -ForegroundColor Green
-} else {
-    Write-Host "Scriptman aliases already exist in PowerShell profile" -ForegroundColor Yellow
+try {
+    if (-not (Test-Path $PROFILE)) { New-Item -Path $PROFILE -ItemType File -Force }
+    $profileContent = Get-Content $PROFILE -Raw -ErrorAction SilentlyContinue
+    if (-not $profileContent -or -not $profileContent.Contains('# Scriptman PowerShell Aliases')) {
+        $url = 'https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Alias.ps1'
+        $content = if ($PSCommandPath) { Get-Content $PSCommandPath -Raw } else { (Invoke-WebRequest -Uri $url -UseBasicParsing).Content }
+        $functionsOnly = ($content -split '# Set execution policy to allow profile loading')[0]
+        Add-Content -Path $PROFILE -Value "`n$functionsOnly"
+        Write-Host "Scriptman aliases added to PowerShell profile: $PROFILE" -ForegroundColor Green
+    } else {
+        Write-Host "Scriptman aliases already exist in PowerShell profile" -ForegroundColor Yellow
+    }
+} catch {
+    Write-Warning "Failed to install aliases to profile: $($_.Exception.Message)"
 }
 
 
