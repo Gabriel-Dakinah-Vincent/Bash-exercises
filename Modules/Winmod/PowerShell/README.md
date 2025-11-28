@@ -1,4 +1,4 @@
-# UserAudit PowerShell Module  
+# Audit PowerShell Module  
 ### Windows Local Account Auditing Toolkit
 
 ---
@@ -13,7 +13,7 @@
 
 ## 📘 Overview
 
-UserAudit is a lightweight PowerShell module that provides fast and reliable insights into local user accounts and the security posture of Windows systems.
+Audit is a lightweight PowerShell module that provides fast and reliable insights into local user accounts and the security posture of Windows systems.
 
 It is designed for:
 
@@ -38,11 +38,11 @@ The module collects and summarizes key security data including:
 ## 📁 Project Structure
 
 ```
-UserAudit/
+Audit/
 │
-├── UserAudit.psm1     # Main module implementation
-├── UserAudit.psd1     # Module manifest metadata
-└── UserAudit.ps1      # Optional standalone runner
+├── Audit.psm1     # Main module implementation
+├── Audit.psd1     # Module manifest metadata
+└── Audit.ps1      # Optional standalone runner
 ```
 
 ---
@@ -52,13 +52,13 @@ UserAudit/
 ### 1️⃣ Import the Module
 
 ```powershell
-Import-Module .\UserAudit.psm1 -Force
+Import-Module .\Audit.psm1 -Force
 ```
 
 Verify:
 
 ```powershell
-Get-Module UserAudit
+Get-Module Audit
 ```
 
 ---
@@ -69,23 +69,23 @@ Get-Module UserAudit
 
 | Function | Description |
 |----------|-------------|
-| Get-UserAudit | Lists all local users with state + last logon |
+| Get-Audit | Lists all local users with state + last logon |
 | Get-LocalAdmins | Displays Administrators group members |
 | Get-UserLastLogon | Shows last logon timestamps |
 | Get-UserSessions | Lists currently active sessions |
 | Get-DefensiveServices | Detects Defender & security services |
 | Get-EDRSolutions | Basic EDR/AV detection |
 | Get-PasswordPolicy | Displays password & lockout policies |
-| Show-UserAuditHelp | Shows module usage help |
-| Invoke-UserAudit | Runs a full audit summary |
+| Show-AuditHelp | Shows module usage help |
+| Invoke-Audit | Runs a full audit summary |
 
 ### Example Session
 
 ```powershell
-Import-Module .\UserAudit.psm1 -Force
+Import-Module .\Audit.psm1 -Force
 ```
 ```powershell
-Get-UserAudit
+Get-Audit
 ```
 ```powershell
 Get-LocalAdmins
@@ -108,7 +108,7 @@ Get-DefensiveServices
 ## 🤖 Full Automated Audit
 
 ```powershell
-Invoke-UserAudit
+Invoke-Audit
 ```
 
 ---
@@ -116,22 +116,26 @@ Invoke-UserAudit
 ## 🌐 Remote Execution (No Clone Needed)
 
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman UserAudit"
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman Audit"
 ```
 
 Open remote help:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman UserAudit:Show-UserAuditHelp"
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman Audit:Show-AuditHelp"
 ```
 
 ---
 
 ## 🔗 PowerShell Aliases Installation
 
-Install convenient aliases for all UserAudit functions:
+Install convenient aliases for all Audit functions:
 
 **Local Installation:**
+
+```powershell
+. .\Alias.ps1
+```
 ```powershell
 . .\Modules\Winmod\PowerShell\Alias.ps1
 ```
@@ -142,18 +146,18 @@ powershell -ExecutionPolicy Bypass -Command "Invoke-RestMethod https://raw.githu
 ```
 
 **Available Aliases:**
-- `UserAudit` - Full audit
+- `Audit` - Full audit
 - `LocalAdmins` - Get administrators
 - `UserSessions` - Active sessions
 - `PersistenceAudit` - Persistence scan
 - `PasswordPolicy` - Password policy
-- `UserAuditHelp` - Show help
+- `AuditHelp` - Show help
 - And more...
 
 **After Installation:**
 1. **Open a new PowerShell window** - Aliases are automatically available
 2. **Or reload current session:** `. $PROFILE`
-3. **Test aliases:** `UserAudit`, `LocalAdmins`, `PersistenceAudit`
+3. **Test aliases:** `Audit`, `LocalAdmins`, `PersistenceAudit`
 
 **Note:** Execution policy is automatically configured during installation.
 
@@ -173,8 +177,8 @@ powershell -ExecutionPolicy Bypass -Command "Invoke-RestMethod https://raw.githu
 
 To add new features:
 
-1. Add the function inside **UserAudit.psm1**  
-2. Add its name to **FunctionsToExport** in *UserAudit.psd1*  
+1. Add the function inside **Audit.psm1**  
+2. Add its name to **FunctionsToExport** in *Audit.psd1*  
 3. Increment the version number  
 
 ### Example Extension
@@ -196,7 +200,7 @@ function Get-UserGroups {
 
 | Property | Value |
 |----------|--------|
-| Module Name | UserAudit |
+| Module Name | Audit |
 | Version | 1.0.0 |
 | Author | Gabriel Dakinah Vincent |
 | Compatible PowerShell | Windows PowerShell 5.1, PowerShell 7+ |

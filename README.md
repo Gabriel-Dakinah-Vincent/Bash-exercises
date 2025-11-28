@@ -58,7 +58,7 @@ Bash-exercises/
 │   │       └── recovery-passwords/      # Password recovery (WIP)
 │   └── Winmod/            # Windows modules
 │       ├── PowerShell/
-│       │   └── UserAudit/               # Windows account auditing
+│       │   └── Audit/               # Windows account auditing
 │       └── Cmd/
 ├── tests/
 │   └── test_project.sh    # Project test suite
@@ -123,11 +123,11 @@ curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises
 
 ```powershell
 # Remote execution
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman UserAudit"
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman Audit"
 
 # Local import
-Import-Module .\Modules\Winmod\PowerShell\UserAudit\UserAudit.psm1 -Force
-Get-UserAudit
+Import-Module .\Modules\Winmod\PowerShell\Audit\Audit.psm1 -Force
+Get-Audit
 ```
 
 ---
@@ -170,7 +170,7 @@ Password recovery feature (currently under development).
 
 ---
 
-### ⭐ UserAudit — Windows Account Auditing Toolkit
+### ⭐ Audit — Windows Account Auditing Toolkit
 
 Comprehensive PowerShell module for auditing local user accounts and Windows security.
 
@@ -185,17 +185,17 @@ Comprehensive PowerShell module for auditing local user accounts and Windows sec
 
 **Core Commands:**
 ```powershell
-Get-UserAudit              # List all local users
+Get-Audit              # List all local users
 Get-LocalAdmins            # Show Administrators
 Get-UserLastLogon          # Last logon timestamps
 Get-UserSessions           # Active sessions
 Get-DefensiveServices      # Security services
 Get-EDRSolutions           # EDR/AV detection
 Get-PasswordPolicy         # Password policies
-Invoke-UserAudit           # Full audit summary
+Invoke-Audit           # Full audit summary
 ```
 
-**Documentation:** [UserAudit README](Modules/Winmod/PowerShell/README.md)
+**Documentation:** [Audit README](Modules/Winmod/PowerShell/README.md)
 
 ---
 
@@ -214,7 +214,7 @@ Invoke-UserAudit           # Full audit summary
 | Description | Command |
 |---|---|
 | Show Scriptman help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman"`</details> |
-| Show UserAudit help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Show-UserAuditHelp"`</details> |
+| Show Audit help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Show-AuditHelp"`</details> |
 
 **For complete command reference, see [CHEATSHEET.md](CHEATSHEET.md)**
 
@@ -243,8 +243,8 @@ bash Scriptman --help
 
 **PowerShell:**
 ```powershell
-Import-Module .\Modules\Winmod\PowerShell\UserAudit\UserAudit.psm1 -Force
-Show-UserAuditHelp
+Import-Module .\Modules\Winmod\PowerShell\Audit\Audit.psm1 -Force
+Show-AuditHelp
 ```
 
 ---
@@ -266,7 +266,7 @@ A: Yes — edit `Modules/Linmod/Bash/b6se/config/config.ini` after the first run
 **Q: Which compression formats are supported?**  
 A: `.tar.gz`, `.zip`, and `.7z` (auto-detected, no extra flags required).
 
-**Q: Can I run UserAudit without admin privileges?**  
+**Q: Can I run Audit without admin privileges?**  
 A: Some functions require administrator rights. Run PowerShell as Administrator for full functionality.
 
 **Q: How do I extend the modules?**  
@@ -320,7 +320,7 @@ For questions or support:
 - Fully integrated with Scriptman CLI for both local and remote execution
 
 ### Version 1.2.0 — PowerShell Module Integration
-- Added UserAudit PowerShell module for Windows account auditing
+- Added Audit PowerShell module for Windows account auditing
 - Implemented Scriptman.ps1 launcher with manifest-based module loading
 - Added remote module fallback support
 

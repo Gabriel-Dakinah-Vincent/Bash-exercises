@@ -1,11 +1,11 @@
 {
-  "UserAudit": {
+  "Audit": {
     "description": "Audits local user accounts, administrators, and logon activity on Windows systems.",
     "type": "local",
-    "path": "Modules\\Winmod\\PowerShell\\UserAudit\\UserAudit.psm1",
+    "path": "Modules\\Winmod\\PowerShell\\Audit\\Audit.psm1",
     "fallback": {
       "type": "remote",
-      "url": "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/UserAudit/UserAudit.psm1"
+      "url": "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Audit/Audit.psm1"
     },
     "version": "1.0.0",
     "author": "Gabriel Dakinah Vincent"

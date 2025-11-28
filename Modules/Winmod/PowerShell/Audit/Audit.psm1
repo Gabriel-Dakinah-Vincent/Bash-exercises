@@ -3,7 +3,7 @@
  User account auditing functions for Windows.
 #>
 
-function Get-UserAudit {
+function Get-Audit {
     Write-Host "`n[+]" -ForegroundColor Green -NoNewline
     Write-Host " Collecting user account information..." -ForegroundColor DarkGray
     try {
@@ -54,12 +54,12 @@ function Get-UserLastLogon {
     }
 }
 
-function Show-UserAuditHelp {
-    Write-Host "`nUserAudit Module Help" -ForegroundColor Yellow
+function Show-AuditHelp {
+    Write-Host "`nAudit Module Help" -ForegroundColor Yellow
     Write-Host "Description: A PowerShell module to audit users and user accounts." -ForegroundColor DarkGray
 
     Write-Host "`nAvailable Commands:`n" -ForegroundColor Green
-    Write-Host "  Get-UserAudit           - Displays local user summary"
+    Write-Host "  Get-Audit           - Displays local user summary"
     Write-Host "  Get-LocalAdmins         - Lists members of the Administrators group"
     Write-Host "  Get-UserLastLogon       - Shows last logon timestamp for each user"
     Write-Host "  Get-UserSessions        - Shows currently logged-in user sessions"
@@ -72,20 +72,20 @@ function Show-UserAuditHelp {
     Write-Host "  Get-ServiceHijacking    - Identifies potential service hijacking"
     Write-Host "  Get-DLLSideloading      - Scans for DLL sideloading indicators (supports -MaxProcesses, -TimeoutSeconds)"
     Write-Host "  Get-WMIEventSubscription - Checks WMI event subscriptions"
-    Write-Host "  Show-UserAuditHelp      - Displays this help menu"
+    Write-Host "  Show-AuditHelp      - Displays this help menu"
 
     Write-Host "`nUsage Examples:" -ForegroundColor Yellow
     Write-Host "  .\Scriptman.ps1 -help"
-    Write-Host "  .\Scriptman.ps1 UserAudit"
-    Write-Host "  .\Scriptman.ps1 UserAudit:Get-UserSessions"
-    Write-Host "  .\Scriptman.ps1 UserAudit:Get-DLLSideloading -MaxProcesses 25 -TimeoutSeconds 15"
+    Write-Host "  .\Scriptman.ps1 Audit"
+    Write-Host "  .\Scriptman.ps1 Audit:Get-UserSessions"
+    Write-Host "  .\Scriptman.ps1 Audit:Get-DLLSideloading -MaxProcesses 25 -TimeoutSeconds 15"
 }
 
-function Invoke-UserAudit {
+function Invoke-Audit {
     Write-Host "`n[+]" -ForegroundColor Green -NoNewline
-    Write-Host " Running OPSEC-friendly UserAudit summary..." -ForegroundColor DarkGray
+    Write-Host " Running OPSEC-friendly Audit summary..." -ForegroundColor DarkGray
     
-    Get-UserAudit
+    Get-Audit
     Get-LocalAdmins
     Get-UserLastLogon
     Get-UserSessions
@@ -656,7 +656,7 @@ function Get-WMIEventSubscription {
 # Export functions
 # 
 Export-ModuleMember -Function `
-    Get-UserAudit, `
+    Get-Audit, `
     Get-LocalAdmins, `
     Get-UserLastLogon, `
     Get-UserSessions, `
@@ -669,5 +669,5 @@ Export-ModuleMember -Function `
     Get-ServiceHijacking, `
     Get-DLLSideloading, `
     Get-WMIEventSubscription, `
-    Show-UserAuditHelp, `
-    Invoke-UserAudit
+    Show-AuditHelp, `
+    Invoke-Audit

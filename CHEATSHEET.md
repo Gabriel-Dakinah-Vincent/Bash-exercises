@@ -70,43 +70,43 @@
 | Description | Command |
 |---|---|
 | Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman"`</details> |
-| Run UserAudit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit"`</details> |
+| Run Audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit"`</details> |
 
-### UserAudit - User Enumeration
-
-| Description | Command |
-|---|---|
-| Get all users | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-UserAudit"`</details> |
-| Get administrators | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-LocalAdmins"`</details> |
-| Get last logon | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-UserLastLogon"`</details> |
-| Get sessions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-UserSessions"`</details> |
-
-### UserAudit - Security Detection
+### Audit - User Enumeration
 
 | Description | Command |
 |---|---|
-| Detect security services | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-DefensiveServices"`</details> |
-| Scan for EDR/AV | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-EDRSolutions"`</details> |
-| Get password policies | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-PasswordPolicy"`</details> |
+| Get all users | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-Audit"`</details> |
+| Get administrators | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-LocalAdmins"`</details> |
+| Get last logon | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-UserLastLogon"`</details> |
+| Get sessions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-UserSessions"`</details> |
 
-### UserAudit - Persistence Detection
-
-| Description | Command |
-|---|---|
-| Full persistence audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-PersistenceAudit"`</details> |
-| Registry persistence | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-RegistryPersistence"`</details> |
-| Scheduled task abuse | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-ScheduledTaskAbuse"`</details> |
-| Service hijacking | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-ServiceHijacking"`</details> |
-| DLL sideloading | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-DLLSideloading"`</details> |
-| DLL sideloading (limited) | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-DLLSideloading -MaxProcesses 25 -TimeoutSeconds 15"`</details> |
-| WMI event subscriptions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Get-WMIEventSubscription"`</details> |
-
-### UserAudit - Full Audit
+### Audit - Security Detection
 
 | Description | Command |
 |---|---|
-| Complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Invoke-UserAudit"`</details> |
-| Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Show-UserAuditHelp"`</details> |
+| Detect security services | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-DefensiveServices"`</details> |
+| Scan for EDR/AV | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-EDRSolutions"`</details> |
+| Get password policies | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-PasswordPolicy"`</details> |
+
+### Audit - Persistence Detection
+
+| Description | Command |
+|---|---|
+| Full persistence audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-PersistenceAudit"`</details> |
+| Registry persistence | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-RegistryPersistence"`</details> |
+| Scheduled task abuse | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ScheduledTaskAbuse"`</details> |
+| Service hijacking | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ServiceHijacking"`</details> |
+| DLL sideloading | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-DLLSideloading"`</details> |
+| DLL sideloading (limited) | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-DLLSideloading -MaxProcesses 25 -TimeoutSeconds 15"`</details> |
+| WMI event subscriptions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-WMIEventSubscription"`</details> |
+
+### Audit - Full Audit
+
+| Description | Command |
+|---|---|
+| Complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Invoke-Audit"`</details> |
+| Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Show-AuditHelp"`</details> |
 
 ---
 
@@ -124,7 +124,7 @@
 
 | Alias | Function | Description |
 |---|---|---|
-| `UserAudit` | Set-UserAudit | Full user audit |
+| `Audit` | Set-Audit | Full user audit |
 | `LocalAdmins` | Set-LocalAdmins | Get local administrators |
 | `UserLastLogon` | Set-UserLastLogon | Get last logon times |
 | `UserSessions` | Set-UserSessions | Get active sessions |
@@ -137,26 +137,26 @@
 | `ServiceHijacking` | Set-ServiceHijacking | Service hijacking scan |
 | `DLLSideloading` | Set-DLLSideloading | DLL sideloading scan |
 | `WMIEventSubscription` | Set-WMIEventSubscription | WMI event subscriptions |
-| `UserAuditHelp` | Set-UserAuditHelp | Show help |
+| `AuditHelp` | Set-AuditHelp | Show help |
 
 **After Installation:**
 1. **Open a new PowerShell window** - Aliases work automatically
 2. **Or reload current session:** `. $PROFILE`
-3. **Test aliases:** `UserAudit`, `LocalAdmins`, `PersistenceAudit`
+3. **Test aliases:** `Audit`, `LocalAdmins`, `PersistenceAudit`
 
 **Note:** Execution policy is automatically configured. Aliases are permanent.
 
 --- Command |
 |---|---|
-| Run complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman UserAudit:Invoke-UserAudit"`</details> |
+| Run complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Invoke-Audit"`</details> |
 
-### UserAudit - Local Import
+### Audit - Local Import
 
 | Description | Command |
 |---|---|
-| Import module | <details><summary>Show</summary>`Import-Module .\\Modules\\Winmod\\PowerShell\\UserAudit\\UserAudit.psm1 -Force`</details> |
-| Get module info | <details><summary>Show</summary>`Get-Module UserAudit`</details> |
-| List functions | <details><summary>Show</summary>`Get-Command -Module UserAudit`</details> |
+| Import module | <details><summary>Show</summary>`Import-Module .\\Modules\\Winmod\\PowerShell\\Audit\\Audit.psm1 -Force`</details> |
+| Get module info | <details><summary>Show</summary>`Get-Module Audit`</details> |
+| List functions | <details><summary>Show</summary>`Get-Command -Module Audit`</details> |
 
 ---
 
@@ -199,19 +199,19 @@
 | `-q` | `--quiet` | Suppress auto-open |
 | `-h` | `--help` | Show help |
 
-### UserAudit Cmdlets
+### Audit Cmdlets
 
 | Cmdlet | Description |
 |---|---|
-| `Get-UserAudit` | List all local users |
+| `Get-Audit` | List all local users |
 | `Get-LocalAdmins` | List administrators |
 | `Get-UserLastLogon` | Show last logon times |
 | `Get-UserSessions` | List active sessions |
 | `Get-DefensiveServices` | Detect security services |
 | `Get-EDRSolutions` | Scan for EDR/AV |
 | `Get-PasswordPolicy` | Show password policies |
-| `Show-UserAuditHelp` | Show help menu |
-| `Invoke-UserAudit` | Run full audit |
+| `Show-AuditHelp` | Show help menu |
+| `Invoke-Audit` | Run full audit |
 
 ---
 
@@ -240,7 +240,7 @@
 |---|---|---|---|
 | b6se | 1.3.0 | Bash 4.0+ | `Modules/Linmod/Bash/b6se/` |
 | Extract Aliases | 1.1.0 | Bash 4.0+ | `Modules/Linmod/Bash/extract-aliases/` |
-| UserAudit | 1.0.0 | PowerShell 5.1+ | `Modules/Winmod/PowerShell/UserAudit/` |
+| Audit | 1.0.0 | PowerShell 5.1+ | `Modules/Winmod/PowerShell/Audit/` |
 | Scriptman | 1.3.0 / 2.0.3 | Bash / PowerShell | Root directory |
 
 ---

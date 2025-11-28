@@ -44,10 +44,10 @@ function Scriptman {
     function Show-Banner {
         Clear-Host
         Write-Host "`n" -NoNewline
-        Write-Typewriter "SCRIPTMAN FRAMEWORK" White 60
-        Write-Typewriter "ENVIRONMENT: WINDOWS POWERSHELL" White 50
+        Write-Typewriter "SCRIPTMAN FRAMEWORK" Green 60
+        Write-Typewriter "ENVIRONMENT: WINDOWS POWERSHELL" Green 50
         Write-Host "AUTHOR: " -ForegroundColor White -NoNewline
-        Write-Typewriter "GABRIEL DAKINAH VINCENT" White 50
+        Write-Typewriter "GABRIEL DAKINAH VINCENT" Green 50
         Start-Sleep -Milliseconds 1500
         Clear-Host
     }
@@ -118,8 +118,8 @@ function Scriptman {
         Write-Color "Usage: Scriptman <module-name>[:cmdlet] [options]" Cyan
         Write-Host "`nExamples:`n"
         Write-Host "  .\Scriptman.ps1 -help"
-        Write-Host "  .\Scriptman.ps1 UserAudit             # Runs the module's default entry" -ForegroundColor DarkGray
-        Write-Host "  .\Scriptman.ps1 UserAudit:Get-LocalAdmins   # Runs only that cmdlet`n" -ForegroundColor DarkGray
+        Write-Host "  .\Scriptman.ps1 Audit             # Runs the module's default entry" -ForegroundColor DarkGray
+        Write-Host "  .\Scriptman.ps1 Audit:Get-LocalAdmins   # Runs only that cmdlet`n" -ForegroundColor DarkGray
         Write-Host "Available Modules:`n"
         foreach ($key in $Manifest.PSObject.Properties.Name) {
             $info = $Manifest.$key
