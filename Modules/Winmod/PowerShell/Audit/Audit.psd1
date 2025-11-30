@@ -21,17 +21,17 @@
     FunctionsToExport = @(
         'Get-Audit',
         'Get-LocalAdmins',
-        'Get-UserLastLogon',
-        'Get-UserSessions',
+        'Get-LastLogon',
+        'Get-Sessions',
         'Get-DefensiveServices',
         'Get-EDRSolutions',
         'Get-PasswordPolicy',
-        'Get-PersistenceAudit',
         'Get-RegistryPersistence',
         'Get-ScheduledTaskAbuse',
         'Get-ServiceHijacking',
         'Get-DLLSideloading',
         'Get-WMIEventSubscription',
+        'Get-ProfilePersistence',
         'Show-AuditHelp',
         'Invoke-Audit'
     )
