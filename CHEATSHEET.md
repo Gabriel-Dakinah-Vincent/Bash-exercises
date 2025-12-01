@@ -108,6 +108,28 @@
 | Complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Invoke-Audit"`</details> |
 | Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Show-AuditHelp"`</details> |
 
+### Mitigate - Threat Removal
+
+| Description | Command |
+|---|---|
+| Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate"`</details> |
+| Preview impact (dry-run) | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Test-Impact"`</details> |
+| Preview registry only | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Test-Impact -Function Registry"`</details> |
+| Remove registry persistence | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-RegistryPersistence"`</details> |
+| Remove scheduled tasks | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-ScheduledTaskAbuse"`</details> |
+| Remove unauthorized admins | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-LocalAdmins"`</details> |
+| Stop suspicious services | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-ServiceHijacking"`</details> |
+| Remove WMI subscriptions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-WMIEventSubscription"`</details> |
+| Clean PowerShell profiles | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-ProfilePersistence"`</details> |
+| Remove all threats | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-AllThreats"`</details> |
+
+### Mitigate - Backup & Restore
+
+| Description | Command |
+|---|---|
+| Create system backup | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Backup-SystemState"`</details> |
+| Restore from backup | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Restore-SystemState"`</details> |
+
 ---
 
 ## PowerShell Aliases Installation
@@ -219,6 +241,23 @@
 | `Show-AuditHelp` | Show help menu |
 | `Invoke-Audit` | Run full audit |
 
+### Mitigate Cmdlets
+
+| Cmdlet | Description |
+|---|---|
+| `Remove-RegistryPersistence` | Remove suspicious registry entries |
+| `Remove-ScheduledTaskAbuse` | Remove suspicious scheduled tasks |
+| `Remove-ServiceHijacking` | Stop suspicious services |
+| `Remove-WMIEventSubscription` | Remove malicious WMI subscriptions |
+| `Remove-ProfilePersistence` | Clean suspicious PowerShell profiles |
+| `Remove-LocalAdmins` | Remove unauthorized administrators |
+| `Remove-AllThreats` | Run all mitigation functions |
+| `Test-Impact` | Preview changes (dry-run mode) |
+| `Backup-SystemState` | Create system backup |
+| `Restore-SystemState` | Restore from backup |
+| `Show-MitigateHelp` | Show help menu |
+| `Invoke-Mitigate` | Default entry point |
+
 ---
 
 ## Best Practices
@@ -247,7 +286,8 @@
 | b6se | 1.3.0 | Bash 4.0+ | `Modules/Linmod/Bash/b6se/` |
 | Extract Aliases | 1.1.0 | Bash 4.0+ | `Modules/Linmod/Bash/extract-aliases/` |
 | Audit | 1.0.0 | PowerShell 5.1+ | `Modules/Winmod/PowerShell/Audit/` |
-| Scriptman | 1.3.0 / 2.0.3 | Bash / PowerShell | Root directory |
+| Mitigate | 1.0.0 | PowerShell 5.1+ | `Modules/Winmod/PowerShell/Mitigate/` |
+| Scriptman | 1.4.0 / 2.0.3 | Bash / PowerShell | Root directory |
 
 ---
 

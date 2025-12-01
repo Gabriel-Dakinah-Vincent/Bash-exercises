@@ -58,7 +58,8 @@ Bash-exercises/
 │   │       └── recovery-passwords/      # Password recovery (WIP)
 │   └── Winmod/            # Windows modules
 │       ├── PowerShell/
-│       │   └── Audit/               # Windows account auditing
+│       │   ├── Audit/               # Windows account auditing
+│       │   └── Mitigate/            # Security threat mitigation
 │       └── Cmd/
 ├── tests/
 │   └── test_project.sh    # Project test suite
@@ -213,6 +214,43 @@ Invoke-Audit               # Full audit summary
 
 ---
 
+### ⭐ Mitigate — Security Threat Mitigation Module
+
+Comprehensive PowerShell module for removing detected security threats with granular control and backup capabilities.
+
+**Features:**
+- Individual confirmation for each threat removal
+- System backup and restore capabilities
+- Preview mode (dry-run) to see impact before changes
+- Bulk threat removal with Remove-AllThreats
+- Reuses Audit module functions for threat detection
+- Professional output formatting
+
+**Core Commands:**
+```powershell
+Remove-RegistryPersistence    # Remove suspicious registry entries
+Remove-ScheduledTaskAbuse     # Remove suspicious scheduled tasks
+Remove-ServiceHijacking       # Stop suspicious services
+Remove-WMIEventSubscription   # Remove malicious WMI subscriptions
+Remove-ProfilePersistence     # Clean suspicious PowerShell profiles
+Remove-LocalAdmins            # Remove unauthorized administrators
+Remove-AllThreats             # Run all mitigation functions
+Test-Impact                   # Preview changes (dry-run mode)
+Backup-SystemState            # Create system backup
+Restore-SystemState           # Restore from backup
+```
+
+**Safety Features:**
+- Individual threat confirmation prompts
+- System restore point creation
+- Registry key backups
+- Preview mode for impact assessment
+- Comprehensive error handling
+
+**Documentation:** [Mitigate README](Modules/Winmod/PowerShell/Mitigate/README.md)
+
+---
+
 ## Quick Start - Get Help
 
 ### Bash Scripts
@@ -229,8 +267,10 @@ Invoke-Audit               # Full audit summary
 |---|---|
 | Show Scriptman help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman"`</details> |
 | Show Audit help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Show-AuditHelp"`</details> |
-| Check Profile Persistence | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ProfilePersistence"`</details> |
-| Check Registry Persistence | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-RegistryPersistence"`</details> |
+| Show Mitigate help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate"`</details> |
+| Preview Mitigation Impact | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Test-Impact"`</details> |
+| Remove Registry Persistence | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-RegistryPersistence"`</details> |
+| Remove All Threats | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-AllThreats"`</details> |
 
 **For complete command reference, see [CHEATSHEET.md](CHEATSHEET.md)**
 
@@ -327,6 +367,14 @@ For questions or support:
 ---
 
 ## Changelog
+
+### Version 1.4.0 — Security Mitigation Module
+- Added Mitigate PowerShell module for threat removal
+- Individual confirmation prompts for granular control
+- System backup and restore capabilities
+- Preview mode (Test-Impact) for dry-run operations
+- Bulk threat removal with Remove-AllThreats
+- Professional output formatting matching Audit module
 
 ### Version 1.3.0 — Multi-Format Compression Update
 - Added support for `.tar.gz`, `.zip`, and `.7z` archives
