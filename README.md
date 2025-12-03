@@ -264,6 +264,15 @@ Scriptman supports loading PowerShell modules directly from external GitHub repo
 # Load and execute remote module functions
 Scriptman PowerView:Get-NetDomain
 Scriptman PSWriteColor:Write-Color -Text "Hello" -Color Green
+
+# Get help for remote modules
+Scriptman PowerView
+Get-Command -Name *-Net*
+Get-Help Get-NetDomain
+
+# Use array parameters (load module first)
+Scriptman PSWriteColor
+Write-Color -Text "Pass","Warn","Fail" -Color Green,Yellow,Red
 ```
 
 **Adding Custom Remote Modules:**
