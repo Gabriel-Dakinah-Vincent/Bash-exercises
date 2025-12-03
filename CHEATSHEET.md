@@ -132,6 +132,28 @@
 
 ---
 
+## Remote Modules
+
+### PowerView - Network Enumeration
+
+| Description | Command |
+|---|---|
+| Get domain info | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetDomain"`</details> |
+| List domain users | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetUser"`</details> |
+| List domain computers | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetComputer"`</details> |
+| Find domain admins | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetGroupMember -GroupName 'Domain Admins'"`</details> |
+
+### PSWriteColor - Console Output
+
+| Description | Command |
+|---|---|
+| Green text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Success' -Color Green"`</details> |
+| Red text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Error' -Color Red"`</details> |
+| Yellow text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Warning' -Color Yellow"`</details> |
+| Multiple colors | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Pass','Warn','Fail' -Color Green,Yellow,Red"`</details> |
+
+---
+
 ## PowerShell Aliases Installation
 
 ### Install Convenient Aliases
@@ -281,13 +303,15 @@
 
 ## Module Metadata
 
-| Module | Version | Language | Location |
-|---|---|---|---|
-| b6se | 1.3.0 | Bash 4.0+ | `Modules/Linmod/Bash/b6se/` |
-| Extract Aliases | 1.1.0 | Bash 4.0+ | `Modules/Linmod/Bash/extract-aliases/` |
-| Audit | 1.0.0 | PowerShell 5.1+ | `Modules/Winmod/PowerShell/Audit/` |
-| Mitigate | 1.0.0 | PowerShell 5.1+ | `Modules/Winmod/PowerShell/Mitigate/` |
-| Scriptman | 1.4.0 / 2.0.3 | Bash / PowerShell | Root directory |
+| Module | Version | Language | Location | Type |
+|---|---|---|---|---|
+| b6se | 1.3.0 | Bash 4.0+ | `Modules/Linmod/Bash/b6se/` | Local |
+| Extract Aliases | 1.1.0 | Bash 4.0+ | `Modules/Linmod/Bash/extract-aliases/` | Local |
+| Audit | 1.0.0 | PowerShell 5.1+ | `Modules/Winmod/PowerShell/Audit/` | Local |
+| Mitigate | 1.0.0 | PowerShell 5.1+ | `Modules/Winmod/PowerShell/Mitigate/` | Local |
+| PowerView | 3.0 | PowerShell 5.1+ | External (PowerShellEmpire) | Remote |
+| PSWriteColor | 1.0 | PowerShell 5.1+ | External (EvotecIT) | Remote |
+| Scriptman | 1.5.0 / 2.0.3 | Bash / PowerShell | Root directory | Framework |
 
 ---
 

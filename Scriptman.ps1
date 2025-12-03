@@ -9,7 +9,7 @@
 .AUTHOR
  Gabriel Dakinah Vincent
 .VERSION
- 2.0.3
+ 2.1.0
 #>
 
 function Scriptman {
@@ -124,7 +124,12 @@ function Scriptman {
         foreach ($key in $Manifest.PSObject.Properties.Name) {
             $info = $Manifest.$key
             $type = if ($info.type -eq "remote") { "Remote" } else { "Local" }
-            Write-Color ("  - {0} ({1})" -f $key, $type) Blue
+            $color = switch ($key) {
+                "PowerView" { "Red" }
+                "PSWriteColor" { "White" }
+                default { "Blue" }
+            }
+            Write-Color ("  - {0} ({1})" -f $key, $type) $color
         }
         return
     }
@@ -212,7 +217,8 @@ function Scriptman {
             & $helpFunc
         } else {
             Write-Host "[i]" -ForegroundColor Cyan -NoNewline
-            Write-Host " No module-specific help function '$helpFunc' found. Try importing functions manually." -ForegroundColor DarkGray
+            Write-Host " Listing available functions from $matchedKey..." -ForegroundColor DarkGray
+            Get-Command -Name *-* | Where-Object { $_.ModuleName -or $_.Source } | Select-Object Name, CommandType | Format-Table -AutoSize
         }
         return
     }
@@ -223,7 +229,11 @@ function Scriptman {
     }
     else {
         Write-Host "[i]" -ForegroundColor Cyan -NoNewline
-        Write-Host " Module '$matchedKey' imported. No entry function '$entryFunc' found." -ForegroundColor DarkGray
+        Write-Host " Module '$matchedKey' loaded successfully." -ForegroundColor DarkGray
+        Write-Host "[i]" -ForegroundColor Cyan -NoNewline
+        Write-Host " Usage: Scriptman $matchedKey:FunctionName [options]" -ForegroundColor DarkGray
+        Write-Host "[i]" -ForegroundColor Cyan -NoNewline
+        Write-Host " Example: Scriptman $matchedKey:Get-Help" -ForegroundColor DarkGray
     }
 
     Write-Color "`nModule execution complete.`n" Green

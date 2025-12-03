@@ -1,5 +1,5 @@
 # Scriptman  
-**Current Version:** 1.3.0  
+**Current Version:** 1.5.0  
 **Author:** Gabriel Dakinah Vincent  
 **License:** MIT  
 
@@ -251,6 +251,40 @@ Restore-SystemState           # Restore from backup
 
 ---
 
+### ⭐ Remote Modules — External PowerShell Modules
+
+Scriptman supports loading PowerShell modules directly from external GitHub repositories without local installation.
+
+**Available Remote Modules:**
+- **PowerView** - Network situational awareness for Windows domains
+- **PSWriteColor** - Colorful console output utility
+
+**Usage:**
+```powershell
+# Load and execute remote module functions
+Scriptman PowerView:Get-NetDomain
+Scriptman PSWriteColor:Write-Color -Text "Hello" -Color Green
+```
+
+**Adding Custom Remote Modules:**
+
+Edit `core/psm-manifest.json`:
+```json
+{
+  "YourModule": {
+    "description": "Module description",
+    "type": "remote",
+    "url": "https://raw.githubusercontent.com/user/repo/branch/module.ps1",
+    "version": "1.0",
+    "author": "Author Name"
+  }
+}
+```
+
+**Documentation:** [Remote Modules Guide](Modules/Winmod/PowerShell/README.md#remote-module-support)
+
+---
+
 ## Quick Start - Get Help
 
 ### Bash Scripts
@@ -328,6 +362,12 @@ A: Some functions require administrator rights. Run PowerShell as Administrator 
 **Q: How do I extend the modules?**  
 A: Add new functions to the module files and update the manifest or export lists accordingly.
 
+**Q: Can I use modules from other GitHub repositories?**  
+A: Yes! Add them to `core/psm-manifest.json` as `type: "remote"` with the raw GitHub URL.
+
+**Q: Do remote modules require installation?**  
+A: No — remote modules are fetched and loaded automatically when called.
+
 ---
 
 ## Contributing
@@ -367,6 +407,14 @@ For questions or support:
 ---
 
 ## Changelog
+
+### Version 1.5.0 — Remote Module Support
+- Added remote module support via manifest registry
+- Modules can be loaded directly from external GitHub repositories
+- No local installation required for remote modules
+- Added PowerView and PSWriteColor as example remote modules
+- Unified `Scriptman Module:Function` syntax for all modules
+- Enhanced manifest with module type detection (local/remote)
 
 ### Version 1.4.0 — Security Mitigation Module
 - Added Mitigate PowerShell module for threat removal

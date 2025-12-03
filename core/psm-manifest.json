@@ -21,5 +21,19 @@
     "version": "1.0.0",
     "author": "Gabriel Dakinah Vincent",
     "dependencies": ["Audit"]
+  },
+  "PowerView": {
+    "description": "PowerShell tool for gaining network situational awareness on Windows domains.",
+    "type": "remote",
+    "url": "https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/refs/heads/master/PowerView/powerview.ps1",
+    "version": "3.0",
+    "author": "PowerShellEmpire"
+  },
+  "PSWriteColor": {
+    "description": "PowerShell module for colorful console output.",
+    "type": "remote",
+    "url": "https://raw.githubusercontent.com/EvotecIT/PSWriteColor/master/Public/Write-Color.ps1",
+    "version": "1.0",
+    "author": "EvotecIT"
   }
 }

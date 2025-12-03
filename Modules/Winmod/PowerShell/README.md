@@ -239,3 +239,102 @@ Cybersecurity Intern • Developer • PowerShell Automation Enthusiast
 Maintainer of *Bash-Exercises* Repository  
 
 © 2025 Gabriel Dakinah Vincent. All rights reserved.
+
+---
+
+# Remote Module Support
+
+## Quick Start
+
+Scriptman.ps1 now supports remote modules from external repositories. Simply add them to `core/psm-manifest.json`.
+
+## Adding Remote Modules
+
+### 1. Edit Manifest
+
+Add to `core/psm-manifest.json`:
+
+```json
+{
+  "ModuleName": {
+    "description": "Module description",
+    "type": "remote",
+    "url": "https://raw.githubusercontent.com/user/repo/branch/path/module.ps1",
+    "version": "1.0",
+    "author": "Author Name"
+  }
+}
+```
+
+### 2. Example: PowerView (Already Added)
+
+```json
+{
+  "PowerView": {
+    "description": "PowerShell tool for gaining network situational awareness on Windows domains.",
+    "type": "remote",
+    "url": "https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/refs/heads/master/PowerView/powerview.ps1",
+    "version": "3.0",
+    "author": "PowerShellEmpire"
+  }
+}
+```
+
+## Usage
+
+```powershell
+# List available modules (shows Remote/Local)
+Scriptman
+
+# Load remote module
+Scriptman PowerView
+
+# Run specific function (follows Scriptman pattern)
+Scriptman PowerView:Get-NetDomain
+Scriptman PowerView:Get-NetUser
+Scriptman PowerView:Get-NetComputer
+Scriptman PowerView:Find-LocalAdminAccess
+```
+
+## How It Works
+
+1. Scriptman checks manifest for module type
+2. If `type: "remote"`, downloads from URL to temp file
+3. Imports module into session
+4. Executes function
+5. Cleans up temp file
+
+## More Examples
+
+### Invoke-Mimikatz
+```json
+{
+  "Invoke-Mimikatz": {
+    "description": "PowerShell implementation of Mimikatz",
+    "type": "remote",
+    "url": "https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1",
+    "version": "3.0",
+    "author": "PowerShellMafia"
+  }
+}
+```
+
+### Custom Module
+```json
+{
+  "MyModule": {
+    "description": "My custom PowerShell module",
+    "type": "remote",
+    "url": "https://raw.githubusercontent.com/myuser/myrepo/main/MyModule.ps1",
+    "version": "1.0",
+    "author": "Your Name"
+  }
+}
+```
+
+## Notes
+
+- Use raw GitHub URLs (not HTML pages)
+- Windows Defender may block security tools
+- Test modules before production use
+- Remote modules work with existing Scriptman logic
