@@ -25,7 +25,7 @@ function Scriptman {
     $ManifestPath = Join-Path $Root "core\psm-manifest.json"
 
     # Colors 
-    function Write-Color($text, $color = 'White') {
+    function Write-ScriptmanColor($text, $color = 'White') {
         Write-Host $text -ForegroundColor $color
     }
 
@@ -115,7 +115,7 @@ function Scriptman {
 
     # Usage Help 
     if (-not $Module) {
-        Write-Color "Usage: Scriptman <module-name>[:cmdlet] [options]" Cyan
+        Write-ScriptmanColor "Usage: Scriptman <module-name>[:cmdlet] [options]" Cyan
         Write-Host "`nExamples:`n"
         Write-Host "  .\Scriptman.ps1 -help"
         Write-Host "  .\Scriptman.ps1 Audit             # Runs the module's default entry" -ForegroundColor DarkGray
@@ -129,7 +129,7 @@ function Scriptman {
                 "PSWriteColor" { "White" }
                 default { "Blue" }
             }
-            Write-Color ("  - {0} ({1})" -f $key, $type) $color
+            Write-ScriptmanColor ("  - {0} ({1})" -f $key, $type) $color
         }
         return
     }
@@ -175,7 +175,7 @@ function Scriptman {
     else {
         Write-Host "[!]" -ForegroundColor Red -NoNewline
         Write-Host " Module not listed in manifest: '$Module'" -ForegroundColor DarkGray
-        Write-Color "Try adding it to core\psm-manifest.json (use the module name as the key)." Cyan
+        Write-ScriptmanColor "Try adding it to core\psm-manifest.json (use the module name as the key)." Cyan
         return
     }
 
@@ -185,23 +185,45 @@ function Scriptman {
         Write-Host " Running targeted cmdlet: " -ForegroundColor DarkGray -NoNewline
         Write-Host $TargetCmdlet -ForegroundColor Yellow
         if (Get-Command $TargetCmdlet -ErrorAction SilentlyContinue) {
-            if ($ModuleArgs) {
-                # Parse parameters from string array
-                $params = @{}
-                for ($i = 0; $i -lt $ModuleArgs.Count; $i++) {
-                    if ($ModuleArgs[$i] -match '^-(.+)') {
-                        $paramName = $matches[1]
-                        if ($i + 1 -lt $ModuleArgs.Count -and $ModuleArgs[$i + 1] -notmatch '^-') {
-                            $params[$paramName] = $ModuleArgs[$i + 1]
-                            $i++
+            try {
+                if ($ModuleArgs) {
+                    # Parse parameters from string array
+                    $params = @{}
+                    $i = 0
+                    while ($i -lt $ModuleArgs.Count) {
+                        if ($ModuleArgs[$i] -match '^-(.+)') {
+                            $paramName = $matches[1]
+                            $values = @()
+                            $j = $i + 1
+                            while ($j -lt $ModuleArgs.Count -and $ModuleArgs[$j] -notmatch '^-') {
+                                $values += $ModuleArgs[$j]
+                                $j++
+                            }
+                            if ($values.Count -eq 0) {
+                                $params[$paramName] = $true
+                            } elseif ($values.Count -eq 1) {
+                                $params[$paramName] = $values[0]
+                            } else {
+                                $params[$paramName] = $values
+                            }
+                            $i = $j
                         } else {
-                            $params[$paramName] = $true
+                            $i++
                         }
                     }
+                    & $TargetCmdlet @params
+                } else {
+                    & $TargetCmdlet
                 }
-                & $TargetCmdlet @params
-            } else {
-                & $TargetCmdlet
+            }
+            catch {
+                Write-Host "`n[!]" -ForegroundColor Red -NoNewline
+                Write-Host " Function execution failed: " -ForegroundColor DarkGray -NoNewline
+                Write-Host $_.Exception.Message -ForegroundColor Red
+                if ($_.Exception.InnerException) {
+                    Write-Host "[i]" -ForegroundColor Cyan -NoNewline
+                    Write-Host " Additional info: $($_.Exception.InnerException.Message)" -ForegroundColor DarkGray
+                }
             }
         } else {
             Write-Host "[!]" -ForegroundColor Red -NoNewline
@@ -236,7 +258,7 @@ function Scriptman {
         Write-Host " Example: Scriptman $matchedKey:Get-Help" -ForegroundColor DarkGray
     }
 
-    Write-Color "`nModule execution complete.`n" Green
+    Write-ScriptmanColor "`nModule execution complete.`n" Green
 }
 
 # Auto-run if parameters were passed 
