@@ -150,7 +150,7 @@
 | Green text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Success' -Color Green"`</details> |
 | Red text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Error' -Color Red"`</details> |
 | Yellow text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Warning' -Color Yellow"`</details> |
-| Multiple colors | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Pass','Warn','Fail' -Color Green,Yellow,Red"`</details> |
+| Multiple colors (load first) | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor; Write-Color -Text 'Pass','Warn','Fail' -Color Green,Yellow,Red"`</details> |
 
 ---
 
