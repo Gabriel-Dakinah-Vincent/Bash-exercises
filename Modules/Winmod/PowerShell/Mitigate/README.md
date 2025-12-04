@@ -45,7 +45,7 @@ Scriptman Mitigate:Remove-AllThreats
 ### Remote Execution
 ```powershell
 # Remote execution without cloning
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman Mitigate:Test-Impact"
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 | iex; Scriptman Mitigate:Test-Impact"
 ```
 
 ## Available Functions

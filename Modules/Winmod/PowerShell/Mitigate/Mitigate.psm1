@@ -10,7 +10,7 @@ try {
         Import-Module $auditPath -Force -ErrorAction SilentlyContinue
     } else {
         # Try remote Audit module for remote execution
-        $remoteAuditUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Audit/Audit.psm1"
+        $remoteAuditUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Modules/Winmod/PowerShell/Audit/Audit.psm1"
         $tempAuditPath = "$env:TEMP\RemoteAudit_$(Get-Random).psm1"
         Invoke-WebRequest -Uri $remoteAuditUrl -OutFile $tempAuditPath -UseBasicParsing
         Import-Module $tempAuditPath -Force -ErrorAction SilentlyContinue

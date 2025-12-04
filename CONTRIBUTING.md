@@ -9,8 +9,8 @@ Thank you for your interest in contributing to Scriptman!
 
 2. **Clone your fork**  
    ```bash
-   git clone https://github.com/Gabriel-Dakinah-Vincent/Bash-exercises.git
-   cd Bash-exercises
+   git clone https://github.com/Gabriel-Dakinah-Vincent/Scriptmanem.git
+   cd Scriptmanem
    ```
 
 3. **Create a new branch**  

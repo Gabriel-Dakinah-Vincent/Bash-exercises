@@ -8,58 +8,58 @@
 
 | Description | Command |
 |---|---|
-| Display help and usage | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- --help`</details> |
-| Interactive menu mode | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash`</details> |
+| Display help and usage | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| bash -s -- --help`</details> |
+| Interactive menu mode | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| bash`</details> |
 
 ### Extract Aliases (ea)
 
 | Description | Command |
 |---|---|
-| Extract to Markdown | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea`</details> |
-| Extract to HTML | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea -o aliases.html`</details> |
-| Extract to CSV | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea -o aliases.csv`</details> |
-| Quiet mode | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea -q`</details> |
+| Extract to Markdown | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| bash -s -- ea`</details> |
+| Extract to HTML | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| bash -s -- ea -o aliases.html`</details> |
+| Extract to CSV | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| bash -s -- ea -o aliases.csv`</details> |
+| Quiet mode | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| bash -s -- ea -q`</details> |
 
 ### b6se - Compression
 
 | Description | Command |
 |---|---|
-| Compress to tar.gz | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -c myfolder`</details> |
-| Compress to zip | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -c myfolder archive.zip`</details> |
-| Compress to 7z | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -c myfolder data.7z`</details> |
-| Decompress tar.gz | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -x archive.tar.gz`</details> |
-| Decompress zip | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -x archive.zip`</details> |
-| Decompress 7z | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -x archive.7z`</details> |
+| Compress to tar.gz | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -c myfolder`</details> |
+| Compress to zip | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -c myfolder archive.zip`</details> |
+| Compress to 7z | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -c myfolder data.7z`</details> |
+| Decompress tar.gz | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -x archive.tar.gz`</details> |
+| Decompress zip | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -x archive.zip`</details> |
+| Decompress 7z | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -x archive.7z`</details> |
 
 ### b6se - Encoding
 
 | Description | Command |
 |---|---|
-| Encode to Base64 | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -e myfile.txt`</details> |
-| Decode Base64 | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -d encoded.b64`</details> |
+| Encode to Base64 | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -e myfile.txt`</details> |
+| Decode Base64 | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -d encoded.b64`</details> |
 
 ### b6se - Encryption
 
 | Description | Command |
 |---|---|
-| Encrypt file | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -E myfile.txt`</details> |
-| Encrypt with password | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -E myfile.txt --password mySecret123`</details> |
-| Decrypt file | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -D encrypted.enc`</details> |
-| Decrypt with password | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -D encrypted.enc --password mySecret123`</details> |
+| Encrypt file | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -E myfile.txt`</details> |
+| Encrypt with password | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -E myfile.txt --password mySecret123`</details> |
+| Decrypt file | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -D encrypted.enc`</details> |
+| Decrypt with password | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -D encrypted.enc --password mySecret123`</details> |
 
 ### b6se - Checksums
 
 | Description | Command |
 |---|---|
-| Generate checksum | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -C archive.tar.gz`</details> |
-| Verify checksum | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -V archive.tar.gz archive.tar.gz.sha256`</details> |
+| Generate checksum | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -C archive.tar.gz`</details> |
+| Verify checksum | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -V archive.tar.gz archive.tar.gz.sha256`</details> |
 
 ### b6se - HTTP Server
 
 | Description | Command |
 |---|---|
-| Serve file via HTTP | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -s myfile.pdf`</details> |
-| Serve directory via HTTP | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -s /path/to/directory`</details> |
+| Serve file via HTTP | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -s myfile.pdf`</details> |
+| Serve directory via HTTP | <details><summary>Show</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| sudo bash -s -- b6se -s /path/to/directory`</details> |
 
 ---
 
@@ -69,66 +69,66 @@
 
 | Description | Command |
 |---|---|
-| Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman"`</details> |
-| Run Audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit"`</details> |
+| Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman"`</details> |
+| Run Audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit"`</details> |
 
 ### Audit - User Enumeration
 
 | Description | Command |
 |---|---|
-| Get all users | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-Audit"`</details> |
-| Get administrators | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-LocalAdmins"`</details> |
-| Get last logon | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-LastLogon"`</details> |
-| Get sessions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-Sessions"`</details> |
+| Get all users | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-Audit"`</details> |
+| Get administrators | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-LocalAdmins"`</details> |
+| Get last logon | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-LastLogon"`</details> |
+| Get sessions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-Sessions"`</details> |
 
 ### Audit - Security Detection
 
 | Description | Command |
 |---|---|
-| Detect security services | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-DefensiveServices"`</details> |
-| Scan for EDR/AV | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-EDRSolutions"`</details> |
-| Get password policies | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-PasswordPolicy"`</details> |
+| Detect security services | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-DefensiveServices"`</details> |
+| Scan for EDR/AV | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-EDRSolutions"`</details> |
+| Get password policies | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-PasswordPolicy"`</details> |
 
 ### Audit - Persistence Detection
 
 | Description | Command |
 |---|---|
-| Profile persistence | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ProfilePersistence"`</details> |
-| Registry persistence | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-RegistryPersistence"`</details> |
-| Scheduled task abuse | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ScheduledTaskAbuse"`</details> |
-| Service hijacking | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ServiceHijacking"`</details> |
-| DLL sideloading | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-DLLSideloading"`</details> |
-| DLL sideloading (limited) | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-DLLSideloading -MaxProcesses 25 -TimeoutSeconds 15"`</details> |
-| WMI event subscriptions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-WMIEventSubscription"`</details> |
+| Profile persistence | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ProfilePersistence"`</details> |
+| Registry persistence | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-RegistryPersistence"`</details> |
+| Scheduled task abuse | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ScheduledTaskAbuse"`</details> |
+| Service hijacking | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-ServiceHijacking"`</details> |
+| DLL sideloading | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-DLLSideloading"`</details> |
+| DLL sideloading (limited) | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-DLLSideloading -MaxProcesses 25 -TimeoutSeconds 15"`</details> |
+| WMI event subscriptions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Get-WMIEventSubscription"`</details> |
 
 ### Audit - Full Audit
 
 | Description | Command |
 |---|---|
-| Complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Invoke-Audit"`</details> |
-| Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Show-AuditHelp"`</details> |
+| Complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Invoke-Audit"`</details> |
+| Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Show-AuditHelp"`</details> |
 
 ### Mitigate - Threat Removal
 
 | Description | Command |
 |---|---|
-| Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate"`</details> |
-| Preview impact (dry-run) | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Test-Impact"`</details> |
-| Preview registry only | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Test-Impact -Function Registry"`</details> |
-| Remove registry persistence | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-RegistryPersistence"`</details> |
-| Remove scheduled tasks | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-ScheduledTaskAbuse"`</details> |
-| Remove unauthorized admins | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-LocalAdmins"`</details> |
-| Stop suspicious services | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-ServiceHijacking"`</details> |
-| Remove WMI subscriptions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-WMIEventSubscription"`</details> |
-| Clean PowerShell profiles | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-ProfilePersistence"`</details> |
-| Remove all threats | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-AllThreats"`</details> |
+| Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate"`</details> |
+| Preview impact (dry-run) | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Test-Impact"`</details> |
+| Preview registry only | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Test-Impact -Function Registry"`</details> |
+| Remove registry persistence | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-RegistryPersistence"`</details> |
+| Remove scheduled tasks | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-ScheduledTaskAbuse"`</details> |
+| Remove unauthorized admins | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-LocalAdmins"`</details> |
+| Stop suspicious services | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-ServiceHijacking"`</details> |
+| Remove WMI subscriptions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-WMIEventSubscription"`</details> |
+| Clean PowerShell profiles | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-ProfilePersistence"`</details> |
+| Remove all threats | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-AllThreats"`</details> |
 
 ### Mitigate - Backup & Restore
 
 | Description | Command |
 |---|---|
-| Create system backup | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Backup-SystemState"`</details> |
-| Restore from backup | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Restore-SystemState"`</details> |
+| Create system backup | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Backup-SystemState"`</details> |
+| Restore from backup | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Restore-SystemState"`</details> |
 
 ---
 
@@ -138,34 +138,34 @@
 
 | Description | Command |
 |---|---|
-| Load PowerView | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView"`</details> |
-| Get domain info | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetDomain"`</details> |
-| Get domain controller | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetDomainController"`</details> |
-| Get forest info | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetForest"`</details> |
-| List domain users | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetUser"`</details> |
-| List domain computers | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetComputer"`</details> |
-| List domain groups | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetGroup"`</details> |
-| Get group members | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetGroupMember -GroupName 'Domain Admins'"`</details> |
-| Find local admin access | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Find-LocalAdminAccess"`</details> |
-| Find domain shares | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Invoke-ShareFinder"`</details> |
-| Get user sessions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetSession"`</details> |
-| Get logged on users | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetLoggedon"`</details> |
-| Get domain trusts | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetDomainTrust"`</details> |
-| Get GPOs | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetGPO"`</details> |
-| Get OUs | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetOU"`</details> |
-| List all functions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView; Get-Command -Name *-Net*"`</details> |
-| Get function help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView; Get-Help Get-NetDomain"`</details> |
+| Load PowerView | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView"`</details> |
+| Get domain info | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetDomain"`</details> |
+| Get domain controller | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetDomainController"`</details> |
+| Get forest info | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetForest"`</details> |
+| List domain users | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetUser"`</details> |
+| List domain computers | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetComputer"`</details> |
+| List domain groups | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetGroup"`</details> |
+| Get group members | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetGroupMember -GroupName 'Domain Admins'"`</details> |
+| Find local admin access | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Find-LocalAdminAccess"`</details> |
+| Find domain shares | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Invoke-ShareFinder"`</details> |
+| Get user sessions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetSession"`</details> |
+| Get logged on users | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetLoggedon"`</details> |
+| Get domain trusts | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetDomainTrust"`</details> |
+| Get GPOs | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetGPO"`</details> |
+| Get OUs | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView:Get-NetOU"`</details> |
+| List all functions | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView; Get-Command -Name *-Net*"`</details> |
+| Get function help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PowerView; Get-Help Get-NetDomain"`</details> |
 
 ### PSWriteColor - Console Output
 
 | Description | Command |
 |---|---|
-| Load PSWriteColor | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor"`</details> |
-| Green text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Success' -Color Green"`</details> |
-| Red text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Error' -Color Red"`</details> |
-| Yellow text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Warning' -Color Yellow"`</details> |
-| Multiple colors | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor; Write-Color -Text 'Pass','Warn','Fail' -Color Green,Yellow,Red"`</details> |
-| Get help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor; Get-Help Write-Color"`</details> |
+| Load PSWriteColor | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor"`</details> |
+| Green text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Success' -Color Green"`</details> |
+| Red text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Error' -Color Red"`</details> |
+| Yellow text | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor:Write-Color -Text 'Warning' -Color Yellow"`</details> |
+| Multiple colors | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor; Write-Color -Text 'Pass','Warn','Fail' -Color Green,Yellow,Red"`</details> |
+| Get help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman PSWriteColor; Get-Help Write-Color"`</details> |
 
 ---
 
@@ -175,7 +175,7 @@
 
 | Description | Command |
 |---|---|
-| Install aliases (remote) | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Alias.ps1 \| Invoke-Expression"`</details> |
+| Install aliases (remote) | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Modules/Winmod/PowerShell/Alias.ps1 \| Invoke-Expression"`</details> |
 | Install aliases (local) | <details><summary>Show</summary>`. .\Modules\Winmod\PowerShell\Alias.ps1`</details> |
 | Clean PowerShell profile | <details><summary>Show</summary>`"" \| Out-File $PROFILE`</details> |
 
@@ -207,7 +207,7 @@
 
 --- Command |
 |---|---|
-| Run complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Invoke-Audit"`</details> |
+| Run complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Invoke-Audit"`</details> |
 
 ### Audit - Local Import
 
@@ -225,8 +225,8 @@
 
 | Description | Command |
 |---|---|
-| Install globally | <details><summary>Show</summary>`sudo curl -s -o /usr/local/bin/Scriptman https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman && sudo chmod +x /usr/local/bin/Scriptman`</details> |
-| Clone repository | <details><summary>Show</summary>`git clone https://github.com/Gabriel-Dakinah-Vincent/Bash-exercises.git && cd Bash-exercises`</details> |
+| Install globally | <details><summary>Show</summary>`sudo curl -s -o /usr/local/bin/Scriptman https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman && sudo chmod +x /usr/local/bin/Scriptman`</details> |
+| Clone repository | <details><summary>Show</summary>`git clone https://github.com/Gabriel-Dakinah-Vincent/Scriptmanem.git && cd Scriptmanem`</details> |
 | Run tests | <details><summary>Show</summary>`bash tests/test_project.sh`</details> |
 
 ---
@@ -333,3 +333,4 @@
 **Last Updated:** 2025  
 **Maintained by:** Gabriel Dakinah Vincent  
 **License:** MIT
+

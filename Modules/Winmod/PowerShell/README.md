@@ -134,13 +134,13 @@ Invoke-Audit
 ## 🌐 Remote Execution (No Clone Needed)
 
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman Audit"
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 | iex; Scriptman Audit"
 ```
 
 Open remote help:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman Audit:Show-AuditHelp"
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 | iex; Scriptman Audit:Show-AuditHelp"
 ```
 
 ---
@@ -160,7 +160,7 @@ Install convenient aliases for all Audit functions:
 
 **Remote Installation:**
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Alias.ps1 | Invoke-Expression"
+powershell -ExecutionPolicy Bypass -Command "Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Modules/Winmod/PowerShell/Alias.ps1 | Invoke-Expression"
 ```
 
 **Available Aliases:**
@@ -228,7 +228,7 @@ function Get-UserGroups {
 | Author | Gabriel Dakinah Vincent |
 | Compatible PowerShell | Windows PowerShell 5.1, PowerShell 7+ |
 | License | MIT |
-| Repository | https://github.com/Gabriel-Dakinah-Vincent/Bash-exercises |
+| Repository | https://github.com/Gabriel-Dakinah-Vincent/Scriptmanem |
 
 ---
 
@@ -236,7 +236,7 @@ function Get-UserGroups {
 
 **Gabriel Dakinah Vincent**  
 Cybersecurity Intern • Developer • PowerShell Automation Enthusiast  
-Maintainer of *Bash-Exercises* Repository  
+Maintainer of *Scriptmanem* Repository  
 
 © 2025 Gabriel Dakinah Vincent. All rights reserved.
 

@@ -44,7 +44,7 @@ The project includes three launcher scripts that orchestrate modular features an
 ## Project Structure
 
 ```
-Bash-exercises/
+Scriptmanem/
 ├── Scriptman              # Bash launcher (main entry point)
 ├── Scriptman.ps1          # PowerShell launcher
 ├── Scriptman.cmd          # CMD launcher (Windows)
@@ -90,15 +90,15 @@ Bash-exercises/
 ### Make Scriptman Permanent (Linux/WSL)
 
 ```bash
-sudo curl -s -o /usr/local/bin/Scriptman https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman
+sudo curl -s -o /usr/local/bin/Scriptman https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman
 sudo chmod +x /usr/local/bin/Scriptman
 ```
 
 ### Clone for Development
 
 ```bash
-git clone https://github.com/Gabriel-Dakinah-Vincent/Bash-exercises.git
-cd Bash-exercises
+git clone https://github.com/Gabriel-Dakinah-Vincent/Scriptmanem.git
+cd Scriptmanem
 ```
 
 ---
@@ -117,14 +117,14 @@ bash Scriptman b6se -c myfolder
 bash Scriptman b6se -x archive.tar.gz
 
 # Remote execution (no clone needed)
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | bash -s -- ea -q -o aliases.md
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman | bash -s -- ea -q -o aliases.md
 ```
 
 ### PowerShell (Windows)
 
 ```powershell
 # Remote execution
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman Audit"
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 | iex; Scriptman Audit"
 
 # Local import
 Import-Module .\Modules\Winmod\PowerShell\Audit\Audit.psm1 -Force
@@ -300,20 +300,20 @@ Edit `core/psm-manifest.json`:
 
 | Description | Command |
 |---|---|
-| Show Scriptman help | <details><summary>📋 Copy Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- --help`</details> |
-| Show Extract Aliases help | <details><summary>📋 Copy Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- ea -h`</details> |
-| Show b6se help | <details><summary>📋 Copy Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman \| bash -s -- b6se --help`</details> |
+| Show Scriptman help | <details><summary>📋 Copy Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| bash -s -- --help`</details> |
+| Show Extract Aliases help | <details><summary>📋 Copy Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| bash -s -- ea -h`</details> |
+| Show b6se help | <details><summary>📋 Copy Command</summary>`curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman \| bash -s -- b6se --help`</details> |
 
 ### PowerShell Scripts
 
 | Description | Command |
 |---|---|
-| Show Scriptman help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman"`</details> |
-| Show Audit help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Show-AuditHelp"`</details> |
-| Show Mitigate help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate"`</details> |
-| Preview Mitigation Impact | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Test-Impact"`</details> |
-| Remove Registry Persistence | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-RegistryPersistence"`</details> |
-| Remove All Threats | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-AllThreats"`</details> |
+| Show Scriptman help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman"`</details> |
+| Show Audit help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Show-AuditHelp"`</details> |
+| Show Mitigate help | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate"`</details> |
+| Preview Mitigation Impact | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Test-Impact"`</details> |
+| Remove Registry Persistence | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-RegistryPersistence"`</details> |
+| Remove All Threats | <details><summary>📋 Copy Command</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Mitigate:Remove-AllThreats"`</details> |
 
 **For complete command reference, see [CHEATSHEET.md](CHEATSHEET.md)**
 
@@ -325,12 +325,12 @@ Edit `core/psm-manifest.json`:
 
 **Bash:**
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Scriptman | bash -s -- --help
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Scriptman | bash -s -- --help
 ```
 
 **PowerShell:**
 ```powershell
-irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Scriptman.ps1 | iex; Scriptman
+irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 | iex; Scriptman
 ```
 
 ### Local Execution
@@ -411,7 +411,7 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for full 
 For questions or support:
 - 📧 Open an Issue or join the Discussions tab on GitHub
 - 🧠 Author: Gabriel Dakinah Vincent
-- 🔗 Repository: https://github.com/Gabriel-Dakinah-Vincent/Bash-exercises
+- 🔗 Repository: https://github.com/Gabriel-Dakinah-Vincent/Scriptmanem
 
 ---
 
@@ -460,3 +460,4 @@ For questions or support:
 
 **Last Updated:** 2025  
 **Maintained by:** Gabriel Dakinah Vincent
+

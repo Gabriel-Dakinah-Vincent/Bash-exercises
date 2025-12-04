@@ -44,7 +44,7 @@
         PSData = @{
             Tags = @('Security', 'Mitigation', 'Windows', 'Audit', 'Scriptman')
             LicenseUri = ''
-            ProjectUri = 'https://github.com/Gabriel-Dakinah-Vincent/Bash-exercises'
+            ProjectUri = 'https://github.com/Gabriel-Dakinah-Vincent/Scriptmanem'
             ReleaseNotes = 'Initial release of Mitigate module for Scriptman framework'
         }
     }

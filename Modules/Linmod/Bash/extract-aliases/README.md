@@ -8,7 +8,7 @@ It extracts user-defined shell aliases from your shell configuration file and ou
 You can test this script without cloning the repository by running the following command:
 
 ```bash
-curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/main/extract-aliases/src/extract_aliases.sh | bash
+curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/main/extract-aliases/src/extract_aliases.sh | bash
 ```
 ## Features
 
@@ -22,7 +22,7 @@ curl -s https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/Gabriel-Dakinah-Vincent/Bash-exercises.git
+    git clone https://github.com/Gabriel-Dakinah-Vincent/Scriptmanem.git
     cd extract-aliases
     ```
 

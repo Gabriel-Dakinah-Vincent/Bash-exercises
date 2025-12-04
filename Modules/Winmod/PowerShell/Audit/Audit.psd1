@@ -42,7 +42,7 @@
 
     PrivateData = @{
         PSData = @{
-            ProjectUri   = 'https://github.com/Gabriel-Dakinah-Vincent/Bash-exercises'
+            ProjectUri   = 'https://github.com/Gabriel-Dakinah-Vincent/Scriptmanem'
             ReleaseNotes = 'Version 2.0.0: Added comprehensive Windows persistence detection, risk scoring, privilege validation, and rate limiting capabilities.'
         }
     }

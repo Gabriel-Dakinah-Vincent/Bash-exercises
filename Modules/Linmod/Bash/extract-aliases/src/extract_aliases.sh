@@ -12,7 +12,7 @@ NC='\033[0m' # No Color
 
 # Function to display usage information
 usage() {
-    echo -e "${MAGENTA}Extract Aliases Script${NC} - ${YELLOW}Bash-exercises${NC}"
+    echo -e "${MAGENTA}Extract Aliases Script${NC} - ${YELLOW}Scriptmanem${NC}"
     echo -e "${GREEN}USAGE:${NC} ${WHITE}$0 [OPTIONS]${NC}"
     echo -e "${GREEN}DESCRIPTION:${NC} Extract user-defined shell aliases and output them in Markdown, CSV, or HTML format."
     echo -e "${GREEN}OPTIONS:${NC}"
@@ -99,7 +99,7 @@ case "$ext" in
         echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Aliases</title>" > "$output_file"
         # Add your style here
         #echo "<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/Gabriel-Dakinah-Vincent/Bash-exercises/extract-aliases/assets/css/styles.css'>" >> "$output_file"
-        echo "<script src='https://cdn.jsdelivr.net/gh/Gabriel-Dakinah-Vincent/Bash-exercises/extract-aliases/assets/js/load-style.js'></script>" >> "$output_file"
+        echo "<script src='https://cdn.jsdelivr.net/gh/Gabriel-Dakinah-Vincent/Scriptmanem/extract-aliases/assets/js/load-style.js'></script>" >> "$output_file"
         echo "</head><body><table border='1'>" >> "$output_file"
         echo "<tr><th>Alias</th><th>Command</th></tr>" >> "$output_file"
         ;;

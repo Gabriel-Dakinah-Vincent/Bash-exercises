@@ -5,7 +5,7 @@
     "path": "Modules\\Winmod\\PowerShell\\Audit\\Audit.psm1",
     "fallback": {
       "type": "remote",
-      "url": "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Audit/Audit.psm1"
+      "url": "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Modules/Winmod/PowerShell/Audit/Audit.psm1"
     },
     "version": "1.0.0",
     "author": "Gabriel Dakinah Vincent"
@@ -16,7 +16,7 @@
     "path": "Modules\\Winmod\\PowerShell\\Mitigate\\Mitigate.psm1",
     "fallback": {
       "type": "remote",
-      "url": "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/b6se_/Modules/Winmod/PowerShell/Mitigate/Mitigate.psm1"
+      "url": "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Modules/Winmod/PowerShell/Mitigate/Mitigate.psm1"
     },
     "version": "1.0.0",
     "author": "Gabriel Dakinah Vincent",

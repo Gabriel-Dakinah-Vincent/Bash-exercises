@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
- Scriptman PowerShell launcher for the Bash-Exercises Project.
+ Scriptman PowerShell launcher for the Scriptmanem Project.
 
 .DESCRIPTION
  Runs PowerShell modules locally or remotely as defined in the core/psm-manifest.json registry.
@@ -79,7 +79,7 @@ function Scriptman {
     if (-not $Manifest) {
         Write-Host "[!]" -ForegroundColor Red -NoNewline
         Write-Host " Local manifest not found. Fetching remote version..." -ForegroundColor DarkGray
-        $ManifestUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/core/psm-manifest.json"
+        $ManifestUrl = "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/core/psm-manifest.json"
         try {
             $response = Invoke-WebRequest -Uri $ManifestUrl -UseBasicParsing
             $json = $response.Content.Trim()

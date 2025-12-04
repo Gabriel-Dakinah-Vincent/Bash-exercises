@@ -226,7 +226,7 @@ serve_file() {
     if [ ! -f "$server_script" ]; then
         warn "Server script not found locally. Downloading temporary copy..."
         server_script=$(mktemp)
-        curl -s -o "$server_script" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Bash-exercises/refs/heads/b6se_/Modules/Linmod/Bash/b6se/src/server/run_server.py
+        curl -s -o "$server_script" https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/refs/heads/b6se_/Modules/Linmod/Bash/b6se/src/server/run_server.py
     fi
 
     local ip=$(hostname -I | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | grep -v '^127\.' | head -1)
