@@ -1,21 +1,21 @@
-# Audit PowerShell Module  
-### Windows Local Account Auditing Toolkit
+# Scriptman'em Modules
+### Comprehensive Security & Automation Toolkit
 
 ---
 
 ![PowerShell](https://img.shields.io/badge/PowerShell-Module-blue)
 ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Version](https://img.shields.io/badge/Version-1.0.0-purple)
+![Version](https://img.shields.io/badge/Version-2.0.0-purple)
 ![Status](https://img.shields.io/badge/Status-Stable-brightgreen)
 
 ---
 
 ## 📘 Overview
 
-Audit is a lightweight PowerShell module that provides fast and reliable insights into local user accounts and the security posture of Windows systems.
+Scriptmanem is a comprehensive security and automation toolkit with modules for Windows and Linux systems. It provides fast and reliable insights into system security posture, threat detection, and mitigation capabilities.
 
-It is designed for:
+Designed for:
 
 - System Administrators  
 - Security Analysts  
@@ -23,55 +23,56 @@ It is designed for:
 - Incident Responders  
 - Workstation and Server Auditors  
 
-The module collects and summarizes key security data including:
+### Module Categories
 
-- Local users & account states  
-- Local Administrators group members  
-- Last logon timestamps  
-- Active user sessions  
-- Windows Defender & core security services  
-- Basic EDR/AV detection  
-- Password and lockout policies  
-- Registry-based persistence mechanisms
-- Scheduled task abuse detection
-- Service hijacking indicators
-- DLL sideloading detection
-- WMI event subscription monitoring
-- PowerShell profile persistence  
+**Windows (Winmod):**
+- Audit - System security auditing and threat detection
+- Mitigate - Automated threat removal and remediation
+- Cmd - Command-line utilities
+
+
 
 ---
 
 ## 📁 Project Structure
 
 ```
-Audit/
+Scriptmanem/
 │
-├── Audit.psm1     # Main module implementation
-├── Audit.psd1     # Module manifest metadata
-└── Audit.ps1      # Optional standalone runner
+├── Modules/
+│   └── Winmod/
+│       ├── PowerShell/
+│       │   ├── Audit/          # Windows security auditing
+│       │   ├── Mitigate/       # Threat mitigation & remediation
+│       │   └── Alias.ps1       # PowerShell aliases
+│       └── Cmd/                # Command-line utilities
+│
+└── core/
+    └── psm-manifest.json       # Module manifest
 ```
 
 ---
 
 ## ⚙️ Installation
 
-### 1️⃣ Import the Module
+### Windows Modules (PowerShell)
 
 ```powershell
 Import-Module .\Audit.psm1 -Force
+Import-Module .\Mitigate.psm1 -Force
 ```
 
 Verify:
 
 ```powershell
-Get-Module Audit
+Get-Module Audit, Mitigate
 ```
 
 ---
 
 ## 🚀 Usage
 
-### 2️⃣ Core Commands
+### Audit Module (Windows)
 
 | Function | Description |
 |----------|-------------|
@@ -91,56 +92,67 @@ Get-Module Audit
 | Show-AuditHelp | Shows module usage help |
 | Invoke-Audit | Runs a full audit summary |
 
-### Example Session
+### Mitigate Module (Windows)
 
+| Function | Description |
+|----------|-------------|
+| Remove-RegistryPersistence | Remove suspicious registry entries |
+| Remove-ScheduledTaskAbuse | Remove malicious scheduled tasks |
+| Remove-ServiceHijacking | Stop suspicious services |
+| Remove-WMIEventSubscription | Remove malicious WMI subscriptions |
+| Remove-ProfilePersistence | Clean PowerShell profile threats |
+| Remove-LocalAdmins | Remove unauthorized administrators |
+| Remove-AllThreats | Run all mitigation functions |
+| Test-Impact | Preview changes (dry-run mode) |
+| Backup-SystemState | Create system backup |
+| Restore-SystemState | Restore from backup |
+| Show-MitigateHelp | Display help menu |
+
+### Example Sessions
+
+**Windows Audit:**
 ```powershell
 Import-Module .\Audit.psm1 -Force
-```
-```powershell
 Get-Audit
-```
-```powershell
 Get-LocalAdmins
-```
-```powershell
-Get-LastLogon
-```
-```powershell
-Get-Sessions
-```
-```powershell
 Get-RegistryPersistence
-```
-```powershell
 Get-ProfilePersistence
 ```
+
+**Windows Mitigation:**
 ```powershell
-Get-PasswordPolicy
-```
-```powershell
-Get-DefensiveServices
+Import-Module .\Mitigate.psm1 -Force
+Test-Impact
+Backup-SystemState
+Remove-RegistryPersistence
 ```
 
 ---
 
-## 🤖 Full Automated Audit
+## 🤖 Full Automated Operations
 
+**Windows Audit:**
 ```powershell
 Invoke-Audit
+```
+
+**Windows Mitigation:**
+```powershell
+Invoke-Mitigate
 ```
 
 ---
 
 ## 🌐 Remote Execution (No Clone Needed)
 
+**Audit Module:**
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 | iex; Scriptman Audit"
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 | iex; .\Scriptman.ps1 Audit"
 ```
 
-Open remote help:
-
+**Mitigate Module:**
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 | iex; Scriptman Audit:Show-AuditHelp"
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 | iex; .\Scriptman.ps1 Mitigate:Test-Impact"
 ```
 
 ---
@@ -188,34 +200,25 @@ powershell -ExecutionPolicy Bypass -Command "Invoke-RestMethod https://raw.githu
 
 ## 🧰 Best Practices
 
+**Windows:**
 - Run PowerShell as **Administrator**  
 - Use **ExecutionPolicy Bypass** only when needed  
+- Create backups before running Mitigate functions
+- Use Test-Impact for dry-run validation
 - Verify remote script URLs before executing  
-- Pin to a specific branch (e.g., `b6se_`)  
-- Update often to access new features  
+
+
 
 ---
 
-## 🧩 Extending the Module
+## 🧩 Extending Modules
 
-To add new features:
+**PowerShell (Audit/Mitigate):**
+1. Add function to module file (.psm1)
+2. Export in manifest (.psd1)
+3. Increment version number
 
-1. Add the function inside **Audit.psm1**  
-2. Add its name to **FunctionsToExport** in *Audit.psd1*  
-3. Increment the version number  
 
-### Example Extension
-
-```powershell
-function Get-UserGroups {
-    Get-LocalGroup | ForEach-Object {
-        [PSCustomObject]@{
-            GroupName = $_.Name
-            Members   = (Get-LocalGroupMember -Group $_.Name).Count
-        }
-    } | Format-Table -AutoSize
-}
-```
 
 ---
 
@@ -223,12 +226,30 @@ function Get-UserGroups {
 
 | Property | Value |
 |----------|--------|
-| Module Name | Audit |
-| Version | 1.0.0 |
+| Project Name | Scriptmanem |
+| Version | 2.0.0 |
 | Author | Gabriel Dakinah Vincent |
 | Compatible PowerShell | Windows PowerShell 5.1, PowerShell 7+ |
 | License | MIT |
 | Repository | https://github.com/Gabriel-Dakinah-Vincent/Scriptmanem |
+| Platforms | Windows 10/11, Windows Server |
+
+---
+
+## 🎯 Recent Improvements (v2.0.0)
+
+### Windows Modules
+- **Mitigate Module** - New threat remediation framework with backup/restore
+- **Individual Confirmations** - Each threat requires separate approval
+- **Preview Mode** - Test-Impact for dry-run validation
+- **System Backups** - Automatic backup before mitigation
+- **Enhanced Detection** - Improved persistence mechanism detection
+
+### Framework
+- **Remote Module Support** - Load modules from external repositories
+- **Unified Manifest** - Central module configuration
+- **Cross-Platform** - Windows and Linux support
+- **Better Documentation** - Comprehensive help and examples
 
 ---
 
@@ -284,24 +305,24 @@ Add to `core/psm-manifest.json`:
 
 ```powershell
 # List available modules (shows Remote/Local)
-Scriptman
+.\Scriptman.ps1
 
 # Load remote module
-Scriptman PowerView
+.\Scriptman.ps1 PowerView
 
 # Run specific function (follows Scriptman pattern)
-Scriptman PowerView:Get-NetDomain
-Scriptman PowerView:Get-NetUser
-Scriptman PowerView:Get-NetComputer
-Scriptman PowerView:Find-LocalAdminAccess
+.\Scriptman.ps1 PowerView:Get-NetDomain
+.\Scriptman.ps1 PowerView:Get-NetUser
+.\Scriptman.ps1 PowerView:Get-NetComputer
+.\Scriptman.ps1 PowerView:Find-LocalAdminAccess
 
 # Get help for remote modules
-Scriptman PowerView
+.\Scriptman.ps1 PowerView
 Get-Command -Name *-Net*
 Get-Help Get-NetDomain
 
 # Use array parameters (load module first)
-Scriptman PSWriteColor
+.\Scriptman.ps1 PSWriteColor
 Write-Color -Text "Pass","Warn","Fail" -Color Green,Yellow,Red
 ```
 

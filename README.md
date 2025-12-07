@@ -39,6 +39,8 @@
 
 The project includes three launcher scripts that orchestrate modular features and a full PowerShell auditing toolkit.
 
+![Scriptmanem Logo](assets/Scriptmanem.png)
+
 ---
 
 ## Project Structure
@@ -402,7 +404,7 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for full 
 
 - Thanks to the open-source community for continuous support
 - Inspired by real-world Bash automation and DevSecOps practices
-- Built as part of the Cybersecurity Awareness CLI Initiative at Elevation Institute of Technology, Monrovia
+- **Built as part of the Cybersecurity Awareness CLI Initiative at Elevation Institute of Technology, Monrovia**
 
 ---
 
