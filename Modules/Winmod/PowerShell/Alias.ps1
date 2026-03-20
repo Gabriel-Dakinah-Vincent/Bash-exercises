@@ -157,6 +157,28 @@ function Set-AuditHelp {
     }
 }
 
+function Set-InstallAnimation {
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Startup:Install-Animation
+        }
+    } catch {
+        Write-Error "Failed to execute Install-Animation: $($_.Exception.Message)"
+    }
+}
+
+function Set-UninstallAnimation {
+    try {
+        & powershell -ExecutionPolicy Bypass -Command {
+            Invoke-RestMethod https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 | Invoke-Expression
+            Scriptman Startup:Uninstall-Animation
+        }
+    } catch {
+        Write-Error "Failed to execute Uninstall-Animation: $($_.Exception.Message)"
+    }
+}
+
 Set-Alias Audit Set-Audit
 Set-Alias LocalAdmins Set-LocalAdmins
 Set-Alias LastLogon Set-LastLogon
@@ -172,6 +194,8 @@ Set-Alias DLLSideloading Set-DLLSideloading
 Set-Alias WMIEventSubscription Set-WMIEventSubscription
 Set-Alias ProfilePersistence Set-ProfilePersistence
 Set-Alias AuditHelp Set-AuditHelp
+Set-Alias InstallAnimation Set-InstallAnimation
+Set-Alias UninstallAnimation Set-UninstallAnimation
 
 # Set execution policy to allow profile loading
 try {
