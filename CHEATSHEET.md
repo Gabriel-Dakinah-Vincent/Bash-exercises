@@ -108,6 +108,16 @@
 | Complete audit | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Invoke-Audit"`</details> |
 | Show help | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Audit:Show-AuditHelp"`</details> |
 
+### Startup - Animation Management
+
+| Description | Command |
+|---|---|
+| Install startup animation | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Startup:Install-Animation"`</details> |
+| Uninstall startup animation | <details><summary>Show</summary>`powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Scriptman.ps1 \| iex; Scriptman Startup:Uninstall-Animation"`</details> |
+| Local import | <details><summary>Show</summary>`Import-Module .\\Modules\\Winmod\\PowerShell\\Startup\\Startup.psm1 -Force`</details> |
+| Get module info | <details><summary>Show</summary>`Get-Module Startup`</details> |
+| List functions | <details><summary>Show</summary>`Get-Command -Module Startup`</details> |
+
 ### Mitigate - Threat Removal
 
 | Description | Command |

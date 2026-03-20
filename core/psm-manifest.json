@@ -35,5 +35,16 @@
     "url": "https://raw.githubusercontent.com/EvotecIT/PSWriteColor/master/Public/Write-Color.ps1",
     "version": "1.0",
     "author": "EvotecIT"
+  },
+  "Startup": {
+    "description": "Startup animation module for system login/reboot with typewriter effect.",
+    "type": "local",
+    "path": "Modules\\Winmod\\PowerShell\\Startup\\Startup.psm1",
+    "fallback": {
+      "type": "remote",
+      "url": "https://raw.githubusercontent.com/Gabriel-Dakinah-Vincent/Scriptmanem/b6se_/Modules/Winmod/PowerShell/Startup/Startup.psm1"
+    },
+    "version": "1.0.0",
+    "author": "Gabriel Dakinah Vincent"
   }
 }
